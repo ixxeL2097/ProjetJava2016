@@ -14,4 +14,9 @@ public interface IView {
 	 *          the message
 	 */
 	void printMessage(final String message);
+	
+	boolean getKeyUp();
+	boolean getKeyDw();
+	boolean getKetLf();
+	boolean getKeyRt();
 }

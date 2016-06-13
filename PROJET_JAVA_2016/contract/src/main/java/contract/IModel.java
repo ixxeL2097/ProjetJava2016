@@ -46,4 +46,8 @@ public interface IModel {
 	void MoveLF();
 	void MoveRT();
 	
+	void MoveUpLf();
+	void MoveUpRt();
+	void MoveDwLf();
+	void MoveDwRt();	
 }

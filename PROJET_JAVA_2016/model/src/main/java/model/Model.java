@@ -21,7 +21,7 @@ public class Model extends Observable implements IModel
 	/** The message. */
 	private String message;
 	private MapGenerator MapGenerator;
-	private String MapName = "C:/ProjetJava/Map/MAP_lvl1.txt";
+	private String MapName = "C:/ProjetJava/Map/MAP_lvl2.txt";
 	private MotionElement Lorann;
 
 	/**
@@ -135,7 +135,7 @@ public class Model extends Observable implements IModel
 			this.Lorann.setLastY(this.Lorann.getCurrentY());
 			this.Lorann.setCurrentY(nextMoveUP_DWN);
 			this.Lorann.setCurrentX(nextMoveRGT_LFT);
-			//this.inFight=true;	
+			//this.inFight=false;	
 			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]=this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()];
 			this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()]	= new Empty();	
 			this.setChanged();
@@ -161,6 +161,26 @@ public class Model extends Observable implements IModel
 	public void MoveRT() 
 	{
 		this.MoveLorann(this.Lorann.getCurrentY(),this.Lorann.getCurrentX()+1);	
+	}
+
+	public void MoveUpLf() 
+	{
+		this.MoveLorann(this.Lorann.getCurrentY()-1,this.Lorann.getCurrentX()-1);
+	}
+
+	public void MoveUpRt() 
+	{
+		this.MoveLorann(this.Lorann.getCurrentY()-1,this.Lorann.getCurrentX()+1);
+	}
+
+	public void MoveDwLf() 
+	{
+		this.MoveLorann(this.Lorann.getCurrentY()+1,this.Lorann.getCurrentX()-1);
+	}
+
+	public void MoveDwRt() 
+	{
+		this.MoveLorann(this.Lorann.getCurrentY()+1,this.Lorann.getCurrentX()+1);
 	}
 
 }

@@ -71,18 +71,61 @@ public class Controller implements IController
 		switch (controllerOrder) 
 		{
 			case UP:
-				this.model.MoveUP();
+				if(this.view.getKetLf()==true)
+				{
+					this.model.MoveUpLf();
+				}
+				else if(this.view.getKeyRt()==true)
+				{
+					this.model.MoveUpRt();
+				}
+				else
+				{
+					this.model.MoveUP();
+				}			
 				break;
 			case DOWN:
-				this.model.MoveDW();
+				if(this.view.getKetLf()==true)
+				{
+					this.model.MoveDwLf();
+				}
+				else if(this.view.getKeyRt()==true)
+				{
+					this.model.MoveDwRt();
+				}
+				else
+				{
+					this.model.MoveDW();
+				}
 				break;
 			case LEFT:
-				this.model.MoveLF();
+				if(this.view.getKeyUp()==true)
+				{
+					this.model.MoveUpLf();
+				}
+				else if(this.view.getKeyDw()==true)
+				{
+					this.model.MoveDwLf();
+				}
+				else
+				{
+					this.model.MoveLF();
+				}
 				break;
 			case RIGHT:
-				this.model.MoveRT();
+				if(this.view.getKeyUp()==true)
+				{
+					this.model.MoveUpRt();
+				}
+				else if(this.view.getKeyDw()==true)
+				{
+					this.model.MoveDwRt();
+				}
+				else
+				{
+					this.model.MoveRT();
+				}
 				break;
-
 			default:
 				break;
 		}
