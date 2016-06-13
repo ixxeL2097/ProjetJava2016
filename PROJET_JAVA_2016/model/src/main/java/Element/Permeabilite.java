@@ -2,5 +2,5 @@ package Element;
 
 public enum Permeabilite 
 {
-	BLOCKING, PENETRABLE, AGGRO;
+	BLOCKING, PENETRABLE, AGGRO, TRANSLATABLE;
 }

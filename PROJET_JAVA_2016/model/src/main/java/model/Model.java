@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.Observable;
 
+import Element.Element;
 import Element.Permeabilite;
 import Element.Motion.*;
 import Element.MotionLess.Empty;
@@ -113,19 +114,26 @@ public class Model extends Observable implements IModel
 
 	public void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT) 
 	{
-		if(this.MapGenerator.ElementMatrix[nextMoveUP_DWN][nextMoveRGT_LFT].getPermea()==Permeabilite.BLOCKING)
+		if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea()==Permeabilite.BLOCKING)
 		{
 			System.out.println("Vous ne pouvez pas avancer.");
 		}
-		else if(this.MapGenerator.ElementMatrix[nextMoveUP_DWN][nextMoveRGT_LFT].getPermea()==Permeabilite.AGGRO)
+		else if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea()==Permeabilite.AGGRO)
 		{	
 			this.Lorann.setLastX(this.Lorann.getCurrentX());
 			this.Lorann.setLastY(this.Lorann.getCurrentY());
-			this.Lorann.setCurrentY(nextMoveUP_DWN);
-			this.Lorann.setCurrentX(nextMoveRGT_LFT);
+			this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
+			this.Lorann.setCurrentX(this.Lorann.getCurrentX()+nextMoveRGT_LFT);
 			//this.inFight=true;	
 			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]=this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()];
 			this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()]	= new Empty();	
+			this.setChanged();
+			this.notifyObservers();
+		}
+		else if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea()==Permeabilite.TRANSLATABLE)
+		{
+			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT];
+			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]= new Empty();
 			this.setChanged();
 			this.notifyObservers();
 		}
@@ -133,8 +141,8 @@ public class Model extends Observable implements IModel
 		{
 			this.Lorann.setLastX(this.Lorann.getCurrentX());
 			this.Lorann.setLastY(this.Lorann.getCurrentY());
-			this.Lorann.setCurrentY(nextMoveUP_DWN);
-			this.Lorann.setCurrentX(nextMoveRGT_LFT);
+			this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
+			this.Lorann.setCurrentX(this.Lorann.getCurrentX()+nextMoveRGT_LFT);
 			//this.inFight=false;	
 			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]=this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()];
 			this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()]	= new Empty();	
@@ -145,42 +153,42 @@ public class Model extends Observable implements IModel
 
 	public void MoveUP() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY()-1,this.Lorann.getCurrentX());		
+		this.MoveLorann(-1,0);		
 	}
 
 	public void MoveDW() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY()+1,this.Lorann.getCurrentX());	
+		this.MoveLorann(1,0);	
 	}
 
 	public void MoveLF() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY(),this.Lorann.getCurrentX()-1);	
+		this.MoveLorann(0,-1);	
 	}
 
 	public void MoveRT() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY(),this.Lorann.getCurrentX()+1);	
+		this.MoveLorann(0,1);	
 	}
 
 	public void MoveUpLf() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY()-1,this.Lorann.getCurrentX()-1);
+		this.MoveLorann(-1,-1);
 	}
 
 	public void MoveUpRt() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY()-1,this.Lorann.getCurrentX()+1);
+		this.MoveLorann(-1,1);
 	}
 
 	public void MoveDwLf() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY()+1,this.Lorann.getCurrentX()-1);
+		this.MoveLorann(1,-1);
 	}
 
 	public void MoveDwRt() 
 	{
-		this.MoveLorann(this.Lorann.getCurrentY()+1,this.Lorann.getCurrentX()+1);
+		this.MoveLorann(1,1);
 	}
 
 }
