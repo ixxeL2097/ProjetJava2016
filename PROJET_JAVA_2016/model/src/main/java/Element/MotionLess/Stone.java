@@ -7,7 +7,7 @@ public class Stone extends MotionLessElem
 
 	public Stone() 
 	{
-		super("/images/Epee.png", Permeabilite.AGGRO);
+		super("C:/ProjetJava/Sprite/bone.png", Permeabilite.BLOCKING);
 	}
 
 }

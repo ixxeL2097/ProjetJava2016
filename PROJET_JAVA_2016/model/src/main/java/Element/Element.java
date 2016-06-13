@@ -41,7 +41,7 @@ public abstract class Element
 	{
 		this.permea=permea;
 		this.IconName=picture;
-		this.ElemIcon= new ImageIcon(getClass().getResource(picture));
+		this.ElemIcon= new ImageIcon(picture);
 	}
 
 }

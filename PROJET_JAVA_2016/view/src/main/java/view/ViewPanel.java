@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -36,6 +37,8 @@ class ViewPanel extends JPanel implements Observer
 		
 		JLabelMap = new JLabel [viewFrame.getModel().getDimensionMapY()][viewFrame.getModel().getDimensionMapX()];
 		gbc = new GridBagConstraints();
+		this.setLayout(new GridBagLayout());
+		this.initViewPanel();
 		
 	}
 	
@@ -46,16 +49,18 @@ class ViewPanel extends JPanel implements Observer
 		{
 			for(x=0; x<this.viewFrame.getModel().getDimensionMapX(); x++)
 			{
-				//element = map.ElementMatrix[y][x];
-				
 				JLabel sprite = new JLabel();
 				sprite.setIcon(this.viewFrame.getModel().getImageElement(y, x));
 				this.JLabelMap[y][x]=sprite;
 				this.gbc.gridx = x;
 				this.gbc.gridy = y;
+				this.gbc.gridheight = 1;
+				this.gbc.gridwidth = 1;
 				this.add(sprite, gbc);	
 			}
 		}
+		this.viewFrame.pack();
+		this.setVisible(true);
 		
 	}
 
@@ -87,7 +92,9 @@ class ViewPanel extends JPanel implements Observer
 	 */
 	public void update(final Observable arg0, final Object arg1) 
 	{
-		this.repaint();
+		this.removeAll();
+		this.initViewPanel();
+		//this.repaint();
 	}
 
 	/*
@@ -95,10 +102,10 @@ class ViewPanel extends JPanel implements Observer
 	 *
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
-	@Override
+	/*@Override
 	protected void paintComponent(final Graphics graphics) 
 	{
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		graphics.drawString(this.getViewFrame().getModel().getMessage(), 10, 20);
-	}
+	}*/
 }

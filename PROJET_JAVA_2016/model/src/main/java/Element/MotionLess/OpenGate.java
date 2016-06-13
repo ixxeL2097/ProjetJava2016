@@ -7,7 +7,7 @@ public class OpenGate extends MotionLessElem
 
 	public OpenGate() 
 	{
-		super("/images/tower.png", Permeabilite.BLOCKING);
+		super("C:/ProjetJava/Sprite/gate_open.png", Permeabilite.PENETRABLE);
 	}
 
 }

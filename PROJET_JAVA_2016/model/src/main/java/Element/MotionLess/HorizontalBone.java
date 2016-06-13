@@ -6,7 +6,7 @@ public class HorizontalBone extends MotionLessElem {
 
 	public HorizontalBone() 
 	{
-		super("/images/arbre.png", Permeabilite.PENETRABLE);
+		super("C:/ProjetJava/Sprite/horizontal_bone.png", Permeabilite.BLOCKING);
 		
 	}
 

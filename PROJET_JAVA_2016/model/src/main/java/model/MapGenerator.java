@@ -2,6 +2,7 @@ package model;
 
 import java.io.*;
 import Element.*;
+import Element.Motion.MotionElement;
 import Element.MotionLess.*;
 
 
@@ -113,11 +114,18 @@ public class MapGenerator
 					case 'S': element = new Bourse();			break;	
 					case 'x': element = new Bourse();			break;
 					case '-': element = new Empty();			break;
+					case 'T': element = new Tombe();			break;
+					case 'I': element = new Rip();				break;
 					default : break;		
 				}	
 				this.ElementMatrix [y][x] = element;
 			}
 		}		
+	}
+	
+	public void PlaceLorann(MotionElement lorann)
+	{
+		this.ElementMatrix[lorann.getCurrentY()][lorann.getCurrentX()]=lorann;
 	}
 	
 

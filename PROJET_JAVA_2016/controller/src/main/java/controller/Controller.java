@@ -9,7 +9,8 @@ import contract.IView;
 /**
  * The Class Controller.
  */
-public class Controller implements IController {
+public class Controller implements IController 
+{
 
 	/** The view. */
 	private IView		view;
@@ -25,7 +26,8 @@ public class Controller implements IController {
 	 * @param model
 	 *          the model
 	 */
-	public Controller(final IView view, final IModel model) {
+	public Controller(final IView view, final IModel model) 
+	{
 		this.setView(view);
 		this.setModel(model);
 	}
@@ -36,7 +38,7 @@ public class Controller implements IController {
 	 * @see contract.IController#control()
 	 */
 	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue de votre choix.");
+		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
 	}
 
 	/**
@@ -64,19 +66,21 @@ public class Controller implements IController {
 	 *
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
-	public void orderPerform(final ControllerOrder controllerOrder) {
-		switch (controllerOrder) {
-			case English:
-				this.model.loadMessage("GB");
+	public void orderPerform(final ControllerOrder controllerOrder) 
+	{
+		switch (controllerOrder) 
+		{
+			case UP:
+				this.model.MoveUP();
 				break;
-			case Francais:
-				this.model.loadMessage("FR");
+			case DOWN:
+				this.model.MoveDW();
 				break;
-			case Deutsch:
-				this.model.loadMessage("DE");
+			case LEFT:
+				this.model.MoveLF();
 				break;
-			case Indonesia:
-				this.model.loadMessage("ID");
+			case RIGHT:
+				this.model.MoveRT();
 				break;
 
 			default:

@@ -39,4 +39,11 @@ public interface IModel {
 	int getWindowMapHEIGHT();
 	
 	ImageIcon getImageElement(int y, int x);
+	
+	void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT);
+	void MoveUP();
+	void MoveDW();
+	void MoveLF();
+	void MoveRT();
+	
 }

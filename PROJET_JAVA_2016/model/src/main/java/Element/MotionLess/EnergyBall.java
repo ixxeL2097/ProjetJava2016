@@ -7,7 +7,7 @@ public class EnergyBall extends MotionLessElem
 
 	public EnergyBall() 
 	{
-		super("/images/tower.png", Permeabilite.BLOCKING);
+		super("C:/ProjetJava/Sprite/crystal_ball.png", Permeabilite.BLOCKING);
 	}
 
 }

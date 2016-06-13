@@ -6,7 +6,7 @@ public class VerticalBone extends MotionLessElem {
 
 	public VerticalBone() 
 	{
-		super("/images/Herbe.png", Permeabilite.PENETRABLE);
+		super("C:/ProjetJava/Sprite/vertical_bone.png", Permeabilite.BLOCKING);
 	}
 
 }
