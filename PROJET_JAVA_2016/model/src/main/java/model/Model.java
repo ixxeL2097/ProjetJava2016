@@ -3,6 +3,8 @@ package model;
 import java.sql.SQLException;
 import java.util.Observable;
 
+import javax.swing.ImageIcon;
+
 import contract.IModel;
 
 /**
@@ -10,16 +12,20 @@ import contract.IModel;
  *
  * @author Jean-Aymeric Diet
  */
-public class Model extends Observable implements IModel {
-
+public class Model extends Observable implements IModel 
+{
 	/** The message. */
 	private String message;
+	private MapGenerator MapGenerator;
+	private String MapName = "C:/Users/FredPRO/git/ProjetJava2016/PROJET_JAVA_2016/MAP/MAP_lvl1.txt";
 
 	/**
 	 * Instantiates a new model.
 	 */
-	public Model() {
+	public Model() 
+	{
 		this.message = "";
+		this.MapGenerator = new MapGenerator(this.MapName);	
 	}
 
 	/*
@@ -27,7 +33,8 @@ public class Model extends Observable implements IModel {
 	 *
 	 * @see contract.IModel#getMessage()
 	 */
-	public String getMessage() {
+	public String getMessage() 
+	{
 		return this.message;
 	}
 
@@ -37,7 +44,8 @@ public class Model extends Observable implements IModel {
 	 * @param message
 	 *          the new message
 	 */
-	private void setMessage(final String message) {
+	private void setMessage(final String message) 
+	{
 		this.message = message;
 		this.setChanged();
 		this.notifyObservers();
@@ -48,11 +56,15 @@ public class Model extends Observable implements IModel {
 	 *
 	 * @see contract.IModel#getMessage(java.lang.String)
 	 */
-	public void loadMessage(final String key) {
-		try {
+	public void loadMessage(final String key) 
+	{
+		try 
+		{
 			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
 			this.setMessage(daoHelloWorld.find(key).getMessage());
-		} catch (final SQLException e) {
+		} 
+		catch (final SQLException e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -62,7 +74,34 @@ public class Model extends Observable implements IModel {
 	 *
 	 * @see contract.IModel#getObservable()
 	 */
-	public Observable getObservable() {
+	public Observable getObservable() 
+	{
 		return this;
 	}
+
+	public int getDimensionMapX() 
+	{
+		return DimensionMap.X;
+	}
+
+	public int getDimensionMapY() 
+	{
+		return DimensionMap.Y;
+	}
+
+	public int getWindowMapWIDTH() 
+	{
+		return DimensionMap.WINDOW_WIDTH;
+	}
+
+	public int getWindowMapHEIGHT() 
+	{
+		return DimensionMap.WINDOW_HEIGHT;
+	}
+
+	public ImageIcon getImageElement(int y, int x) 
+	{
+		return this.MapGenerator.ElementMatrix[y][x].getElemIcon();
+	}
+
 }

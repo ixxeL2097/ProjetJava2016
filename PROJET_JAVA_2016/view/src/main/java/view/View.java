@@ -14,7 +14,8 @@ import contract.IView;
  *
  * @author Jean-Aymeric Diet
  */
-public class View implements IView, Runnable {
+public class View implements IView, Runnable 
+{
 
 	/** The frame. */
 	private final ViewFrame viewFrame;
@@ -25,7 +26,8 @@ public class View implements IView, Runnable {
 	 * @param model
 	 *          the model
 	 */
-	public View(final IModel model) {
+	public View(final IModel model) 
+	{
 		this.viewFrame = new ViewFrame(model);
 		SwingUtilities.invokeLater(this);
 	}
@@ -37,7 +39,8 @@ public class View implements IView, Runnable {
 	 *          the key code
 	 * @return the controller order
 	 */
-	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) {
+	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) 
+	{
 		switch (keyCode) {
 			case KeyEvent.VK_G:
 				return ControllerOrder.English;
