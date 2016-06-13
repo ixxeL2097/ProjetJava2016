@@ -107,7 +107,8 @@ public class MapGenerator
 					case 'P': element = new Stone();			break;
 					case 'H': element = new HorizontalBone();	break;
 					case 'V': element = new VerticalBone();		break;
-					case 'D': element = new OpenGate();			break;		  
+					case 'D': element = new OpenGate();			break;
+					case 'd': element = new ClosedGate();			break;
 					case 'B': element = new Bourse();			break;		  
 					case 'E': element = new EnergyBall();		break;		  
 					case 'C': element = new CandleStick();		break;
