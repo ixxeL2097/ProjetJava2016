@@ -19,9 +19,12 @@ final class DBConnection {
 	/**
 	 * Instantiates a new DB connection.
 	 */
-	private DBConnection() {
+	private DBConnection() 
+	{
 		this.open();
 	}
+	
+	
 
 	/**
 	 * Gets the single instance of DBConnection.
