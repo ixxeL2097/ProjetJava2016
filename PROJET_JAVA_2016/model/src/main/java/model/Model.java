@@ -132,10 +132,14 @@ public class Model extends Observable implements IModel
 		}
 		else if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea()==Permeabilite.TRANSLATABLE)
 		{
-			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT];
-			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]= new Empty();
-			this.setChanged();
-			this.notifyObservers();
+			if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT].getPermea()==Permeabilite.PENETRABLE)
+			{
+				this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT];
+				this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]= new Empty();
+				this.setChanged();
+				this.notifyObservers();
+			}
+				
 		}
 		else
 		{
