@@ -17,8 +17,7 @@ public class Model extends Observable implements IModel
 	/** The message. */
 	private String message;
 	private MapGenerator MapGenerator;
-	private String MapName = "MAP_lvl1.txt";
-
+	private String MapName = ("C:/Projet Java/MAP_lvl1.txt");
 	/**
 	 * Instantiates a new model.
 	 */
