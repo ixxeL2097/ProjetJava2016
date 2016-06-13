@@ -21,7 +21,7 @@ public class Model extends Observable implements IModel
 	/** The message. */
 	private String message;
 	private MapGenerator MapGenerator;
-	private String MapName = "C:/ProjetJava/Map/MAP_lvl2.txt";
+	private String MapName = "C:/ProjetJava/Map/MAP_lvl1.txt";
 	private MotionElement Lorann;
 
 	/**

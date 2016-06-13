@@ -110,12 +110,13 @@ public class MapGenerator
 					case 'D': element = new OpenGate();			break;		  
 					case 'B': element = new Bourse();			break;		  
 					case 'E': element = new EnergyBall();		break;		  
-					case 'C': element = new Bourse();			break;
-					case 'S': element = new Bourse();			break;	
+					case 'C': element = new CandleStick();		break;
+					case 'S': element = new Statue();			break;	
 					case 'x': element = new Bourse();			break;
 					case '-': element = new Empty();			break;
 					case 'T': element = new Tombe();			break;
 					case 'I': element = new Rip();				break;
+					case 'F': element = new Flacon();			break;
 					default : break;		
 				}	
 				this.ElementMatrix [y][x] = element;

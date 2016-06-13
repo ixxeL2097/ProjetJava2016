@@ -1,15 +1,10 @@
 package Element.Motion;
 import Element.*;
 
-import java.awt.Graphics;
-import java.util.Random;
-
 import javax.swing.ImageIcon;
 
 public class Hero extends MotionElement
 {
-	private static char HERO = 'H';	
-	private Element element;
 	public static Element HeroSTART;
 	public static Element Saved_ELEM;
 	public static Element Next_ELEM;
@@ -20,12 +15,6 @@ public class Hero extends MotionElement
 	
 	//-------------------------------------GETTERS & SETTERS----------------------------------------------------------------------
 	
-
-
-	public static char getHERO() 
-	{
-		return HERO;
-	}
 
 	public static ImageIcon getHEROIMAGE() {
 		return HEROIMAGE;
