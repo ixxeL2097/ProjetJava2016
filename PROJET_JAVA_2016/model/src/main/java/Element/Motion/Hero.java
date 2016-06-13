@@ -13,7 +13,7 @@ public class Hero extends MotionElement
 	public static Element HeroSTART;
 	public static Element Saved_ELEM;
 	public static Element Next_ELEM;
-	private static String HERO_MOVE="C:/Users/FredPRO/git/ProjetJava2016/PROJET_JAVA_2016/SPRITE/lorann_l.png";
+	private static String HERO_MOVE="C:/ProjetJava/Sprite/lorann_l.png";
 	private static ImageIcon HEROIMAGE;
 	public boolean inFight;
 	
