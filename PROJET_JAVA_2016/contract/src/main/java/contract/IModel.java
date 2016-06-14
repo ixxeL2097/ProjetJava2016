@@ -1,5 +1,6 @@
 package contract;
 
+import java.awt.Dimension;
 import java.util.Observable;
 
 import javax.swing.ImageIcon;
@@ -9,15 +10,8 @@ import javax.swing.ImageIcon;
  *
  * @author Jean-Aymeric Diet
  */
-public interface IModel {
-
-	/**
-	 * Gets the message.
-	 *
-	 * @return the message
-	 */
-	String getMessage();
-
+public interface IModel 
+{
 	/**
 	 * Load the message.
 	 *
@@ -37,6 +31,7 @@ public interface IModel {
 	int getDimensionMapY();
 	int getWindowMapWIDTH();
 	int getWindowMapHEIGHT();
+	Dimension getD();
 	
 	ImageIcon getImageElement(int y, int x);
 	
@@ -50,4 +45,7 @@ public interface IModel {
 	void MoveUpRt();
 	void MoveDwLf();
 	void MoveDwRt();	
+	
+	int getScore();
+	void setScore(int score);
 }

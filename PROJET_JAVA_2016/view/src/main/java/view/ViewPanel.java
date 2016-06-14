@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,7 +21,8 @@ class ViewPanel extends JPanel implements Observer
 	/** The view frame. */
 	private ViewFrame					viewFrame;
 	private JLabel [][] JLabelMap;
-	private GridBagConstraints gbc;
+	private JLabel score;
+	private GridBagConstraints gbc; 
 	/** The Constant serialVersionUID. */
 	private static final long	serialVersionUID	= -998294702363713521L;
 
@@ -32,14 +34,17 @@ class ViewPanel extends JPanel implements Observer
 	 */
 	public ViewPanel(final ViewFrame viewFrame) 
 	{
+		super();
 		this.setViewFrame(viewFrame);
+		this.setSize(this.viewFrame.getModel().getD());
+		this.setPreferredSize(this.viewFrame.getModel().getD());
 		viewFrame.getModel().getObservable().addObserver(this);
-		
+		this.score = new JLabel("SCORE : "+this.viewFrame.getModel().getScore());	
 		JLabelMap = new JLabel [this.getViewFrame().getModel().getDimensionMapY()][this.getViewFrame().getModel().getDimensionMapX()];
 		gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
-		this.initViewPanel();
-		
+		this.setBackground(Color.BLACK);
+		this.initViewPanel();		
 	}
 	
 	public void initViewPanel()
@@ -59,8 +64,14 @@ class ViewPanel extends JPanel implements Observer
 				this.add(sprite, gbc);	
 			}
 		}
+		this.gbc.gridx = 10;
+		this.gbc.gridy = 13;
+		this.gbc.gridheight = 2;
+		this.gbc.gridwidth = 4;
+		this.add(this.score, gbc);		
 		this.getViewFrame().pack();
 		this.setVisible(true);
+		this.repaint();
 		
 	}
 
@@ -105,7 +116,8 @@ class ViewPanel extends JPanel implements Observer
 	@Override
 	protected void paintComponent(final Graphics graphics) 
 	{
-		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		graphics.drawString(this.getViewFrame().getModel().getMessage(), 10, 20);
+		//graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
+		//graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
+		//graphics.drawString(this.getViewFrame().getModel().getMessage(), 10, 20);
 	}
 }

@@ -22,7 +22,7 @@ class ViewFrame extends JFrame implements KeyListener {
 	private IModel	model;
 	private TreeSet<Integer> TreeSet= new TreeSet<Integer>();
 	/** The controller. */
-	private IController				controller;
+	private IController	controller;
 	/** The Constant serialVersionUID. */
 	private static final long	serialVersionUID	= -697358409737458175L;
 
@@ -132,7 +132,8 @@ class ViewFrame extends JFrame implements KeyListener {
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
 		//this.setSize(400 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
-		this.setSize(this.model.getWindowMapWIDTH(), this.model.getWindowMapHEIGHT());
+		this.setSize(this.model.getD());
+		this.setPreferredSize(this.model.getD());
 		this.setLocationRelativeTo(null);
 	}
 
@@ -183,4 +184,5 @@ class ViewFrame extends JFrame implements KeyListener {
 	{
 		TreeSet.remove(e.getExtendedKeyCode());
 	}
+	
 }

@@ -8,6 +8,9 @@ public class MapFinder
 	private String WelcomeMap = "C:/ProjetJava/Map/MAP_accueil.txt";
 	private String lvl1Map = "C:/ProjetJava/Map/MAP_lvl1.txt";
 	private String lvl2Map = "C:/ProjetJava/Map/MAP_lvl2.txt";
+	private String lvl3Map = "C:/ProjetJava/Map/MAP_lvl3.txt";
+	private String lvl4Map = "C:/ProjetJava/Map/MAP_lvl4.txt";
+	private String lvl5Map = "C:/ProjetJava/Map/MAP_lvl5.txt";
 	
 	public MapFinder()
 	{
@@ -15,6 +18,9 @@ public class MapFinder
 		this.addMap(0, WelcomeMap);
 		this.addMap(1, lvl1Map);
 		this.addMap(2, lvl2Map);
+		this.addMap(3, lvl3Map);
+		this.addMap(4, lvl4Map);
+		this.addMap(5, lvl5Map);
 	}
 	
 	public void addMap(int index, String MapPath)

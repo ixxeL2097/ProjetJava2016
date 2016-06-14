@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.Observable;
 
@@ -19,46 +20,23 @@ import contract.IModel;
 public class Model extends Observable implements IModel 
 {
 	/** The message. */
-	private String message;
 	private MapGenerator MapGenerator;
-	private String MapName = "C:/ProjetJava/Map/MAP_lvl2.txt";
 	private MotionElement Lorann;
 	private MapFinder MapFinder;
+	private int score=0;
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() 
 	{
-		this.message = "";
 		this.MapFinder = new MapFinder();
 		this.MapGenerator = new MapGenerator(this.MapFinder.getMap(0));	
 		this.Lorann = new Hero(5,10);
 		this.MapGenerator.PlaceLorann(this.Lorann);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public String getMessage() 
-	{
-		return this.message;
-	}
 
-	/**
-	 * Sets the message.
-	 *
-	 * @param message
-	 *          the new message
-	 */
-	private void setMessage(final String message) 
-	{
-		this.message = message;
-		this.setChanged();
-		this.notifyObservers();
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -70,7 +48,7 @@ public class Model extends Observable implements IModel
 		try 
 		{
 			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setMessage(daoHelloWorld.find(key).getMessage());
+			//this.setMessage(daoHelloWorld.find(key).getMessage());
 		} 
 		catch (final SQLException e) 
 		{
@@ -191,6 +169,21 @@ public class Model extends Observable implements IModel
 	public void MoveDwRt() 
 	{
 		this.MoveLorann(1,1);
+	}
+
+	public int getScore() 
+	{
+		return this.score;
+	}
+
+	public void setScore(int score) 
+	{
+		this.score=score;
+	}
+
+	public Dimension getD() 
+	{
+		return DimensionMap.d;
 	}
 
 }
