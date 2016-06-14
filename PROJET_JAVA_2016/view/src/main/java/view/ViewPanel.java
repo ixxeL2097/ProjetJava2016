@@ -41,11 +41,11 @@ class ViewPanel extends JPanel implements Observer
 		this.setSize(this.viewFrame.getModel().getD());
 		this.setPreferredSize(this.viewFrame.getModel().getD());
 		viewFrame.getModel().getObservable().addObserver(this);
-		this.score = new JLabel("SCORE : "+this.viewFrame.getModel().getScore());
+		JLabelMap = new JLabel [this.getViewFrame().getModel().getDimensionMapY()][this.getViewFrame().getModel().getDimensionMapX()];
+		this.score = new JLabel("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
 		this.ScoreFont = new Font("Arial", Font.BOLD, 15);
 		this.score.setForeground(Color.ORANGE);
 		this.score.setFont(ScoreFont);
-		JLabelMap = new JLabel [this.getViewFrame().getModel().getDimensionMapY()][this.getViewFrame().getModel().getDimensionMapX()];
 		gbc = new GridBagConstraints();
 		//this.setBackground(Color.BLACK);
 		this.setLayout(new GridBagLayout());		
@@ -68,13 +68,15 @@ class ViewPanel extends JPanel implements Observer
 				this.gbc.gridwidth = 1;
 				this.add(sprite, gbc);	
 			}
-		}
+		}		
 		this.gbc.gridx = 0;
 		this.gbc.gridy++;
 		this.gbc.gridwidth = 5;
+		this.score.setText("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
 		this.add(this.score, gbc);		
 		this.getViewFrame().pack();
 		this.setVisible(true);
+		this.repaint();
 	}
 
 	/**

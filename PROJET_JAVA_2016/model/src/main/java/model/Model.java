@@ -96,7 +96,7 @@ public class Model extends Observable implements IModel
 	{
 		this.permea = this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea();
 		
-		if(this.permea != Permeabilite.BLOCKING && this.permea != Permeabilite.TRANSLATABLE && this.permea != Permeabilite.LVLCHANGE && this.permea != Permeabilite.OPENEDGATE)
+		if(this.permea != Permeabilite.BLOCKING && this.permea != Permeabilite.TRANSLATABLE && this.permea != Permeabilite.LVLCHANGE && this.permea != Permeabilite.OPENEDGATE && this.permea != Permeabilite.CLOSEDGATE)
 		{
 			switch(this.permea)
 			{
@@ -104,6 +104,9 @@ public class Model extends Observable implements IModel
 						this.MapGenerator.UnlockGate();
 						this.MapGenerator.setMapLevel(0);
 						break;
+				case MONEY:
+						this.setScore(this.getScore()+650);
+						System.out.println(this.getScore());
 				default:	break;
 			}
 			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()];
