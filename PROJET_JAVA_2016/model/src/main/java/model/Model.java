@@ -194,5 +194,12 @@ public class Model extends Observable implements IModel
 	{
 		return DimensionMap.d;
 	}
+
+	public void setLorannGIF() 
+	{
+		this.Lorann.setElemIcon(this.Lorann.getLorannGIF());
+		this.setChanged();
+		this.notifyObservers();
+	}
 	
 }

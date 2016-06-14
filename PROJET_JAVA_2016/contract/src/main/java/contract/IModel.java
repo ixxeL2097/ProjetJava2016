@@ -44,7 +44,8 @@ public interface IModel
 	void MoveUpLf();
 	void MoveUpRt();
 	void MoveDwLf();
-	void MoveDwRt();	
+	void MoveDwRt();
+	void setLorannGIF();
 	
 	int getScore();
 	void setScore(int score);

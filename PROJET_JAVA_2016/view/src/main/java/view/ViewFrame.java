@@ -1,5 +1,4 @@
 package view;
-import java.util.*;
 import java.util.TreeSet;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
@@ -10,7 +9,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.Timer;
 import contract.IController;
 import contract.IModel;
 
@@ -25,6 +24,7 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	/** The model. */
 	private IModel	model;
 	private TreeSet<Integer> TreeSet= new TreeSet<Integer>();
+	private Timer timer = new Timer(1000,this);
 	/** The controller. */
 	private IController	controller;
 	/** The Constant serialVersionUID. */
@@ -169,6 +169,7 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	 */
 	public void keyPressed(final KeyEvent e) 
 	{
+		this.timer.stop();
 		int x=0 ,y=0;
 		TreeSet.add(e.getExtendedKeyCode());
 		x=TreeSet.first();
@@ -186,12 +187,12 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	 */
 	public void keyReleased(final KeyEvent e) 
 	{
+		this.timer.start();
 		TreeSet.remove(e.getExtendedKeyCode());
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.getModel().setLorannGIF();
 	}
 	
 }

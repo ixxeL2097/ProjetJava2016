@@ -14,8 +14,9 @@ public class Hero extends MotionElement
 	private ImageIcon MoveDwRt;
 	private ImageIcon MoveUpLf;
 	private ImageIcon MoveDwLf;
+	private ImageIcon LorannGIF;
 	
-	private boolean alive = true ;
+	//private boolean alive = true ;
 	
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
@@ -35,6 +36,7 @@ public class Hero extends MotionElement
 		this.MoveDwRt = new ImageIcon("C:/ProjetJava/Sprite/lorann_br.png");
 		this.MoveUpLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_ul.png");
 		this.MoveDwLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
+		this.LorannGIF = new ImageIcon("C:/ProjetJava/Sprite/lorann.gif");
 	}
 
 	public ImageIcon getMoveUp() {
@@ -68,6 +70,12 @@ public class Hero extends MotionElement
 	public ImageIcon getMoveDwLf() {
 		return MoveDwLf;
 	}
+
+	public ImageIcon getLorannGIF() {
+		return LorannGIF;
+	}
+	
+	
 	
 	
 }

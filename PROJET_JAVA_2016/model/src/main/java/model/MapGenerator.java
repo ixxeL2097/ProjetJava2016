@@ -41,7 +41,7 @@ public class MapGenerator
 	
 	public void CreateMap()
 	{
-		int x = 0, y=0, i=0;
+		int x = 0, y=0;
 		FileInputStream fis = null;
 		
 		try {
