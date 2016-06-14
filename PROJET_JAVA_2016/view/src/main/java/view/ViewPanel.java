@@ -35,7 +35,7 @@ class ViewPanel extends JPanel implements Observer
 		this.setViewFrame(viewFrame);
 		viewFrame.getModel().getObservable().addObserver(this);
 		
-		JLabelMap = new JLabel [viewFrame.getModel().getDimensionMapY()][viewFrame.getModel().getDimensionMapX()];
+		JLabelMap = new JLabel [this.getViewFrame().getModel().getDimensionMapY()][this.getViewFrame().getModel().getDimensionMapX()];
 		gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());
 		this.initViewPanel();
@@ -45,12 +45,12 @@ class ViewPanel extends JPanel implements Observer
 	public void initViewPanel()
 	{
 		int x=0, y=0;
-		for(y=0; y<this.viewFrame.getModel().getDimensionMapY(); y++)
+		for(y=0; y<this.getViewFrame().getModel().getDimensionMapY(); y++)
 		{
-			for(x=0; x<this.viewFrame.getModel().getDimensionMapX(); x++)
+			for(x=0; x<this.getViewFrame().getModel().getDimensionMapX(); x++)
 			{
 				JLabel sprite = new JLabel();
-				sprite.setIcon(this.viewFrame.getModel().getImageElement(y, x));
+				sprite.setIcon(this.getViewFrame().getModel().getImageElement(y, x));
 				this.JLabelMap[y][x]=sprite;
 				this.gbc.gridx = x;
 				this.gbc.gridy = y;
@@ -59,7 +59,7 @@ class ViewPanel extends JPanel implements Observer
 				this.add(sprite, gbc);	
 			}
 		}
-		this.viewFrame.pack();
+		this.getViewFrame().pack();
 		this.setVisible(true);
 		
 	}
@@ -102,10 +102,10 @@ class ViewPanel extends JPanel implements Observer
 	 *
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
-	/*@Override
+	@Override
 	protected void paintComponent(final Graphics graphics) 
 	{
 		graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		graphics.drawString(this.getViewFrame().getModel().getMessage(), 10, 20);
-	}*/
+	}
 }

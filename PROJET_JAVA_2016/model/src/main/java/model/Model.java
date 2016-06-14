@@ -3,7 +3,6 @@ package model;
 import java.sql.SQLException;
 import java.util.Observable;
 
-import Element.Element;
 import Element.Permeabilite;
 import Element.Motion.*;
 import Element.MotionLess.Empty;
@@ -24,6 +23,7 @@ public class Model extends Observable implements IModel
 	private MapGenerator MapGenerator;
 	private String MapName = "C:/ProjetJava/Map/MAP_lvl2.txt";
 	private MotionElement Lorann;
+	private MapFinder MapFinder;
 
 	/**
 	 * Instantiates a new model.
@@ -31,8 +31,9 @@ public class Model extends Observable implements IModel
 	public Model() 
 	{
 		this.message = "";
-		this.MapGenerator = new MapGenerator(this.MapName);	
-		this.Lorann = new Hero(5,15);
+		this.MapFinder = new MapFinder();
+		this.MapGenerator = new MapGenerator(this.MapFinder.getMap(0));	
+		this.Lorann = new Hero(5,10);
 		this.MapGenerator.PlaceLorann(this.Lorann);
 	}
 
@@ -114,45 +115,42 @@ public class Model extends Observable implements IModel
 
 	public void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT) 
 	{
-		if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea()==Permeabilite.BLOCKING)
+		switch(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea())
 		{
-			System.out.println("Vous ne pouvez pas avancer.");
+			case BLOCKING:	
+					System.out.println("Vous ne pouvez pas avancer.");		break;
+			case PENETRABLE:
+					this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()];
+					this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]	= new Empty();
+					this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
+					this.Lorann.setCurrentX(this.Lorann.getCurrentX()+nextMoveRGT_LFT);
+				break;
+			case TRANSLATABLE:	
+					if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT].getPermea()==Permeabilite.PENETRABLE)
+					{
+						this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT];
+						this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]= new Empty();
+					}
+				break;
+			case ENERGY:
+					this.MapGenerator.UpdateMapEnergy();
+					this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()];
+					this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]	= new Empty();
+					this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
+					this.Lorann.setCurrentX(this.Lorann.getCurrentX()+nextMoveRGT_LFT);
+					this.MapGenerator.setMapLevel(0);
+				break;
+			case LVLCHANGE:
+					this.MapGenerator.ChangeLevelMap(nextMoveUP_DWN);
+				break;
+			case OPENEDGATE:
+					this.MapGenerator.setMapName(this.MapFinder.getMap(this.MapGenerator.getMapLevel()));
+					this.MapGenerator.ResetWelcomeMenu(this.Lorann);
+				break;
+			default:	break;
 		}
-		else if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea()==Permeabilite.AGGRO)
-		{	
-			this.Lorann.setLastX(this.Lorann.getCurrentX());
-			this.Lorann.setLastY(this.Lorann.getCurrentY());
-			this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
-			this.Lorann.setCurrentX(this.Lorann.getCurrentX()+nextMoveRGT_LFT);
-			//this.inFight=true;	
-			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]=this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()];
-			this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()]	= new Empty();	
-			this.setChanged();
-			this.notifyObservers();
-		}
-		else if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea()==Permeabilite.TRANSLATABLE)
-		{
-			if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT].getPermea()==Permeabilite.PENETRABLE)
-			{
-				this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT];
-				this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]= new Empty();
-				this.setChanged();
-				this.notifyObservers();
-			}
-				
-		}
-		else
-		{
-			this.Lorann.setLastX(this.Lorann.getCurrentX());
-			this.Lorann.setLastY(this.Lorann.getCurrentY());
-			this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
-			this.Lorann.setCurrentX(this.Lorann.getCurrentX()+nextMoveRGT_LFT);
-			//this.inFight=false;	
-			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]=this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()];
-			this.MapGenerator.ElementMatrix[this.Lorann.getLastY()][this.Lorann.getLastX()]	= new Empty();	
-			this.setChanged();
-			this.notifyObservers();						
-		}
+		this.setChanged();
+		this.notifyObservers();	
 	}
 
 	public void MoveUP() 

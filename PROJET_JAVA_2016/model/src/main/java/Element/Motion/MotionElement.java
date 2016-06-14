@@ -9,9 +9,6 @@ public abstract class MotionElement extends Element
 	protected int lastY;
 	protected int NextX;
 	protected int NextY;
-	protected char lastField;
-	protected char currentField;
-	protected char nextField;
 	
 	
 	
@@ -61,23 +58,6 @@ public abstract class MotionElement extends Element
 
 	public int getLastY() {
 		return lastY;
-	}
-
-	public char getLastField() {
-		return lastField;
-	}
-
-	public char getCurrentField() {
-		return currentField;
-	}
-
-	public char getNextField() {
-		return nextField;
-	}
-
-	public MotionElement() 
-	{
-
 	}
 
 	public MotionElement(String picture, Permeabilite permea) 
