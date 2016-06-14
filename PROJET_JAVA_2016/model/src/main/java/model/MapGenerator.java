@@ -41,7 +41,7 @@ public class MapGenerator
 	
 	public void CreateMap()
 	{
-		int x = 0, y=0;
+		int x = 0, y=0, i=0;
 		FileInputStream fis = null;
 		
 		try {
@@ -58,6 +58,7 @@ public class MapGenerator
 	               if(x<DimensionMap.X && bit != 10 )
 	               {
 	            	   map [y][x]= (char)bit;
+	            	   //DBConnection.addMap(i,x,y,(char)bit);
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)
