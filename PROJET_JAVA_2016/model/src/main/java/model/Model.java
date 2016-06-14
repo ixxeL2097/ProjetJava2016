@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.Observable;
 
+import Element.Element;
 import Element.Permeabilite;
 import Element.Motion.*;
 import Element.MotionLess.Empty;
@@ -36,7 +37,6 @@ public class Model extends Observable implements IModel
 		this.Lorann = new Hero(5,10);
 		this.MapGenerator.PlaceLorann(this.Lorann);
 	}
-
 
 
 	/*
@@ -96,7 +96,7 @@ public class Model extends Observable implements IModel
 	{
 		this.permea = this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea();
 		
-		if(this.permea != Permeabilite.BLOCKING && this.permea != Permeabilite.TRANSLATABLE && this.permea != Permeabilite.LVLCHANGE && this.permea != Permeabilite.OPENEDGATE && this.permea != Permeabilite.CLOSEDGATE)
+		if(this.permea != Permeabilite.BLOCKING && this.permea != Permeabilite.TRANSLATABLE && this.permea != Permeabilite.LVLCHANGE && this.permea != Permeabilite.VICTORY && this.permea != Permeabilite.CLOSEDGATE)
 		{
 			switch(this.permea)
 			{
@@ -106,7 +106,6 @@ public class Model extends Observable implements IModel
 						break;
 				case MONEY:
 						this.setScore(this.getScore()+650);
-						System.out.println(this.getScore());
 				default:	break;
 			}
 			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()];
@@ -126,7 +125,7 @@ public class Model extends Observable implements IModel
 		{
 			this.MapGenerator.ChangeLevelMap(nextMoveUP_DWN);
 		}
-		else if(this.permea == Permeabilite.OPENEDGATE)
+		else if(this.permea == Permeabilite.VICTORY)
 		{
 			this.MapGenerator.setMapName(this.MapFinder.getMap(this.MapGenerator.getMapLevel()));
 			this.MapGenerator.ResetWelcomeMenu(this.Lorann);
