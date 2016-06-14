@@ -1,5 +1,5 @@
 package view;
-
+import java.util.TreeSet;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
@@ -19,8 +19,8 @@ import contract.IModel;
 class ViewFrame extends JFrame implements KeyListener {
 
 	/** The model. */
-	private IModel						model;
-
+	private IModel	model;
+	private TreeSet<Integer> TreeSet= new TreeSet<Integer>();
 	/** The controller. */
 	private IController				controller;
 	/** The Constant serialVersionUID. */
@@ -164,7 +164,14 @@ class ViewFrame extends JFrame implements KeyListener {
 	 */
 	public void keyPressed(final KeyEvent e) 
 	{
-		this.getController().orderPerform(View.keyCodeToControllerOrder(e.getKeyCode()));
+		int x=0 ,y=0;
+		TreeSet.add(e.getExtendedKeyCode());
+		x=TreeSet.first();
+		if(TreeSet.first() != TreeSet.last())
+		{
+			y=TreeSet.last();
+		}		
+		this.getController().orderPerform(View.keyCodeToControllerOrder(x,y));
 	}
 
 	/*
@@ -174,6 +181,6 @@ class ViewFrame extends JFrame implements KeyListener {
 	 */
 	public void keyReleased(final KeyEvent e) 
 	{
-		this.getController().orderPerform(View.keyCodeToControllerOrderReleased(e.getKeyCode()));
+		TreeSet.remove(e.getExtendedKeyCode());
 	}
 }

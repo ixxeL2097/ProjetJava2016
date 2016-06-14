@@ -12,7 +12,7 @@ public class MapGenerator
 	public char[][] map; 
 	public Element [][] ElementMatrix;
 	private String MapName;
-	private int MapLevel=1;
+	private int MapLevel=0;
 	
 	public MapGenerator(String MapName)
 	{
@@ -106,7 +106,7 @@ public class MapGenerator
 					case 'H': this.ElementMatrix [y][x] = new HorizontalBone();		break;
 					case 'V': this.ElementMatrix [y][x] = new VerticalBone();		break;
 					case 'D': this.ElementMatrix [y][x] = new OpenGate();			break;
-					case 'd': this.ElementMatrix [y][x] = new ClosedGate();			break;
+					case 'U': this.ElementMatrix [y][x] = new ClosedGate();			break;
 					case 'B': this.ElementMatrix [y][x] = new Bourse();				break;		  
 					case 'E': this.ElementMatrix [y][x] = new EnergyBall();			break;		  
 					case 'C': this.ElementMatrix [y][x] = new CandleStick();		break;
@@ -135,20 +135,20 @@ public class MapGenerator
 		}		
 	}
 	
-	public void UpdateMapEnergy()
+	public void UnlockGate()
 	{
 		int x=0, y=0;
 		for(y=0; y<DimensionMap.Y; y++)
 		{
 			for(x=0; x<DimensionMap.X; x++)
 			{
-				switch(this.ElementMatrix[y][x].getPermea())
+				if(this.ElementMatrix[y][x] instanceof ClosedGate)
 				{
-					case CLOSEDGATE:
-						this.ElementMatrix [y][x] = new OpenGate();		break;
-					case TRANSLATABLE:
-						this.ElementMatrix [y][x] = new Empty();		break;
-					default:											break;	
+					this.ElementMatrix [y][x] = new OpenGate();
+				}
+				else if(this.ElementMatrix[y][x] instanceof Rip)
+				{
+					this.ElementMatrix [y][x] = new Empty();
 				}
 			}
 		}	

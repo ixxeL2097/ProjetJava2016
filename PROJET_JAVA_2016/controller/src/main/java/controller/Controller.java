@@ -71,7 +71,7 @@ public class Controller implements IController
 		switch (controllerOrder) 
 		{
 			case UP:
-				if(this.view.getKetLf()==true)
+				/*if(this.view.getKetLf()==true)
 				{
 					this.model.MoveUpLf();
 				}
@@ -80,12 +80,12 @@ public class Controller implements IController
 					this.model.MoveUpRt();
 				}
 				else
-				{
+				{*/
 					this.model.MoveUP();
-				}			
+			
 				break;
 			case DOWN:
-				if(this.view.getKetLf()==true)
+				/*if(this.view.getKetLf()==true)
 				{
 					this.model.MoveDwLf();
 				}
@@ -94,12 +94,11 @@ public class Controller implements IController
 					this.model.MoveDwRt();
 				}
 				else
-				{
+				{*/
 					this.model.MoveDW();
-				}
 				break;
 			case LEFT:
-				if(this.view.getKeyUp()==true)
+				/*if(this.view.getKeyUp()==true)
 				{
 					this.model.MoveUpLf();
 				}
@@ -108,12 +107,11 @@ public class Controller implements IController
 					this.model.MoveDwLf();
 				}
 				else
-				{
+				{*/
 					this.model.MoveLF();
-				}
 				break;
 			case RIGHT:
-				if(this.view.getKeyUp()==true)
+				/*if(this.view.getKeyUp()==true)
 				{
 					this.model.MoveUpRt();
 				}
@@ -122,10 +120,17 @@ public class Controller implements IController
 					this.model.MoveDwRt();
 				}
 				else
-				{
+				{*/
 					this.model.MoveRT();
-				}
 				break;
+			case UPPERRIGHT:
+					this.model.MoveUpRt();break;
+			case UPPERLEFT:
+					this.model.MoveUpLf();break;
+			case DOWNRIGHT:
+					this.model.MoveDwRt();break;
+			case DOWNLEFT:
+					this.model.MoveDwLf();break;
 			default:
 				break;
 		}

@@ -19,10 +19,6 @@ public class View implements IView, Runnable
 
 	/** The frame. */
 	private final ViewFrame viewFrame;
-	private static boolean KeyUp=false;
-	private static boolean KeyDw=false;
-	private static boolean KeyLf=false;
-	private static boolean KeyRt=false;
 
 	/**
 	 * Instantiates a new view.
@@ -43,47 +39,43 @@ public class View implements IView, Runnable
 	 *          the key code
 	 * @return the controller order
 	 */
-	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) 
+	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode, final int keyCode2) 
 	{
 		switch (keyCode) 
 		{
 			case KeyEvent.VK_UP:
-				KeyUp=true;
-				return ControllerOrder.UP;
+				switch(keyCode2)
+				{
+					case KeyEvent.VK_LEFT: return ControllerOrder.UPPERLEFT;
+					case KeyEvent.VK_RIGHT: return ControllerOrder.UPPERRIGHT;
+					default: return ControllerOrder.UP;
+				}
 			case KeyEvent.VK_DOWN:
-				KeyDw=true;
-				return ControllerOrder.DOWN;
+				switch(keyCode2)
+				{
+					case KeyEvent.VK_LEFT: return ControllerOrder.DOWNLEFT;
+					case KeyEvent.VK_RIGHT: return ControllerOrder.DOWNRIGHT;
+					default: return ControllerOrder.DOWN;
+				}
 			case KeyEvent.VK_LEFT:
-				KeyLf=true;
-				return ControllerOrder.LEFT;
+				switch(keyCode2)
+				{
+					case KeyEvent.VK_UP: return ControllerOrder.UPPERLEFT;
+					case KeyEvent.VK_DOWN: return ControllerOrder.DOWNLEFT;
+					default: return ControllerOrder.LEFT;
+				}
 			case KeyEvent.VK_RIGHT:
-				KeyRt=true;
-				return ControllerOrder.RIGHT;
+				switch(keyCode2)
+				{
+					case KeyEvent.VK_UP: return ControllerOrder.UPPERRIGHT;
+					case KeyEvent.VK_DOWN: return ControllerOrder.DOWNRIGHT;
+					default: return ControllerOrder.RIGHT;
+				}
 			default:
 				return ControllerOrder.VOID;
 		}
 	}
 	
-	protected static ControllerOrder keyCodeToControllerOrderReleased(final int keyCode) 
-	{
-		switch (keyCode) 
-		{
-			case KeyEvent.VK_UP:
-				KeyUp=false;
-				return ControllerOrder.VOID;
-			case KeyEvent.VK_DOWN:
-				KeyDw=false;
-				return ControllerOrder.VOID;
-			case KeyEvent.VK_LEFT:
-				KeyLf=false;
-				return ControllerOrder.VOID;
-			case KeyEvent.VK_RIGHT:
-				KeyRt=false;
-				return ControllerOrder.VOID;
-			default:
-				return ControllerOrder.VOID;
-		}
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -111,25 +103,5 @@ public class View implements IView, Runnable
 	 */
 	public void setController(final IController controller) {
 		this.viewFrame.setController(controller);
-	}
-
-	public boolean getKeyUp() 
-	{
-		return KeyUp;
-	}
-
-	public boolean getKeyDw() 
-	{
-		return KeyDw;
-	}
-
-	public boolean getKetLf() 
-	{
-		return KeyLf;
-	}
-
-	public boolean getKeyRt() 
-	{
-		return KeyRt;
 	}
 }

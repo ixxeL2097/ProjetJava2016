@@ -21,6 +21,7 @@ public class Model extends Observable implements IModel
 	/** The message. */
 	private String message;
 	private MapGenerator MapGenerator;
+	private String MapName = "C:/ProjetJava/Map/MAP_lvl2.txt";
 	private MotionElement Lorann;
 	private MapFinder MapFinder;
 
@@ -132,7 +133,7 @@ public class Model extends Observable implements IModel
 					}
 				break;
 			case ENERGY:
-					this.MapGenerator.UpdateMapEnergy();
+					this.MapGenerator.UnlockGate();
 					this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()];
 					this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]	= new Empty();
 					this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
