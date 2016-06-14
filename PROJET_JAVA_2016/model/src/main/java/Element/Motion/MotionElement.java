@@ -3,8 +3,8 @@ import Element.*;
 
 public abstract class MotionElement extends Element 
 {
-	protected int currentX;
-	protected int currentY;
+	protected int X;
+	protected int Y;
 	protected int lastX;
 	protected int lastY;
 	protected int NextX;
@@ -20,12 +20,12 @@ public abstract class MotionElement extends Element
 		this.lastY = lastY;
 	}
 
-	public void setCurrentX(int currentX) {
-		this.currentX = currentX;
+	public void setX(int currentX) {
+		this.X = currentX;
 	}
 
-	public void setCurrentY(int currentY) {
-		this.currentY = currentY;
+	public void setY(int currentY) {
+		this.Y = currentY;
 	}
 
 	public int getNextX() {
@@ -44,12 +44,12 @@ public abstract class MotionElement extends Element
 		NextY = nextY;
 	}
 
-	public int getCurrentX() {
-		return currentX;
+	public int getX() {
+		return X;
 	}
 
-	public int getCurrentY() {
-		return currentY;
+	public int getY() {
+		return Y;
 	}
 
 	public int getLastX() {

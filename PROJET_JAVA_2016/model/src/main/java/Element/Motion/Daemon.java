@@ -7,17 +7,23 @@ import java.util.Random;
 import javax.swing.Timer;
 
 import Element.Permeabilite;
+import model.Model;
 
 public class Daemon extends MotionElement implements Runnable, ActionListener
 {
 	private Random RandomMove;
 	private int RandomSelectMove;
 	private Timer MoveTimer;
+	private Model model;
 	
-	public Daemon() 
+	public Daemon(Model model, int y , int x) 
 	{
 		super("C:/ProjetJava/Sprite/monster_4.png", Permeabilite.ENNEMY);
-		this.MoveTimer = new Timer(200,this);
+		this.MoveTimer = new Timer(100,this);
+		this.setModel(model); 
+		this.X=x;
+		this.Y=y;
+		this.run();
 	}
 
 	public void run() 
@@ -43,9 +49,17 @@ public class Daemon extends MotionElement implements Runnable, ActionListener
 		}
 	}
 	
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
 	public void MoveDaemon(int NextMove_UP_DW, int NextMove_RT_LF)
 	{
-		
+		this.getModel().MoveDaemon(NextMove_UP_DW, NextMove_RT_LF, this);
 	}	
 	
 	public void MoveUP() 

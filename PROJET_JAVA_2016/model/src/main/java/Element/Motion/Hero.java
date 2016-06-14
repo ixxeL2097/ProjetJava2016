@@ -24,8 +24,8 @@ public class Hero extends MotionElement
 	public Hero(int Y, int X) 
 	{
 		super(HERO_MOVE, Permeabilite.PENETRABLE);
-		this.currentX=X;
-		this.currentY=Y;	
+		this.X=X;
+		this.Y=Y;	
 		this.lastX=X;
 		this.lastY=Y;
 		this.MoveUp = new ImageIcon("C:/ProjetJava/Sprite/lorann_u.png");

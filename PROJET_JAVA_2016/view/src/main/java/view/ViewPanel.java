@@ -38,8 +38,8 @@ class ViewPanel extends JPanel implements Observer
 	{
 		super();
 		this.setViewFrame(viewFrame);
-		this.setSize(this.viewFrame.getModel().getD());
-		this.setPreferredSize(this.viewFrame.getModel().getD());
+		this.setSize(this.getViewFrame().getModel().getD());
+		this.setPreferredSize(this.getViewFrame().getModel().getD());
 		viewFrame.getModel().getObservable().addObserver(this);
 		JLabelMap = new JLabel [this.getViewFrame().getModel().getDimensionMapY()][this.getViewFrame().getModel().getDimensionMapX()];
 		this.score = new JLabel("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));

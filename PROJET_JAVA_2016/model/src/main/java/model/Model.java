@@ -21,8 +21,9 @@ import contract.IModel;
 public class Model extends Observable implements IModel 
 {
 	/** The message. */
-	private MapGenerator MapGenerator;
+	private MapGen MapGen;
 	private Hero Lorann;
+	private Daemon daemon;
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
@@ -33,9 +34,9 @@ public class Model extends Observable implements IModel
 	public Model() 
 	{
 		this.MapFinder = new MapFinder();
-		this.MapGenerator = new MapGenerator(this.MapFinder.getMap(0));	
+		this.MapGen = new MapGen(this.MapFinder.getMap(0), this);	
 		this.Lorann = new Hero(5,10);
-		this.MapGenerator.PlaceLorann(this.Lorann);
+		this.MapGen.PlaceLorann(this.Lorann);
 	}
 
 
@@ -89,46 +90,61 @@ public class Model extends Observable implements IModel
 
 	public ImageIcon getImageElement(int y, int x) 
 	{
-		return this.MapGenerator.ElementMatrix[y][x].getElemIcon();
+		return this.MapGen.ElemMtx[y][x].getElemIcon();
+	}
+	
+	public void MoveDaemon(int UP_DWN, int RGT_LFT, Daemon daemon)
+	{
+		this.permea = this.MapGen.ElemMtx[daemon.getY()+UP_DWN][daemon.getX()+RGT_LFT].getPermea();
+		
+		if(this.permea == Permeabilite.PENETRABLE)
+		{
+			this.MapGen.ElemMtx[daemon.getY()+UP_DWN][daemon.getX()+RGT_LFT]=this.MapGen.ElemMtx[daemon.getY()][daemon.getX()];
+			this.MapGen.ElemMtx[daemon.getY()][daemon.getX()] = new Empty();
+			daemon.setY(daemon.getY()+UP_DWN);
+			daemon.setX(daemon.getX()+RGT_LFT);
+			this.setChanged();
+			this.notifyObservers();
+		}
 	}
 
-	public void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT) 
+	public void MoveLorann(int UP_DWN, int RGT_LFT) 
 	{
-		this.permea = this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT].getPermea();
+		this.permea = this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT].getPermea();
 		
 		if(this.permea != Permeabilite.BLOCKING && this.permea != Permeabilite.TRANSLATABLE && this.permea != Permeabilite.LVLCHANGE && this.permea != Permeabilite.VICTORY && this.permea != Permeabilite.CLOSEDGATE)
 		{
 			switch(this.permea)
 			{
 				case ENERGY:
-						this.MapGenerator.UnlockGate();
-						this.MapGenerator.setMapLevel(0);
+						this.MapGen.UnlockGate();
+						this.MapGen.setMapLevel(0);
 						break;
 				case MONEY:
 						this.setScore(this.getScore()+650);
 				default:	break;
 			}
-			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()];
-			this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()][this.Lorann.getCurrentX()]	= new Empty();
-			this.Lorann.setCurrentY(this.Lorann.getCurrentY()+nextMoveUP_DWN);
-			this.Lorann.setCurrentX(this.Lorann.getCurrentX()+nextMoveRGT_LFT);
+			this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT]=this.MapGen.ElemMtx[this.Lorann.getY()][this.Lorann.getX()];
+			this.MapGen.ElemMtx[this.Lorann.getY()][this.Lorann.getX()]	= new Empty();
+			this.Lorann.setY(this.Lorann.getY()+UP_DWN);
+			this.Lorann.setX(this.Lorann.getX()+RGT_LFT);
 		}
 		else if(this.permea == Permeabilite.TRANSLATABLE)
 		{
-			if(this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT].getPermea()==Permeabilite.PENETRABLE)
+			if(this.MapGen.ElemMtx[this.Lorann.getY()+2*UP_DWN][this.Lorann.getX()+2*RGT_LFT].getPermea()==Permeabilite.PENETRABLE)
 			{
-				this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+2*nextMoveUP_DWN][this.Lorann.getCurrentX()+2*nextMoveRGT_LFT]=this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT];
-				this.MapGenerator.ElementMatrix[this.Lorann.getCurrentY()+nextMoveUP_DWN][this.Lorann.getCurrentX()+nextMoveRGT_LFT]= new Empty();
+				this.MapGen.ElemMtx[this.Lorann.getY()+2*UP_DWN][this.Lorann.getX()+2*RGT_LFT]=this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT];
+				this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT]= new Empty();
 			}
 		}
 		else if(this.permea == Permeabilite.LVLCHANGE)
 		{
-			this.MapGenerator.ChangeLevelMap(nextMoveUP_DWN);
+			this.MapGen.ChangeLevelMap(UP_DWN);
 		}
 		else if(this.permea == Permeabilite.VICTORY)
 		{
-			this.MapGenerator.setMapName(this.MapFinder.getMap(this.MapGenerator.getMapLevel()));
-			this.MapGenerator.ResetWelcomeMenu(this.Lorann);
+			this.MapGen.setMapName(this.MapFinder.getMap(this.MapGen.getMapLevel()));
+			this.MapGen.ResetWelcomeMenu(this.Lorann);
 		}	
 		this.setChanged();
 		this.notifyObservers();	
