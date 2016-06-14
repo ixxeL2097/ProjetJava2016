@@ -30,7 +30,7 @@ public abstract class Main {
 		view.setController(controller);
 		controller.control();
 		
-		File son = new File("C:/Users/Nocte/Desktop/Chrono_Trigger_Frog_Theme.wav");
+		File son = new File("C:/ProjetJava/Music/Chrono_Trigger_Frog_Theme.wav");
 		AudioClip clip = null;
 		try
 		{
