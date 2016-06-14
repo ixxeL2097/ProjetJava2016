@@ -35,7 +35,7 @@ public class Hero extends MotionElement
 		this.MoveUpRt = new ImageIcon("C:/ProjetJava/Sprite/lorann_ur.png");
 		this.MoveDwRt = new ImageIcon("C:/ProjetJava/Sprite/lorann_br.png");
 		this.MoveUpLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_ul.png");
-		this.MoveUpRt = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
+		this.MoveDwLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
 	}
 
 	public ImageIcon getMoveUp() {
