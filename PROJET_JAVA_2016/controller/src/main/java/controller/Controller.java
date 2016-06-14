@@ -13,7 +13,7 @@ public class Controller implements IController
 {
 
 	/** The view. */
-	private IView		view;
+	private IView	view;
 
 	/** The model. */
 	private IModel	model;
@@ -71,58 +71,13 @@ public class Controller implements IController
 		switch (controllerOrder) 
 		{
 			case UP:
-				/*if(this.view.getKetLf()==true)
-				{
-					this.model.MoveUpLf();
-				}
-				else if(this.view.getKeyRt()==true)
-				{
-					this.model.MoveUpRt();
-				}
-				else
-				{*/
-					this.model.MoveUP();
-			
-				break;
+					this.model.MoveUP();break;
 			case DOWN:
-				/*if(this.view.getKetLf()==true)
-				{
-					this.model.MoveDwLf();
-				}
-				else if(this.view.getKeyRt()==true)
-				{
-					this.model.MoveDwRt();
-				}
-				else
-				{*/
-					this.model.MoveDW();
-				break;
+					this.model.MoveDW();break;
 			case LEFT:
-				/*if(this.view.getKeyUp()==true)
-				{
-					this.model.MoveUpLf();
-				}
-				else if(this.view.getKeyDw()==true)
-				{
-					this.model.MoveDwLf();
-				}
-				else
-				{*/
-					this.model.MoveLF();
-				break;
+					this.model.MoveLF();break;
 			case RIGHT:
-				/*if(this.view.getKeyUp()==true)
-				{
-					this.model.MoveUpRt();
-				}
-				else if(this.view.getKeyDw()==true)
-				{
-					this.model.MoveDwRt();
-				}
-				else
-				{*/
-					this.model.MoveRT();
-				break;
+					this.model.MoveRT();break;
 			case UPPERRIGHT:
 					this.model.MoveUpRt();break;
 			case UPPERLEFT:
@@ -131,8 +86,7 @@ public class Controller implements IController
 					this.model.MoveDwRt();break;
 			case DOWNLEFT:
 					this.model.MoveDwLf();break;
-			default:
-				break;
+			default: break;
 		}
 	}
 

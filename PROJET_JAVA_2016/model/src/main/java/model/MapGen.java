@@ -6,7 +6,6 @@ import Element.Motion.Daemon;
 import Element.Motion.MotionElement;
 import Element.MotionLess.*;
 import Element.MotionLess.Number;
-import contract.IModel;
 
 
 public class MapGen
@@ -124,16 +123,7 @@ public class MapGen
 					case 'K': this.ElemMtx [y][x] = new Charger();								break;
 					case '+': this.ElemMtx [y][x] = new Plus();									break;
 					case '*': this.ElemMtx [y][x] = new Minus();								break;
-					case '0': this.ElemMtx [y][x] = new Number(0);								break;
-					case '1': this.ElemMtx [y][x] = new Number(1);								break;
-					case '2': this.ElemMtx [y][x] = new Number(2);								break;
-					case '3': this.ElemMtx [y][x] = new Number(3);								break;
-					case '4': this.ElemMtx [y][x] = new Number(4);								break;
-					case '5': this.ElemMtx [y][x] = new Number(5);								break;
-					case '6': this.ElemMtx [y][x] = new Number(6);								break;
-					case '7': this.ElemMtx [y][x] = new Number(7);								break;
-					case '8': this.ElemMtx [y][x] = new Number(8);								break;
-					case '9': this.ElemMtx [y][x] = new Number(9);								break;				
+					case '0': this.ElemMtx [y][x] = new Number(0);								break;		
 					default : break;		
 				}	
 			}

@@ -8,7 +8,7 @@ public class DimensionMap
 	public static int Y = 12;
 	
 	public static int WINDOW_WIDTH = 646;
-	public static int WINDOW_HEIGHT = 444;//412;
+	public static int WINDOW_HEIGHT = 440;//412;
 	
 	public static Dimension d = new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT); 
 	

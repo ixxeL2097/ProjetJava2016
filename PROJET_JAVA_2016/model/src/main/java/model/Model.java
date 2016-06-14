@@ -23,7 +23,6 @@ public class Model extends Observable implements IModel
 	/** The message. */
 	private MapGen MapGen;
 	private Hero Lorann;
-	private Daemon daemon;
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
@@ -68,29 +67,11 @@ public class Model extends Observable implements IModel
 		return this;
 	}
 
-	public int getDimensionMapX() 
+	public void setLorannGIF() 
 	{
-		return DimensionMap.X;
-	}
-
-	public int getDimensionMapY() 
-	{
-		return DimensionMap.Y;
-	}
-
-	public int getWindowMapWIDTH() 
-	{
-		return DimensionMap.WINDOW_WIDTH;
-	}
-
-	public int getWindowMapHEIGHT() 
-	{
-		return DimensionMap.WINDOW_HEIGHT;
-	}
-
-	public ImageIcon getImageElement(int y, int x) 
-	{
-		return this.MapGen.ElemMtx[y][x].getElemIcon();
+		this.Lorann.setElemIcon(this.Lorann.getLorannGIF());
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public void MoveDaemon(int UP_DWN, int RGT_LFT, Daemon daemon)
@@ -207,17 +188,35 @@ public class Model extends Observable implements IModel
 	{
 		this.score=score;
 	}
+	
+	public ImageIcon getImageElement(int y, int x) 
+	{
+		return this.MapGen.ElemMtx[y][x].getElemIcon();
+	}
 
 	public Dimension getD() 
 	{
 		return DimensionMap.d;
 	}
-
-	public void setLorannGIF() 
+	
+	public int getDimensionMapX() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getLorannGIF());
-		this.setChanged();
-		this.notifyObservers();
+		return DimensionMap.X;
+	}
+
+	public int getDimensionMapY() 
+	{
+		return DimensionMap.Y;
+	}
+
+	public int getWindowMapWIDTH() 
+	{
+		return DimensionMap.WINDOW_WIDTH;
+	}
+
+	public int getWindowMapHEIGHT() 
+	{
+		return DimensionMap.WINDOW_HEIGHT;
 	}
 	
 }
