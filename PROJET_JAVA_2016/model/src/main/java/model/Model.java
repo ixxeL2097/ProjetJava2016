@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.Observable;
 
-import Element.Element;
 import Element.Permeabilite;
 import Element.Motion.*;
 import Element.MotionLess.Empty;
