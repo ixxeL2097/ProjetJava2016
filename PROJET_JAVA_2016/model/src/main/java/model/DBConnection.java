@@ -67,7 +67,7 @@ final class DBConnection {
 		return this.connection;
 	}
 	
-	public DBConnection addMap(int i, int x, int y, char c) {
+	public DBConnection addMapBdd(int i, int x, int y, char c) {
 
 		try {
 			final String sql = "{call AjoutMap(i,x,y,c)}";
