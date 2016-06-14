@@ -16,7 +16,6 @@ public class Hero extends MotionElement
 	private ImageIcon MoveDwLf;
 	
 	private boolean alive = true ;
-	private int lives;
 	
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
