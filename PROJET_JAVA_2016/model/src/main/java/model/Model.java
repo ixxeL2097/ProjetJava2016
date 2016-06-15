@@ -47,8 +47,8 @@ public class Model extends Observable implements IModel
 	{
 		try 
 		{
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			//this.setMessage(daoHelloWorld.find(key).getMessage());
+			final DAOMap daomap = new DAOMap(DBConnection.getInstance().getConnection());
+			daomap.ConnectDB();
 		} 
 		catch (final SQLException e) 
 		{

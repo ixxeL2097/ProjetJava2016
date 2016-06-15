@@ -1,9 +1,8 @@
 package model;
 
-import java.sql.CallableStatement;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -67,16 +66,5 @@ final class DBConnection {
 		return this.connection;
 	}
 	
-	public DBConnection addMap(int i, int x, int y, char c) {
-
-		try {
-			final String sql = "{call AjoutMap(i,x,y,c)}";
-			final CallableStatement call = this.getConnection().prepareCall(sql);
-			call.execute();
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 }
