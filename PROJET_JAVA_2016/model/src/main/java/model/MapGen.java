@@ -193,6 +193,12 @@ public class MapGen
 	public void setModel(Model model) {
 		this.model = model;
 	}
+
+	public Element getElemMtx(int y, int x) {
+		return ElemMtx[y][x];
+	}
+	
+	
 	
 	
 	

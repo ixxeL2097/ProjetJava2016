@@ -82,10 +82,15 @@ public class Model extends Observable implements IModel
 			this.MapGen.ElemMtx[daemon.getY()+UP_DWN][daemon.getX()+RGT_LFT]=this.MapGen.ElemMtx[daemon.getY()][daemon.getX()];
 			this.MapGen.ElemMtx[daemon.getY()][daemon.getX()] = new Empty();
 			daemon.setY(daemon.getY()+UP_DWN);
-			daemon.setX(daemon.getX()+RGT_LFT);
-			this.setChanged();
-			this.notifyObservers();
+			daemon.setX(daemon.getX()+RGT_LFT);		
 		}
+		else if(this.permea == Permeabilite.BLOCKING)
+		{
+			System.out.println("BLOCKED");
+			daemon.DefaultDaemonMove();
+		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void MoveLorann(int UP_DWN, int RGT_LFT) 
@@ -217,5 +222,19 @@ public class Model extends Observable implements IModel
 	{
 		return DimensionMap.WINDOW_HEIGHT;
 	}
+
+	public Hero getLorann() {
+		return Lorann;
+	}
+
+	public void setLorann(Hero lorann) {
+		Lorann = lorann;
+	}
+
+	public MapGen getMapGen() {
+		return MapGen;
+	}
+	
+	
 	
 }
