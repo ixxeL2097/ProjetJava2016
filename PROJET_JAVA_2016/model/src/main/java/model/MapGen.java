@@ -44,14 +44,17 @@ public class MapGen
 	
 	public void CreateMap()
 	{
-		int x = 0, y=0;
+		int x = 0, y=0, i=0;
+		String s = null;
 		FileInputStream fis = null;
 		
 		try {
 	         fis = new FileInputStream(new File(MapName));
 
 	         byte[] buf = new byte[8];					// On crée un tableau de byte pour indiquer le nombre de bytes lus à chaque tour de boucle
-
+	         s = MapName.substring(25, 26);
+	         i = Integer.parseInt(s);
+	         System.out.println(i);
 	         while ((fis.read(buf)) >= 0) 				// Vaut -1 quand c'est fini Lorsque la lecture du fichier est terminée On sort donc de la boucle
 	         {           
 	            for (byte bit : buf) 					 // On affiche ce qu'a lu notre boucle au format byte et au format char
@@ -61,7 +64,6 @@ public class MapGen
 	               if(x<DimensionMap.X && bit != 10 )
 	               {
 	            	   map [y][x]= (char)bit;
-	            	   //DBConnection.addMap(i,x,y,(char)bit);
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)

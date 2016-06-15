@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * The Class DAOHelloWorld.
@@ -103,6 +104,30 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 			return helloWorld;
 		} catch (final SQLException e) {
 			e.printStackTrace();
+		}
+		return null;
+	}
+	
+public HelloWorld ConnectDB(){
+		
+		Statement st;
+		ResultSet resultSet;
+		
+		
+		try
+		{
+			st = getConnection().createStatement();
+			resultSet = st.executeQuery("SELECT ID_Map_lvl FROM map");
+			
+			while(resultSet.next())
+			{
+				System.out.println("ID Maps : " + resultSet.getString("ID_Map_lvl"));
+			}
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("Impossible de se connecter à la base de données ou mauvaise requête (synthax error");
 		}
 		return null;
 	}

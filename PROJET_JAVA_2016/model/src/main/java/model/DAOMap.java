@@ -55,7 +55,7 @@ public class DAOMap extends DAOEntity<Entity>{
 		try
 		{
 			st = getConnection().createStatement();
-			resultSet = st.executeQuery("SELECT ID_MAP_lvl1 FROM maps");
+			resultSet = st.executeQuery("SELECT ID_Map_lvl FROM map");
 			
 			while(resultSet.next())
 			{

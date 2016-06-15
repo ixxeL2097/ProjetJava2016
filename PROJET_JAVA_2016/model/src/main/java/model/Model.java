@@ -43,12 +43,15 @@ public class Model extends Observable implements IModel
 	 *
 	 * @see contract.IModel#getMessage(java.lang.String)
 	 */
-	public void loadMessage(final String key) 
+	public void loadMessage() 
 	{
 		try 
 		{
-			final DAOMap daomap = new DAOMap(DBConnection.getInstance().getConnection());
-			daomap.ConnectDB();
+			System.out.println("\n");
+			System.out.println("Connection Database ...");
+			
+			final DAOHelloWorld daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
+			daohelloworld.ConnectDB();
 		} 
 		catch (final SQLException e) 
 		{

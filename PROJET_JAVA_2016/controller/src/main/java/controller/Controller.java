@@ -38,6 +38,7 @@ public class Controller implements IController
 	 * @see contract.IController#control()
 	 */
 	public void control() {
+		this.model.loadMessage();
 		//this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
 	}
 
