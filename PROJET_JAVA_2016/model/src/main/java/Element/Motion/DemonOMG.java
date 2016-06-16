@@ -24,7 +24,7 @@ public class DemonOMG extends MotionElement implements Runnable, ActionListener
 		super("C:/ProjetJava/Sprite/monster_1.png", Permeabilite.PENETRABLE);
 		
 		this.setModel(model); 
-		this.MoveTimer=new Timer(250,this);
+		this.MoveTimer=new Timer(750,this);
 		this.X=x;
 		this.Y=y;
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
@@ -69,7 +69,7 @@ public class DemonOMG extends MotionElement implements Runnable, ActionListener
 				}
 			}
 		}
-		System.out.print(" WALKABLE DEMON ");
+		/*System.out.print(" WALKABLE DEMON ");
 		for(y=0; y<DimensionMap.Y; y++)
 		{
 			x=0;
@@ -80,7 +80,7 @@ public class DemonOMG extends MotionElement implements Runnable, ActionListener
 			}
 		}
 		System.out.println();
-		System.out.print(" WALKABLE DEMON FIN // END ");
+		System.out.print(" WALKABLE DEMON FIN // END ");*/
 	}
 
 	public synchronized Model getModel() {

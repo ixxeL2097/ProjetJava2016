@@ -67,7 +67,7 @@ public class MapGen
 	               if(x<DimensionMap.X && bit != 10 )
 	               {
 	            	   map [y][x]= (char)bit;
-	            	   this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
+	            	   //this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)

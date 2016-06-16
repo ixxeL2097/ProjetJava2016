@@ -72,23 +72,28 @@ public class Controller implements IController
 		switch (controllerOrder) 
 		{
 			case UP:
-					this.model.MoveUP();break;
+					this.getModel().MoveUP();break;
 			case DOWN:
-					this.model.MoveDW();break;
+					this.getModel().MoveDW();break;
 			case LEFT:
-					this.model.MoveLF();break;
+					this.getModel().MoveLF();break;
 			case RIGHT:
-					this.model.MoveRT();break;
+					this.getModel().MoveRT();break;
 			case UPPERRIGHT:
-					this.model.MoveUpRt();break;
+					this.getModel().MoveUpRt();break;
 			case UPPERLEFT:
-					this.model.MoveUpLf();break;
+					this.getModel().MoveUpLf();break;
 			case DOWNRIGHT:
-					this.model.MoveDwRt();break;
+					this.getModel().MoveDwRt();break;
 			case DOWNLEFT:
-					this.model.MoveDwLf();break;
+					this.getModel().MoveDwLf();break;
 			default: break;
 		}
 	}
 
+	public IModel getModel() {
+		return model;
+	}
+
+	
 }

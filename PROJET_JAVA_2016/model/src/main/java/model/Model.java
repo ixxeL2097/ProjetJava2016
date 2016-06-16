@@ -33,12 +33,12 @@ public class Model extends Observable implements IModel
 	 */
 	public Model() 
 	{
-		this.loadMessage();		
+		//this.loadMessage();		
 		this.MapFinder = new MapFinder();
-		this.MapGen = new MapGen(this.getMapFinder().getMap(0), this);	
-		this.Lorann = new Hero(5,8);
+		this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
+		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
-		this.DaemonMaster = new DemonOMG(11, 6, this);
+		this.DaemonMaster = new DemonOMG(15, 6, this);
 		this.MapGen.PlaceLorann(this.DaemonMaster);
 	}
 
@@ -53,18 +53,14 @@ public class Model extends Observable implements IModel
 		try 
 		{
 			System.out.println("\n");
-			System.out.println("Connection Database ...");
-			
-			this.daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			
+			System.out.println("Connection Database ...");		
+			this.daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());			
 		} 
 		catch (final SQLException e) 
 		{
 			e.printStackTrace();
 		}
 	}
-
-
 
 	/*
 	 * (non-Javadoc)
@@ -92,16 +88,6 @@ public class Model extends Observable implements IModel
 		x1=daemon.getX();
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
-			
-		System.out.println("le current Y : "+daemon.getY());
-		System.out.println("le current X : "+daemon.getX());
-		
-		System.out.println("le delta Y : "+UP_DWN);
-		System.out.println("le delta X : "+RGT_LFT);
-		
-		System.out.println("le Y visé: "+y);
-		System.out.println("le X visé: "+x);
-		System.out.println("la permea du truc : "+this.permea);
 		
 		if(this.permea == Permeabilite.PENETRABLE)
 		{
