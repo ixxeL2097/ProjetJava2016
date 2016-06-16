@@ -5,7 +5,7 @@ public class Empty extends MotionLessElem {
 
 	public Empty() 
 	{
-		super( "C:/ProjetJava/Sprite/empty.png", Permeabilite.PENETRABLE);
+		super( "C:/ProjetJava/Sprite/empty.png", Permeabilite.PENETRABLE, '-');
 	}
 
 }

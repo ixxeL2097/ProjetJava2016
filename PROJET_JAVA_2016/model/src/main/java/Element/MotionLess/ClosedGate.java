@@ -6,7 +6,7 @@ public class ClosedGate extends MotionLessElem {
 
 	public ClosedGate() 
 	{
-		super( "C:/ProjetJava/Sprite/gate_closed.png", Permeabilite.CLOSEDGATE);
+		super( "C:/ProjetJava/Sprite/gate_closed.png", Permeabilite.CLOSEDGATE ,'U');
 	}
 
 }

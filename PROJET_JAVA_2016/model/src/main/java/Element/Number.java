@@ -1,10 +1,8 @@
-package Element.MotionLess;
+package Element;
 
 import javax.swing.ImageIcon;
 
-import Element.*;
-
-public class Number extends MotionLessElem 
+public class Number extends Element 
 {
 
 	public Number(int digit) 

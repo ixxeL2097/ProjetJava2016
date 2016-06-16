@@ -2,11 +2,11 @@ package Element.MotionLess;
 
 import Element.*;
 
-public class Charger extends MotionLessElem {
+class Charger extends MotionLessElem {
 
 	public Charger() 
 	{
-		super( "C:/ProjetJava/Sprite/electrique.png", Permeabilite.LVLCHANGE);
+		super( "C:/ProjetJava/Sprite/electrique.png", Permeabilite.LVLCHANGE ,'K');
 	}
 
 }

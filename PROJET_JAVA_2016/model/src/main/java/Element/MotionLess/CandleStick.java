@@ -2,11 +2,11 @@ package Element.MotionLess;
 
 import Element.*;
 
-public class CandleStick extends MotionLessElem {
+class CandleStick extends MotionLessElem {
 
 	public CandleStick() 
 	{
-		super( "C:/ProjetJava/Sprite/candlestick.png", Permeabilite.MONEY);
+		super( "C:/ProjetJava/Sprite/candlestick.png", Permeabilite.MONEY, 'C');
 	}
 
 }

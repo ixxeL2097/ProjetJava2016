@@ -2,11 +2,11 @@ package Element.MotionLess;
 
 import Element.*;
 
-public class Bourse extends MotionLessElem {
+class Bourse extends MotionLessElem {
 
 	public Bourse() 
 	{
-		super( "C:/ProjetJava/Sprite/purse.png", Permeabilite.MONEY);
+		super( "C:/ProjetJava/Sprite/purse.png", Permeabilite.MONEY, 'B');
 	}
 
 }

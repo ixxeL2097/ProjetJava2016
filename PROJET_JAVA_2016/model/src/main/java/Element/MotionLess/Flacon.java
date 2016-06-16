@@ -2,11 +2,11 @@ package Element.MotionLess;
 
 import Element.*;
 
-public class Flacon extends MotionLessElem {
+class Flacon extends MotionLessElem {
 
 	public Flacon() 
 	{
-		super( "C:/ProjetJava/Sprite/flacon.png", Permeabilite.MONEY);
+		super( "C:/ProjetJava/Sprite/flacon.png", Permeabilite.MONEY, 'F');
 	}
 
 }

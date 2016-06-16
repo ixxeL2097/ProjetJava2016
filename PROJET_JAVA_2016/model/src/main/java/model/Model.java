@@ -35,7 +35,6 @@ public class Model extends Observable implements IModel
 	{
 		//this.loadMessage();		
 		this.MapFinder = new MapFinder();
-		//this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
 		this.MapGen = new MapGen(this.getLevelMapOrder(),this);
 		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
@@ -120,10 +119,6 @@ public class Model extends Observable implements IModel
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
-		System.out.println(" Level dans le model: "+this.getLevelMapOrder());
-		System.out.println(" Level dans le mapgen: "+this.getMapGen().getMapLevel());
-		System.out.println(this.getLorann().isHasMoved());
-		
 		if(this.getLorann().isHasMoved()==false && this.getMapGen().getMapLevel() != 0)
 		{
 			this.getLorann().setHasMoved(true);
@@ -169,7 +164,7 @@ public class Model extends Observable implements IModel
 			this.getMapGen().ResetWelcomeMenu(this.getLorann());				
 			this.getLorann().setHasMoved(false);		
 		}	
-		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.DEATH || this.getPermea() == Permeabilite.CLOSEDGATE)
+		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.ENEMY || this.getPermea() == Permeabilite.CLOSEDGATE)
 		{
 			System.out.println("T'es MORT!!!");
 			this.StopAllDaemons();
