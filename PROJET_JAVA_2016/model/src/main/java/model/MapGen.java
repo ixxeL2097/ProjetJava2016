@@ -2,7 +2,8 @@ package model;
 
 import java.io.*;
 import Element.*;
-import Element.Motion.Daemon;
+import Element.Motion.DaemonMaster;
+import Element.Motion.DaemonTracker;
 import Element.Motion.MotionElement;
 import Element.MotionLess.*;
 import Element.MotionLess.Number;
@@ -117,7 +118,7 @@ public class MapGen
 					case 'E': this.ElemMtx [y][x] = new EnergyBall();							break;		  
 					case 'C': this.ElemMtx [y][x] = new CandleStick();							break;
 					case 'S': this.ElemMtx [y][x] = new Statue();								break;	
-					case 'x': this.ElemMtx [y][x] = new Daemon(this.getModel(),y,x);			break;
+					case 'x': this.ElemMtx [y][x] = new DaemonTracker(this.getModel(),y,x); 	break;
 					case '-': this.ElemMtx [y][x] = new Empty();								break;
 					case 'T': this.ElemMtx [y][x] = new Tombe();								break;
 					case 'I': this.ElemMtx [y][x] = new Rip();									break;
@@ -196,9 +197,16 @@ public class MapGen
 		this.model = model;
 	}
 
-	public Element getElemMtx(int y, int x) {
+	public synchronized Element getElemMtx(int y, int x) {
 		return ElemMtx[y][x];
 	}
+
+	public synchronized void setElemMtx(Element elemMtx, int y, int x) 
+	{
+		ElemMtx[y][x] = elemMtx;
+	}
+
+
 	
 	
 	

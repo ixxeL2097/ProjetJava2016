@@ -25,6 +25,7 @@ public class Model extends Observable implements IModel
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
+	private DemonOMG DaemonMaster;
 
 	/**
 	 * Instantiates a new model.
@@ -32,9 +33,11 @@ public class Model extends Observable implements IModel
 	public Model() 
 	{
 		this.MapFinder = new MapFinder();
-		this.MapGen = new MapGen(this.MapFinder.getMap(0), this);	
-		this.Lorann = new Hero(5,10);
-		this.MapGen.PlaceLorann(this.Lorann);
+		this.MapGen = new MapGen(this.getMapFinder().getMap(0), this);	
+		this.Lorann = new Hero(5,8);
+		this.MapGen.PlaceLorann(this.getLorann());
+		this.DaemonMaster = new DemonOMG(11, 6, this);
+		this.MapGen.PlaceLorann(this.DaemonMaster);
 	}
 
 
@@ -71,118 +74,141 @@ public class Model extends Observable implements IModel
 
 	public void setLorannGIF() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getLorannGIF());
+		this.getLorann().setElemIcon(this.getLorann().getLorannGIF());
 		this.setChanged();
 		this.notifyObservers();
 	}
 	
-	public void MoveDaemon(int UP_DWN, int RGT_LFT, Daemon daemon)
+	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, MotionElement daemon)
 	{
-		this.permea = this.MapGen.ElemMtx[daemon.getY()+UP_DWN][daemon.getX()+RGT_LFT].getPermea();
+		int y, x, y1, x1;
+		y=daemon.getY()+UP_DWN;
+		x=daemon.getX()+RGT_LFT;
+		y1=daemon.getY();
+		x1=daemon.getX();
+		
+		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
+			
+		System.out.println("le current Y : "+daemon.getY());
+		System.out.println("le current X : "+daemon.getX());
+		
+		System.out.println("le delta Y : "+UP_DWN);
+		System.out.println("le delta X : "+RGT_LFT);
+		
+		System.out.println("le Y visé: "+y);
+		System.out.println("le X visé: "+x);
+		System.out.println("la permea du truc : "+this.permea);
 		
 		if(this.permea == Permeabilite.PENETRABLE)
 		{
-			this.MapGen.ElemMtx[daemon.getY()+UP_DWN][daemon.getX()+RGT_LFT]=this.MapGen.ElemMtx[daemon.getY()][daemon.getX()];
-			this.MapGen.ElemMtx[daemon.getY()][daemon.getX()] = new Empty();
+			this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y1,x1 ), y, x);
+			this.getMapGen().setElemMtx(new Empty(), y1, x1);
 			daemon.setY(daemon.getY()+UP_DWN);
 			daemon.setX(daemon.getX()+RGT_LFT);		
 		}
 		else if(this.permea == Permeabilite.BLOCKING)
 		{
 			System.out.println("BLOCKED");
-			daemon.DefaultDaemonMove();
+			//daemon.DefaultDaemonMove();
 		}
 		this.setChanged();
 		this.notifyObservers();
 	}
 
-	public void MoveLorann(int UP_DWN, int RGT_LFT) 
+	public synchronized void MoveLorann(int UP_DWN, int RGT_LFT) 
 	{
-		this.permea = this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT].getPermea();
+		int y, x, y1, x1;
+		y=this.getLorann().getY()+UP_DWN;
+		x=this.getLorann().getX()+RGT_LFT;
+		y1=this.getLorann().getY();
+		x1=this.getLorann().getX();
 		
-		if(this.permea != Permeabilite.BLOCKING && this.permea != Permeabilite.TRANSLATABLE && this.permea != Permeabilite.LVLCHANGE && this.permea != Permeabilite.VICTORY && this.permea != Permeabilite.CLOSEDGATE)
+		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
+		
+		if(this.getPermea() != Permeabilite.BLOCKING && this.getPermea() != Permeabilite.TRANSLATABLE && this.getPermea() != Permeabilite.LVLCHANGE && this.getPermea() != Permeabilite.VICTORY && this.getPermea() != Permeabilite.CLOSEDGATE)
 		{
-			switch(this.permea)
+			switch(this.getPermea())
 			{
 				case ENERGY:
-						this.MapGen.UnlockGate();
-						this.MapGen.setMapLevel(0);
+						this.getMapGen().UnlockGate();
+						this.getMapGen().setMapLevel(0);
 						break;
 				case MONEY:
 						this.setScore(this.getScore()+650);
 				default:	break;
 			}
-			this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT]=this.MapGen.ElemMtx[this.Lorann.getY()][this.Lorann.getX()];
-			this.MapGen.ElemMtx[this.Lorann.getY()][this.Lorann.getX()]	= new Empty();
-			this.Lorann.setY(this.Lorann.getY()+UP_DWN);
-			this.Lorann.setX(this.Lorann.getX()+RGT_LFT);
+			this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y1,x1), y, x);
+			this.getMapGen().setElemMtx(new Empty(), y1, x1);
+			this.getLorann().setY(y);
+			this.getLorann().setX(x);
 		}
 		else if(this.permea == Permeabilite.TRANSLATABLE)
 		{
-			if(this.MapGen.ElemMtx[this.Lorann.getY()+2*UP_DWN][this.Lorann.getX()+2*RGT_LFT].getPermea()==Permeabilite.PENETRABLE)
+			if(this.getMapGen().getElemMtx(y+UP_DWN,x+RGT_LFT).getPermea()==Permeabilite.PENETRABLE)
 			{
-				this.MapGen.ElemMtx[this.Lorann.getY()+2*UP_DWN][this.Lorann.getX()+2*RGT_LFT]=this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT];
-				this.MapGen.ElemMtx[this.Lorann.getY()+UP_DWN][this.Lorann.getX()+RGT_LFT]= new Empty();
+				this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y,x), y+UP_DWN, x+RGT_LFT);
+				this.getMapGen().setElemMtx(new Empty(), y, x);
 			}
 		}
 		else if(this.permea == Permeabilite.LVLCHANGE)
 		{
-			this.MapGen.ChangeLevelMap(UP_DWN);
+			this.getMapGen().ChangeLevelMap(UP_DWN);
 		}
 		else if(this.permea == Permeabilite.VICTORY)
 		{
-			this.MapGen.setMapName(this.MapFinder.getMap(this.MapGen.getMapLevel()));
-			this.MapGen.ResetWelcomeMenu(this.Lorann);
+			this.getMapGen().setMapName(this.getMapFinder().getMap(this.getMapGen().getMapLevel()));
+			this.getMapGen().ResetWelcomeMenu(this.getLorann());
 		}	
 		this.setChanged();
 		this.notifyObservers();	
+		this.DaemonMaster.run();
 	}
 
 	public void MoveUP() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveUp());
+		this.getLorann().setElemIcon(this.getLorann().getMoveUp());
 		this.MoveLorann(-1,0);		
 	}
 
 	public void MoveDW() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveDw());
+		this.getLorann().setElemIcon(this.getLorann().getMoveDw());
 		this.MoveLorann(1,0);	
 	}
 
 	public void MoveLF() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveLf());
+		this.getLorann().setElemIcon(this.getLorann().getMoveLf());
 		this.MoveLorann(0,-1);	
 	}
 
 	public void MoveRT() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveRt());
+		this.getLorann().setElemIcon(this.getLorann().getMoveRt());
 		this.MoveLorann(0,1);	
 	}
 
 	public void MoveUpLf() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveUpLf());
+		this.getLorann().setElemIcon(this.getLorann().getMoveUpLf());
 		this.MoveLorann(-1,-1);
 	}
 
 	public void MoveUpRt() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveUpRt());
+		this.getLorann().setElemIcon(this.getLorann().getMoveUpRt());
 		this.MoveLorann(-1,1);
 	}
 
 	public void MoveDwLf() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveDwLf());
+		this.getLorann().setElemIcon(this.getLorann().getMoveDwLf());
 		this.MoveLorann(1,-1);
 	}
 
 	public void MoveDwRt() 
 	{
-		this.Lorann.setElemIcon(this.Lorann.getMoveDwRt());
+		this.getLorann().setElemIcon(this.getLorann().getMoveDwRt());
 		this.MoveLorann(1,1);
 	}
 
@@ -226,17 +252,31 @@ public class Model extends Observable implements IModel
 		return DimensionMap.WINDOW_HEIGHT;
 	}
 
-	public Hero getLorann() {
+	public synchronized Hero getLorann() {
 		return Lorann;
 	}
 
-	public void setLorann(Hero lorann) {
+	public synchronized void setLorann(Hero lorann) {
 		Lorann = lorann;
 	}
 
-	public MapGen getMapGen() {
+	public synchronized MapGen getMapGen() {
 		return MapGen;
 	}
+
+	public synchronized Permeabilite getPermea() {
+		return permea;
+	}
+
+	public synchronized void setPermea(Permeabilite permea) {
+		this.permea = permea;
+	}
+
+
+	public MapFinder getMapFinder() {
+		return MapFinder;
+	}
+	
 	
 	
 	

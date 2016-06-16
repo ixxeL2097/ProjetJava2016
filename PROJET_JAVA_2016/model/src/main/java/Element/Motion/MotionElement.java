@@ -20,11 +20,11 @@ public abstract class MotionElement extends Element
 		this.lastY = lastY;
 	}
 
-	public void setX(int currentX) {
+	public synchronized void setX(int currentX) {
 		this.X = currentX;
 	}
 
-	public void setY(int currentY) {
+	public synchronized void setY(int currentY) {
 		this.Y = currentY;
 	}
 
@@ -44,11 +44,11 @@ public abstract class MotionElement extends Element
 		NextY = nextY;
 	}
 
-	public int getX() {
+	public synchronized int getX() {
 		return X;
 	}
 
-	public int getY() {
+	public synchronized int getY() {
 		return Y;
 	}
 

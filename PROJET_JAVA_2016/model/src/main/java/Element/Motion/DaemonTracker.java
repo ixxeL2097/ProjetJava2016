@@ -10,7 +10,7 @@ import Element.Permeabilite;
 import model.Model;
 import Element.Motion.Vector;
 
-public class Daemon extends MotionElement implements Runnable, ActionListener
+public class DaemonTracker extends MotionElement implements Runnable, ActionListener
 {
 	private Random RandomMove;
 	private int RandomSelectMove;
@@ -19,7 +19,7 @@ public class Daemon extends MotionElement implements Runnable, ActionListener
 	private int RandDigit;
 	private Vector vector;
 	
-	public Daemon(Model model, int y , int x) 
+	public DaemonTracker(Model model, int y , int x) 
 	{
 		super("C:/ProjetJava/Sprite/monster_4.png", Permeabilite.ENNEMY);
 		this.MoveTimer = new Timer(600,this);
@@ -264,14 +264,6 @@ public class Daemon extends MotionElement implements Runnable, ActionListener
 			case 7: this.MoveUpLf();	break;
 		}
 	}
-	
-	public Model getModel() {
-		return model;
-	}
-
-	public void setModel(Model model) {
-		this.model = model;
-	}
 
 	public void MoveDaemon(int NextMove_UP_DW, int NextMove_RT_LF)
 	{
@@ -324,6 +316,14 @@ public class Daemon extends MotionElement implements Runnable, ActionListener
 
 	public void setVector(Vector vector) {
 		this.vector = vector;
+	}
+	
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
 	}
 	
 	

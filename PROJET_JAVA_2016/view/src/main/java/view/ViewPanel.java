@@ -44,11 +44,11 @@ class ViewPanel extends JPanel implements Observer
 		JLabelMap = new JLabel [this.getViewFrame().getModel().getDimensionMapY()][this.getViewFrame().getModel().getDimensionMapX()];
 		this.score = new JLabel("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
 		this.ScoreFont = new Font("Arial", Font.BOLD, 15);
-		this.score.setForeground(Color.ORANGE);
-		this.score.setFont(ScoreFont);
-		gbc = new GridBagConstraints();
-		//this.setBackground(Color.BLACK);
-		this.setLayout(new GridBagLayout());		
+		this.getScore().setForeground(Color.ORANGE);
+		this.getScore().setFont(this.getScoreFont());
+		this.gbc = new GridBagConstraints();
+		this.setLayout(new GridBagLayout());	
+		
 		this.initViewPanel();		
 	}
 	
@@ -62,17 +62,17 @@ class ViewPanel extends JPanel implements Observer
 				JLabel sprite = new JLabel();
 				sprite.setIcon(this.getViewFrame().getModel().getImageElement(y, x));
 				this.JLabelMap[y][x]=sprite;
-				this.gbc.gridx = x;
-				this.gbc.gridy = y;
-				this.gbc.gridheight = 1;
-				this.gbc.gridwidth = 1;
+				this.getGbc().gridx = x;
+				this.getGbc().gridy = y;
+				this.getGbc().gridheight = 1;
+				this.getGbc().gridwidth = 1;
 				this.add(sprite, gbc);	
 			}
 		}		
-		this.gbc.gridx = 0;
-		this.gbc.gridy++;
-		this.gbc.gridwidth = 5;
-		this.score.setText("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
+		this.getGbc().gridx = 0;
+		this.getGbc().gridy++;
+		this.getGbc().gridwidth = 5;
+		this.getScore().setText("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
 		this.add(this.score, gbc);		
 		this.getViewFrame().pack();
 		this.setVisible(true);
@@ -109,7 +109,6 @@ class ViewPanel extends JPanel implements Observer
 	{
 		this.removeAll();
 		this.initViewPanel();
-		//this.repaint();
 	}
 
 	/*
@@ -125,4 +124,38 @@ class ViewPanel extends JPanel implements Observer
 		//graphics.clearRect(0, 0, this.getWidth(), this.getHeight());
 		//graphics.drawString(this.getViewFrame().getModel().getMessage(), 10, 20);
 	}
+
+	public JLabel[][] getJLabelMap() {
+		return JLabelMap;
+	}
+
+	public void setJLabelMap(JLabel[][] jLabelMap) {
+		JLabelMap = jLabelMap;
+	}
+
+	public JLabel getScore() {
+		return score;
+	}
+
+	public void setScore(JLabel score) {
+		this.score = score;
+	}
+
+	public GridBagConstraints getGbc() {
+		return gbc;
+	}
+
+	public void setGbc(GridBagConstraints gbc) {
+		this.gbc = gbc;
+	}
+
+	public Font getScoreFont() {
+		return ScoreFont;
+	}
+
+	public void setScoreFont(Font scoreFont) {
+		ScoreFont = scoreFont;
+	}
+	
+	
 }

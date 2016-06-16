@@ -8,12 +8,12 @@ public abstract class Element
 	protected String IconName;
 	protected ImageIcon ElemIcon;
 	
-	public Permeabilite getPermea() 
+	public synchronized Permeabilite getPermea() 
 	{
 		return permea;
 	}
 
-	public void setPermea(Permeabilite permea) 
+	public synchronized void setPermea(Permeabilite permea) 
 	{
 		this.permea = permea;
 	}
@@ -27,11 +27,11 @@ public abstract class Element
 		IconName = iconName;
 	}
 	
-	public ImageIcon getElemIcon() {
+	public synchronized ImageIcon getElemIcon() {
 		return ElemIcon;
 	}
 
-	public void setElemIcon(ImageIcon image) {
+	public synchronized void setElemIcon(ImageIcon image) {
 		this.ElemIcon = image;
 	}
 
@@ -39,9 +39,9 @@ public abstract class Element
 	
 	public Element(String picture, Permeabilite permea)
 	{
-		this.permea=permea;
-		this.IconName=picture;
-		this.ElemIcon= new ImageIcon(picture);
+		this.setPermea(permea);
+		this.setIconName(picture);
+		this.setElemIcon(new ImageIcon(picture)); 
 	}
 
 }

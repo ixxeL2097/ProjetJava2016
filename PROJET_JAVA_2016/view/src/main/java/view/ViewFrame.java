@@ -136,8 +136,8 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
 		//this.setSize(400 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
-		this.setSize(this.model.getD());
-		this.setPreferredSize(this.model.getD());
+		this.setSize(this.getModel().getD());
+		this.setPreferredSize(this.getModel().getD());
 		this.setLocationRelativeTo(null);
 	}
 
@@ -171,11 +171,11 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	{
 		this.timer.stop();
 		int x=0 ,y=0;
-		TreeSet.add(e.getExtendedKeyCode());
-		x=TreeSet.first();
-		if(TreeSet.first() != TreeSet.last())
+		this.getTreeSet().add(e.getExtendedKeyCode());
+		x=this.getTreeSet().first();
+		if(getTreeSet().first() != getTreeSet().last())
 		{
-			y=TreeSet.last();
+			y=getTreeSet().last();
 		}		
 		this.getController().orderPerform(View.keyCodeToControllerOrder(x,y));
 	}
@@ -194,5 +194,14 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	public void actionPerformed(ActionEvent e) {
 		this.getModel().setLorannGIF();
 	}
+
+	public TreeSet<Integer> getTreeSet() {
+		return TreeSet;
+	}
+
+	public void setTreeSet(TreeSet<Integer> treeSet) {
+		TreeSet = treeSet;
+	}
+	
 	
 }

@@ -23,7 +23,7 @@ public class Hero extends MotionElement
 
 	public Hero(int Y, int X) 
 	{
-		super(HERO_MOVE, Permeabilite.HERO);
+		super(HERO_MOVE, Permeabilite.PENETRABLE);
 		this.X=X;
 		this.Y=Y;	
 		this.lastX=X;
