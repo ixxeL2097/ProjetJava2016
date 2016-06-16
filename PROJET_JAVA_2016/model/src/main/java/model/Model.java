@@ -25,7 +25,6 @@ public class Model extends Observable implements IModel
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
-	private DaemonMasterTracker DaemonMaster;
 	private DAOHelloWorld daohelloworld;
 
 	/**
@@ -38,8 +37,6 @@ public class Model extends Observable implements IModel
 		this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
 		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
-		this.DaemonMaster = new DaemonMasterTracker(this, 6,15);
-		this.MapGen.PlaceLorann(this.DaemonMaster);
 	}
 
 
@@ -104,7 +101,7 @@ public class Model extends Observable implements IModel
 		else if(this.permea == Permeabilite.HERO)
 		{
 			System.out.println("T'es MORT!!!");
-			this.DaemonMaster.getMoveTimer().stop();
+			this.StopAllDaemons();
 			this.getLorann().setAlive(false);
 		}
 		this.setChanged();
@@ -124,7 +121,7 @@ public class Model extends Observable implements IModel
 		if(this.getLorann().isHasMoved()==false)
 		{
 			this.getLorann().setHasMoved(true);
-			this.DaemonMaster.run();
+			this.AnimateDaemons();
 		}
 		
 		if(this.getPermea() != Permeabilite.BLOCKING && this.getPermea() != Permeabilite.TRANSLATABLE && this.getPermea() != Permeabilite.LVLCHANGE && this.getPermea() != Permeabilite.VICTORY && this.getPermea() != Permeabilite.CLOSEDGATE)
@@ -211,6 +208,18 @@ public class Model extends Observable implements IModel
 	{
 		this.getLorann().setElemIcon(this.getLorann().getMoveDwRt());
 		this.MoveLorann(1,1);
+	}
+	
+	public synchronized void AnimateDaemons()
+	{
+		this.getMapGen().getSmartTracker().run();
+		this.getMapGen().getStupidTracker().run();
+	}
+	
+	public synchronized void StopAllDaemons()
+	{
+		this.getMapGen().getSmartTracker().getMoveTimer().stop();
+		this.getMapGen().getStupidTracker().getMoveTimer().stop();
 	}
 
 	public int getScore() 

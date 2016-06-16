@@ -16,6 +16,8 @@ public class MapGen
 	private String MapName;
 	private int MapLevel=0;
 	private Model model;
+	private DaemonTracker StupidTracker;
+	private DaemonMasterTracker SmartTracker;
 	
 	public MapGen(String MapName, Model model)
 	{
@@ -112,25 +114,25 @@ public class MapGen
 			{
 				switch(this.map[y][x])
 				{
-					case 'P': this.ElemMtx [y][x] = new Stone();									break;
-					case 'H': this.ElemMtx [y][x] = new HorizontalBone();							break;
-					case 'V': this.ElemMtx [y][x] = new VerticalBone();								break;
-					case 'D': this.ElemMtx [y][x] = new OpenGate();									break;
-					case 'U': this.ElemMtx [y][x] = new ClosedGate();								break;
-					case 'B': this.ElemMtx [y][x] = new Bourse();									break;		  
-					case 'E': this.ElemMtx [y][x] = new EnergyBall();								break;		  
-					case 'C': this.ElemMtx [y][x] = new CandleStick();								break;
-					case 'S': this.ElemMtx [y][x] = new Statue();									break;	
-					case 'x': this.ElemMtx [y][x] = new DaemonTracker(this.getModel(),y,x); 		break;
-					case 'z': this.ElemMtx [y][x] = new DaemonMasterTracker(this.getModel(),y,x); 	break;
-					case '-': this.ElemMtx [y][x] = new Empty();									break;
-					case 'T': this.ElemMtx [y][x] = new Tombe();									break;
-					case 'I': this.ElemMtx [y][x] = new Rip();										break;
-					case 'F': this.ElemMtx [y][x] = new Flacon();									break;
-					case 'K': this.ElemMtx [y][x] = new Charger();									break;
-					case '+': this.ElemMtx [y][x] = new Plus();										break;
-					case '*': this.ElemMtx [y][x] = new Minus();									break;
-					case '0': this.ElemMtx [y][x] = new Number(0);									break;		
+					case 'P': this.ElemMtx [y][x] = new Stone();																				break;
+					case 'H': this.ElemMtx [y][x] = new HorizontalBone();																		break;
+					case 'V': this.ElemMtx [y][x] = new VerticalBone();																			break;
+					case 'D': this.ElemMtx [y][x] = new OpenGate();																				break;
+					case 'U': this.ElemMtx [y][x] = new ClosedGate();																			break;
+					case 'B': this.ElemMtx [y][x] = new Bourse();																				break;		  
+					case 'E': this.ElemMtx [y][x] = new EnergyBall();																			break;		  
+					case 'C': this.ElemMtx [y][x] = new CandleStick();																			break;
+					case 'S': this.ElemMtx [y][x] = new Statue();																				break;	
+					case 'x': this.StupidTracker = new DaemonTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.StupidTracker;				break;
+					case 'z': this.SmartTracker = new DaemonMasterTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.SmartTracker;			break;
+					case '-': this.ElemMtx [y][x] = new Empty();																				break;
+					case 'T': this.ElemMtx [y][x] = new Tombe();																				break;
+					case 'I': this.ElemMtx [y][x] = new Rip();																					break;
+					case 'F': this.ElemMtx [y][x] = new Flacon();																				break;
+					case 'K': this.ElemMtx [y][x] = new Charger();																				break;
+					case '+': this.ElemMtx [y][x] = new Plus();																					break;
+					case '*': this.ElemMtx [y][x] = new Minus();																				break;
+					case '0': this.ElemMtx [y][x] = new Number(0);																				break;		
 					default : break;		
 				}	
 			}
@@ -208,6 +210,22 @@ public class MapGen
 	public synchronized void setElemMtx(Element elemMtx, int y, int x) 
 	{
 		ElemMtx[y][x] = elemMtx;
+	}
+
+	public DaemonTracker getStupidTracker() {
+		return StupidTracker;
+	}
+
+	public void setStupidTracker(DaemonTracker stupidTracker) {
+		StupidTracker = stupidTracker;
+	}
+
+	public DaemonMasterTracker getSmartTracker() {
+		return SmartTracker;
+	}
+
+	public void setSmartTracker(DaemonMasterTracker smartTracker) {
+		SmartTracker = smartTracker;
 	}
 
 

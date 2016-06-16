@@ -27,7 +27,6 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 		this.X=x;
 		this.Y=y;
 		this.RandomMove = new Random();
-		this.run();
 	}
 
 	public void run() 
@@ -324,6 +323,14 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 
 	public void setModel(Model model) {
 		this.model = model;
+	}
+
+	public Timer getMoveTimer() {
+		return MoveTimer;
+	}
+
+	public void setMoveTimer(Timer moveTimer) {
+		MoveTimer = moveTimer;
 	}
 	
 	
