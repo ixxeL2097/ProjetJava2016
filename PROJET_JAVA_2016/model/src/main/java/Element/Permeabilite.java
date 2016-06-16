@@ -11,6 +11,7 @@ public enum Permeabilite
 	VICTORY, 
 	LVLCHANGE, 
 	MONEY, 
-	ENNEMY, 
+	ENNEMY,
+	TRACKER,
 	HERO;
 }

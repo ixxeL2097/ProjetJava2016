@@ -25,7 +25,7 @@ public class Model extends Observable implements IModel
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
-	private DemonOMG DaemonMaster;
+	private DemonMasterTracker DaemonMaster;
 	private DAOHelloWorld daohelloworld;
 
 	/**
@@ -38,7 +38,7 @@ public class Model extends Observable implements IModel
 		this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
 		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
-		this.DaemonMaster = new DemonOMG(15, 6, this);
+		this.DaemonMaster = new DemonMasterTracker(15, 6, this);
 		this.MapGen.PlaceLorann(this.DaemonMaster);
 	}
 
@@ -101,6 +101,12 @@ public class Model extends Observable implements IModel
 			System.out.println("BLOCKED");
 			//daemon.DefaultDaemonMove();
 		}
+		else if(this.permea == Permeabilite.HERO)
+		{
+			System.out.println("T'es MORT!!!");
+			this.DaemonMaster.getMoveTimer().stop();
+			this.getLorann().setAlive(false);
+		}
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -114,6 +120,12 @@ public class Model extends Observable implements IModel
 		x1=this.getLorann().getX();
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
+		
+		if(this.getLorann().isHasMoved()==false)
+		{
+			this.getLorann().setHasMoved(true);
+			this.DaemonMaster.run();
+		}
 		
 		if(this.getPermea() != Permeabilite.BLOCKING && this.getPermea() != Permeabilite.TRANSLATABLE && this.getPermea() != Permeabilite.LVLCHANGE && this.getPermea() != Permeabilite.VICTORY && this.getPermea() != Permeabilite.CLOSEDGATE)
 		{
@@ -151,7 +163,6 @@ public class Model extends Observable implements IModel
 		}	
 		this.setChanged();
 		this.notifyObservers();	
-		this.DaemonMaster.run();
 	}
 
 	public void MoveUP() 
@@ -274,6 +285,12 @@ public class Model extends Observable implements IModel
 
 	public void setDaohelloworld(DAOHelloWorld daohelloworld) {
 		this.daohelloworld = daohelloworld;
+	}
+
+
+	public boolean getLorannStatus() 
+	{
+		return this.getLorann().isAlive();
 	}
 
 	

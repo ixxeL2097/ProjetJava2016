@@ -15,15 +15,15 @@ public class Hero extends MotionElement
 	private ImageIcon MoveUpLf;
 	private ImageIcon MoveDwLf;
 	private ImageIcon LorannGIF;
-	
-	//private boolean alive = true ;
+	protected boolean HasMoved = false;
+	protected boolean Alive ;
 	
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
 
 	public Hero(int Y, int X) 
 	{
-		super(HERO_MOVE, Permeabilite.BLOCKING);
+		super(HERO_MOVE, Permeabilite.HERO);
 		this.X=X;
 		this.Y=Y;	
 		this.lastX=X;
@@ -37,6 +37,7 @@ public class Hero extends MotionElement
 		this.MoveUpLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_ul.png");
 		this.MoveDwLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
 		this.LorannGIF = new ImageIcon("C:/ProjetJava/Sprite/lorann.gif");
+		this.setAlive(true);
 	}
 
 	public ImageIcon getMoveUp() {
@@ -74,6 +75,23 @@ public class Hero extends MotionElement
 	public ImageIcon getLorannGIF() {
 		return LorannGIF;
 	}
+
+	public boolean isHasMoved() {
+		return HasMoved;
+	}
+
+	public void setHasMoved(boolean hasMoved) {
+		HasMoved = hasMoved;
+	}
+
+	public boolean isAlive() {
+		return Alive;
+	}
+
+	public void setAlive(boolean alive) {
+		Alive = alive;
+	}
+	
 	
 	
 	

@@ -49,4 +49,5 @@ public interface IModel
 	
 	int getScore();
 	void setScore(int score);
+	boolean getLorannStatus();
 }

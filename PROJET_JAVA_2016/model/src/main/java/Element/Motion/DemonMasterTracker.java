@@ -11,20 +11,20 @@ import PathFinder.PathFinder2;
 import model.DimensionMap;
 import model.Model;
 
-public class DemonOMG extends MotionElement implements Runnable, ActionListener
+public class DemonMasterTracker extends MotionElement implements Runnable, ActionListener
 {
-	public Model model;
-	public Timer MoveTimer;
-	public PathFinder2 path;
-	public boolean[][] walkable;
-	public int[][] pathWay;
+	private Model model;
+	private Timer MoveTimer;
+	private PathFinder2 path;
+	private boolean[][] walkable;
+	private int[][] pathWay;
 
-	public DemonOMG(int x, int y, Model model) 
+	public DemonMasterTracker(int x, int y, Model model) 
 	{
-		super("C:/ProjetJava/Sprite/monster_1.png", Permeabilite.PENETRABLE);
+		super("C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);
 		
 		this.setModel(model); 
-		this.MoveTimer=new Timer(750,this);
+		this.MoveTimer=new Timer(350,this);
 		this.X=x;
 		this.Y=y;
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
@@ -41,9 +41,6 @@ public class DemonOMG extends MotionElement implements Runnable, ActionListener
 		
 		this.GenerateBooleanMtx();
 		this.setPathWay(this.getPath().findPath(x, y, k, j, this.getWalkable()));
-		
-		System.out.println(pathWay[1][1]);
-		System.out.println(pathWay[1][0]);
 		this.getModel().MoveDaemon(pathWay[0][1], pathWay[0][0], this);
 	}
 
@@ -59,7 +56,7 @@ public class DemonOMG extends MotionElement implements Runnable, ActionListener
 		{
 			for(x=0; x<DimensionMap.X; x++)
 			{
-				if(this.getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.PENETRABLE)
+				if(this.getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.TRACKER)
 				{
 					this.walkable[y][x]=true;
 				}
@@ -69,18 +66,6 @@ public class DemonOMG extends MotionElement implements Runnable, ActionListener
 				}
 			}
 		}
-		/*System.out.print(" WALKABLE DEMON ");
-		for(y=0; y<DimensionMap.Y; y++)
-		{
-			x=0;
-			System.out.println("");
-			for(x=0; x<DimensionMap.X; x++)
-			{
-				System.out.print(walkable[y][x]+" ");
-			}
-		}
-		System.out.println();
-		System.out.print(" WALKABLE DEMON FIN // END ");*/
 	}
 
 	public synchronized Model getModel() {
@@ -114,7 +99,17 @@ public class DemonOMG extends MotionElement implements Runnable, ActionListener
 	public synchronized void setPathWay(int[][] pathWay) {
 		this.pathWay = pathWay;
 	}
+
+	public Timer getMoveTimer() {
+		return MoveTimer;
+	}
+
+	public void setMoveTimer(Timer moveTimer) {
+		MoveTimer = moveTimer;
+	}
 	
+	
+
 	
 
 }

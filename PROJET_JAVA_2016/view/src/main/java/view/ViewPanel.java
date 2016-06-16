@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -23,6 +24,8 @@ class ViewPanel extends JPanel implements Observer
 	private ViewFrame					viewFrame;
 	private JLabel [][] JLabelMap;
 	private JLabel score;
+	private JLabel GameOver;
+	private String gameOver="C:/ProjetJava/Sprite/GameOver4.gif";
 	private GridBagConstraints gbc; 
 	private Font ScoreFont;
 	/** The Constant serialVersionUID. */
@@ -78,6 +81,11 @@ class ViewPanel extends JPanel implements Observer
 		this.setVisible(true);
 		this.repaint();
 	}
+	
+	public void GameOver()
+	{
+		
+	}
 
 	/**
 	 * Gets the view frame.
@@ -107,8 +115,20 @@ class ViewPanel extends JPanel implements Observer
 	 */
 	public void update(final Observable arg0, final Object arg1) 
 	{
-		this.removeAll();
-		this.initViewPanel();
+		if(this.getViewFrame().getModel().getLorannStatus()==false)
+		{
+			this.removeAll();
+			this.repaint();	
+			this.setLayout(null);
+			this.GameOver = new JLabel(new ImageIcon(this.gameOver));
+			this.GameOver.setBounds(0, 0, this.getWidth(), this.getHeight());
+			this.add(this.GameOver);
+		}
+		else
+		{
+			this.removeAll();
+			this.initViewPanel();
+		}
 	}
 
 	/*

@@ -2,7 +2,6 @@ package model;
 
 import java.io.*;
 import Element.*;
-import Element.Motion.DaemonMaster;
 import Element.Motion.DaemonTracker;
 import Element.Motion.MotionElement;
 import Element.MotionLess.*;
