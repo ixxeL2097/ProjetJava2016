@@ -144,7 +144,7 @@ public class MapGen
 					case 'w': this.BrainLessTracker = new DaemonRandom(this.getModel(),y,x); this.ElemMtx [y][x]=this.BrainLessTracker;			break;
 					case 'x': this.StupidTracker = new DaemonTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.StupidTracker;				break;
 					case 'z': this.SmartTracker = new DaemonMasterTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.SmartTracker;			break;
-					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.map[y][x]), y, x);	                                break;		
+					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.map[y][x]), y, x);	                            break;		
 				}	
 			}
 		}		
@@ -162,17 +162,16 @@ public class MapGen
 		{
 			for(x=0; x<DimensionMap.X; x++)
 			{
-				if(this.ElemMtx[y][x] instanceof ClosedGate)
+				if(this.ElemMtx[y][x] == MotionLessElemFACTORY.CLOSEDGATE)	//instanceof ClosedGate
 				{
-					this.ElemMtx [y][x] = new OpenGate();
+					this.ElemMtx [y][x] = MotionLessElemFACTORY.OPENGATE;	
 				}
-				else if(this.ElemMtx[y][x] instanceof Rip)
+				else if(this.ElemMtx[y][x] == MotionLessElemFACTORY.RIP)	//instanceof Rip
 				{
-					this.ElemMtx [y][x] = new Empty();
+					this.ElemMtx [y][x] = MotionLessElemFACTORY.EMPTY;
 				}
 			}
-		}	
-		
+		}		
 	}
 	
 	public void DestroyDaemons()

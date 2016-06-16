@@ -2,7 +2,7 @@ package Element.MotionLess;
 
 import Element.*;
 
-public class OpenGate extends MotionLessElem 
+class OpenGate extends MotionLessElem 
 {
 
 	public OpenGate() 

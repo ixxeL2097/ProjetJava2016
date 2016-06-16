@@ -2,7 +2,7 @@ package Element.MotionLess;
 
 import Element.*;
 
-public class Rip extends MotionLessElem {
+class Rip extends MotionLessElem {
 
 	public Rip() 
 	{

@@ -6,7 +6,7 @@ import java.util.Observable;
 
 import Element.Permeabilite;
 import Element.Motion.*;
-import Element.MotionLess.Empty;
+import Element.MotionLess.MotionLessElemFACTORY;
 
 import javax.swing.ImageIcon;
 
@@ -90,7 +90,7 @@ public class Model extends Observable implements IModel
 		if(this.permea == Permeabilite.PENETRABLE)
 		{
 			this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y1,x1 ), y, x);
-			this.getMapGen().setElemMtx(new Empty(), y1, x1);
+			this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, y1, x1);
 			daemon.setY(daemon.getY()+UP_DWN);
 			daemon.setX(daemon.getX()+RGT_LFT);		
 		}
@@ -138,7 +138,7 @@ public class Model extends Observable implements IModel
 				default:	break;
 			}
 			this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y1,x1), y, x);
-			this.getMapGen().setElemMtx(new Empty(), y1, x1);
+			this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, y1, x1);
 			this.getLorann().setY(y);
 			this.getLorann().setX(x);
 		}
@@ -147,7 +147,7 @@ public class Model extends Observable implements IModel
 			if(this.getMapGen().getElemMtx(y+UP_DWN,x+RGT_LFT).getPermea()==Permeabilite.PENETRABLE)
 			{
 				this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y,x), y+UP_DWN, x+RGT_LFT);
-				this.getMapGen().setElemMtx(new Empty(), y, x);
+				this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, y, x);
 			}
 		}
 		else if(this.getPermea() == Permeabilite.LVLCHANGE)

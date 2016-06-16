@@ -1,7 +1,7 @@
 package Element.MotionLess;
 import Element.*;
 
-public class Empty extends MotionLessElem {
+class Empty extends MotionLessElem {
 
 	public Empty() 
 	{
