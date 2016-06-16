@@ -177,16 +177,34 @@ public class Model extends Observable implements IModel
 
 	public synchronized void AnimateDaemons()
 	{
-		this.getMapGen().getSmartTracker().run();
-		this.getMapGen().getStupidTracker().run();
-		this.getMapGen().getBrainLessTracker().run();
+		if(this.getMapGen().getSmartTracker() != null)
+		{
+			this.getMapGen().getSmartTracker().run();
+		}
+		if(this.getMapGen().getStupidTracker() != null)
+		{
+			this.getMapGen().getStupidTracker().run();
+		}
+		if(this.getMapGen().getBrainLessTracker() != null)
+		{
+			this.getMapGen().getBrainLessTracker().run();
+		}
 	}
 	
 	public synchronized void StopAllDaemons()
 	{
-		this.getMapGen().getSmartTracker().getMoveTimer().stop();
-		this.getMapGen().getStupidTracker().getMoveTimer().stop();
-		this.getMapGen().getBrainLessTracker().getMoveTimer().stop();
+		if(this.getMapGen().getSmartTracker() != null)
+		{
+			this.getMapGen().getSmartTracker().getMoveTimer().stop();
+		}
+		if(this.getMapGen().getStupidTracker() != null)
+		{
+			this.getMapGen().getStupidTracker().getMoveTimer().stop();
+		}
+		if(this.getMapGen().getBrainLessTracker() != null)
+		{
+			this.getMapGen().getBrainLessTracker().getMoveTimer().stop();
+		}	
 	}
 
 	public void MoveUP() 
