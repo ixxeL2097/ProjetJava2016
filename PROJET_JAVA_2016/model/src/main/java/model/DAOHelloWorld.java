@@ -12,6 +12,11 @@ import java.sql.Statement;
  * @author Jean-Aymeric Diet
  */
 class DAOHelloWorld extends DAOEntity<HelloWorld> {
+	
+	int dbX = 0;
+	int dbY = 0;
+	String dbS;
+
 
 	/**
 	 * Instantiates a new DAO hello world.
@@ -58,56 +63,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#find(int)
-	 */
-	@Override
-	public HelloWorld find(final int id) {
-		HelloWorld helloWorld = new HelloWorld();
 
-		try {
-			final String sql = "{call helloworldById(?)}";
-			final CallableStatement call = this.getConnection().prepareCall(sql);
-			call.setInt(1, id);
-			call.execute();
-			final ResultSet resultSet = call.getResultSet();
-			if (resultSet.first()) {
-				helloWorld = new HelloWorld(id, resultSet.getString("key"), resultSet.getString("message"));
-			}
-			return helloWorld;
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see model.DAOEntity#find(java.lang.String)
-	 */
-	@Override
-	public HelloWorld find(final String key) {
-		HelloWorld helloWorld = new HelloWorld();
-
-		try {
-			final String sql = "{call helloworldByKey(?)}";
-			final CallableStatement call = this.getConnection().prepareCall(sql);
-			call.setString(1, key);
-			call.execute();
-			final ResultSet resultSet = call.getResultSet();
-			if (resultSet.first()) {
-				helloWorld = new HelloWorld(resultSet.getInt("id"), key, resultSet.getString("message"));
-			}
-			return helloWorld;
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
 	public HelloWorld addMapBdd(int i, int x, int y, char c)
 	{
 		try 
@@ -128,5 +84,56 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 			
 		}
 		return null;
+	}
+	
+	public HelloWorld DataFromDB(int i, int x, int y)
+	{
+		
+		try
+		{
+			final String db_data = "{call DataFromDB(?,?,?)}";
+			final CallableStatement callproc2 = this.getConnection().prepareCall(db_data);
+			callproc2.setInt(1, i);
+			callproc2.setInt(2, x);
+			callproc2.setInt(3, y);
+			callproc2.execute();
+			final ResultSet resultSet = callproc2.getResultSet();
+			if(resultSet.first())
+			{
+				dbS = resultSet.getString("Char_Sprite");	
+			}
+		}
+
+		catch (final SQLException e)
+		{
+			e.printStackTrace ();
+		
+		}
+		return null;
+
+	}
+
+	@Override
+	public HelloWorld find(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HelloWorld find(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public int getDbX() {
+		return dbX;
+	}
+
+	public int getDbY() {
+		return dbY;
+	}
+
+	public String getDbS() {
+		return dbS;
 	}
 }

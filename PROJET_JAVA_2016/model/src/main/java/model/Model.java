@@ -32,11 +32,12 @@ public class Model extends Observable implements IModel
 	 */
 	public Model() 
 	{
-		//this.loadMessage();		
+		this.loadMessage();		
 		this.MapFinder = new MapFinder();
 		this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
 		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
+
 	}
 
 
@@ -98,6 +99,7 @@ public class Model extends Observable implements IModel
 			System.out.println("BLOCKED");
 			//daemon.DefaultDaemonMove();
 		}
+		
 		else if(this.permea == Permeabilite.HERO)
 		{
 			System.out.println("T'es MORT!!!");
@@ -118,8 +120,7 @@ public class Model extends Observable implements IModel
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
-		if(this.getLorann().isHasMoved()==false)
-		{
+		if(this.getLorann().isHasMoved()==false){
 			this.getLorann().setHasMoved(true);
 			this.AnimateDaemons();
 		}
@@ -209,18 +210,6 @@ public class Model extends Observable implements IModel
 		this.getLorann().setElemIcon(this.getLorann().getMoveDwRt());
 		this.MoveLorann(1,1);
 	}
-	
-	public synchronized void AnimateDaemons()
-	{
-		this.getMapGen().getSmartTracker().run();
-		this.getMapGen().getStupidTracker().run();
-	}
-	
-	public synchronized void StopAllDaemons()
-	{
-		this.getMapGen().getSmartTracker().getMoveTimer().stop();
-		this.getMapGen().getStupidTracker().getMoveTimer().stop();
-	}
 
 	public int getScore() 
 	{
@@ -297,11 +286,21 @@ public class Model extends Observable implements IModel
 	}
 
 
-	public boolean getLorannStatus() 
-	{
+	public boolean getLorannStatus() {
 		return this.getLorann().isAlive();
 	}
 
+	public synchronized void AnimateDaemons()
+	{
+		this.getMapGen().getSmartTracker().run();
+		this.getMapGen().getStupidTracker().run();
+	}
+	
+	public synchronized void StopAllDaemons()
+	{
+		this.getMapGen().getSmartTracker().getMoveTimer().stop();
+		this.getMapGen().getStupidTracker().getMoveTimer().stop();
+	}
 	
 	
 }

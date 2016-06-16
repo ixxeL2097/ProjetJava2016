@@ -28,6 +28,7 @@ public class MapGen
 		
 		this.CreateMap();
 		this.ConsoleMap();
+		this.tabMapFromDB();
 		this.createModel();
 	}
 	
@@ -69,7 +70,7 @@ public class MapGen
 	               if(x<DimensionMap.X && bit != 10 )
 	               {
 	            	   map [y][x]= (char)bit;
-	            	   //this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
+	            	   this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)
@@ -103,6 +104,30 @@ public class MapGen
 	            e.printStackTrace();
 	         }     
 	      }
+	}
+	
+	public void tabMapFromDB(){
+		int i=0, x=0, y=0;
+		String s, u;
+		char c;
+        s = MapName.substring(25, 26);
+        i = Integer.parseInt(s);
+
+        
+        for(x=0; x<19; x++){
+        	
+        	for(y=0; y<11; y++){
+        		
+        		getModel().getDaohelloworld().DataFromDB(i,x,y);
+        		u = getModel().getDaohelloworld().getDbS();
+        		c = u.charAt(0);
+        		map[y][x] = c;
+        		System.out.println(map[y][x]);
+
+        	}
+            
+        }
+        
 	}
 	
 	public void createModel()
@@ -173,6 +198,7 @@ public class MapGen
 	public void ResetWelcomeMenu(MotionElement Lorann)
 	{
 		this.CreateMap();
+		this.tabMapFromDB();
 		this.createModel();	
 		Lorann.setX(9);
 		Lorann.setY(1);
