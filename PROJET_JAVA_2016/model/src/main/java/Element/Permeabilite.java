@@ -8,7 +8,7 @@ public enum Permeabilite
 	DEATH, 
 	ENERGY, 
 	CLOSEDGATE,
-	VICTORY, 
+	GATE, 
 	LVLCHANGE, 
 	MONEY, 
 	TRACKER,

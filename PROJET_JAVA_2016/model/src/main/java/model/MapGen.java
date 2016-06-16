@@ -21,10 +21,11 @@ public class MapGen
 	private DaemonMasterTracker SmartTracker;
 	private DaemonRandom BrainLessTracker;
 	
-	public MapGen(String MapName, Model model)
+	public MapGen(int MapNumber, Model model)
 	{
-		this.setMapName(MapName); 
+		this.setMapLevel(MapNumber);		
 		this.setModel(model);
+		this.setMapName(this.getModel().getMapFinder().getMap(this.getMapLevel())); 
 		this.map = new char[DimensionMap.Y][DimensionMap.X];
 		this.ElemMtx = new Element [DimensionMap.Y][DimensionMap.X];
 		
@@ -185,10 +186,16 @@ public class MapGen
 		
 	}
 	
-	public void ChangeLevelMap(int digit)
+	public void DestroyDaemons()
 	{
-		this.MapLevel = this.MapLevel-digit;
-		this.ElemMtx[6][3] = new Number(MapLevel);
+		this.setBrainLessTracker(null);
+		this.setStupidTracker(null);
+		this.setSmartTracker(null);		
+	}
+	
+	public void ChangeLevelMap()
+	{
+		this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder());
 	}
 	
 	public void PlaceLorann(MotionElement elem)

@@ -26,6 +26,7 @@ public class Model extends Observable implements IModel
 	private Permeabilite permea;
 	private int score=0;
 	private DAOHelloWorld daohelloworld;
+	private int LevelMapOrder=0;
 
 	/**
 	 * Instantiates a new model.
@@ -34,7 +35,8 @@ public class Model extends Observable implements IModel
 	{
 		//this.loadMessage();		
 		this.MapFinder = new MapFinder();
-		this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
+		//this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
+		this.MapGen = new MapGen(this.getLevelMapOrder(),this);
 		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
 	}
@@ -118,9 +120,11 @@ public class Model extends Observable implements IModel
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
-		System.out.println(this.getMapGen().getMapLevel());
+		System.out.println(" Level dans le model: "+this.getLevelMapOrder());
+		System.out.println(" Level dans le mapgen: "+this.getMapGen().getMapLevel());
+		System.out.println(this.getLorann().isHasMoved());
 		
-		if(this.getLorann().isHasMoved()==false)
+		if(this.getLorann().isHasMoved()==false && this.getMapGen().getMapLevel() != 0)
 		{
 			this.getLorann().setHasMoved(true);
 			this.AnimateDaemons();
@@ -132,7 +136,7 @@ public class Model extends Observable implements IModel
 			{
 				case ENERGY:
 						this.getMapGen().UnlockGate();
-						this.getMapGen().setMapLevel(0);
+						this.setLevelMapOrder(0);
 						break;
 				case MONEY:
 						this.setScore(this.getScore()+650);
@@ -153,18 +157,23 @@ public class Model extends Observable implements IModel
 		}
 		else if(this.getPermea() == Permeabilite.LVLCHANGE)
 		{
-			this.getMapGen().ChangeLevelMap(UP_DWN);
+			this.setLevelMapOrder(this.getLevelMapOrder()-UP_DWN);
+			this.getMapGen().ChangeLevelMap();
 		}
-		else if(this.getPermea() == Permeabilite.VICTORY)
+		else if(this.getPermea() == Permeabilite.GATE)
 		{
-			this.getMapGen().setMapName(this.getMapFinder().getMap(this.getMapGen().getMapLevel()));
-			this.getMapGen().ResetWelcomeMenu(this.getLorann());
 			this.StopAllDaemons();
+			this.getMapGen().DestroyDaemons();
+			this.getMapGen().setMapLevel(this.getLevelMapOrder());
+			this.getMapGen().setMapName(this.getMapFinder().getMap(this.getMapGen().getMapLevel()));
+			this.getMapGen().ResetWelcomeMenu(this.getLorann());				
+			this.getLorann().setHasMoved(false);		
 		}	
 		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.DEATH || this.getPermea() == Permeabilite.CLOSEDGATE)
 		{
 			System.out.println("T'es MORT!!!");
 			this.StopAllDaemons();
+			this.getMapGen().DestroyDaemons();
 			this.getLorann().setAlive(false);
 		}
 		this.setChanged();
@@ -327,6 +336,14 @@ public class Model extends Observable implements IModel
 
 	public void setDaohelloworld(DAOHelloWorld daohelloworld) {
 		this.daohelloworld = daohelloworld;
+	}
+
+	public int getLevelMapOrder() {
+		return LevelMapOrder;
+	}
+
+	public void setLevelMapOrder(int levelMapOrder) {
+		LevelMapOrder = levelMapOrder;
 	}
 	
 	
