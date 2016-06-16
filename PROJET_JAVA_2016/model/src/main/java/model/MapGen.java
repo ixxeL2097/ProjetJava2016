@@ -3,6 +3,7 @@ package model;
 import java.io.*;
 import Element.*;
 import Element.Motion.DaemonMasterTracker;
+import Element.Motion.DaemonRandom;
 import Element.Motion.DaemonTracker;
 import Element.Motion.MotionElement;
 import Element.MotionLess.*;
@@ -18,7 +19,7 @@ public class MapGen
 	private Model model;
 	private DaemonTracker StupidTracker;
 	private DaemonMasterTracker SmartTracker;
-	//private DaemonBrainLess BrainLessTracker;
+	private DaemonRandom BrainLessTracker;
 	
 	public MapGen(String MapName, Model model)
 	{
@@ -146,9 +147,7 @@ public class MapGen
 					case 'B': this.ElemMtx [y][x] = new Bourse();																				break;		  
 					case 'E': this.ElemMtx [y][x] = new EnergyBall();																			break;		  
 					case 'C': this.ElemMtx [y][x] = new CandleStick();																			break;
-					case 'S': this.ElemMtx [y][x] = new Statue();																				break;	
-					case 'x': this.StupidTracker = new DaemonTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.StupidTracker;				break;
-					case 'z': this.SmartTracker = new DaemonMasterTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.SmartTracker;			break;
+					case 'S': this.ElemMtx [y][x] = new Statue();																				break;						
 					case '-': this.ElemMtx [y][x] = new Empty();																				break;
 					case 'T': this.ElemMtx [y][x] = new Tombe();																				break;
 					case 'I': this.ElemMtx [y][x] = new Rip();																					break;
@@ -156,7 +155,10 @@ public class MapGen
 					case 'K': this.ElemMtx [y][x] = new Charger();																				break;
 					case '+': this.ElemMtx [y][x] = new Plus();																					break;
 					case '*': this.ElemMtx [y][x] = new Minus();																				break;
-					case '0': this.ElemMtx [y][x] = new Number(0);																				break;		
+					case '0': this.ElemMtx [y][x] = new Number(0);																				break;
+					case 'w': this.BrainLessTracker = new DaemonRandom(this.getModel(),y,x); this.ElemMtx [y][x]=this.BrainLessTracker;			break;
+					case 'x': this.StupidTracker = new DaemonTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.StupidTracker;				break;
+					case 'z': this.SmartTracker = new DaemonMasterTracker(this.getModel(),y,x); this.ElemMtx [y][x]=this.SmartTracker;			break;
 					default : break;		
 				}	
 			}
@@ -251,6 +253,14 @@ public class MapGen
 
 	public void setSmartTracker(DaemonMasterTracker smartTracker) {
 		SmartTracker = smartTracker;
+	}
+
+	public DaemonRandom getBrainLessTracker() {
+		return BrainLessTracker;
+	}
+
+	public void setBrainLessTracker(DaemonRandom brainLessTracker) {
+		BrainLessTracker = brainLessTracker;
 	}
 
 

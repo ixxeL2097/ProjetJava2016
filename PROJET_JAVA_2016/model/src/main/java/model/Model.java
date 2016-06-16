@@ -76,7 +76,7 @@ public class Model extends Observable implements IModel
 		this.notifyObservers();
 	}
 	
-	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, MotionElement daemon)
+	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, Daemon daemon)
 	{
 		int y, x, y1, x1;
 		y=daemon.getY()+UP_DWN;
@@ -96,7 +96,7 @@ public class Model extends Observable implements IModel
 		else if(this.permea == Permeabilite.BLOCKING)
 		{
 			System.out.println("BLOCKED");
-			//daemon.DefaultDaemonMove();
+			daemon.DefaultDaemonMove();
 		}		
 		else if(this.permea == Permeabilite.HERO)
 		{
@@ -169,6 +169,24 @@ public class Model extends Observable implements IModel
 		}
 		this.setChanged();
 		this.notifyObservers();	
+	}
+	
+	public boolean getLorannStatus() {
+		return this.getLorann().isAlive();
+	}
+
+	public synchronized void AnimateDaemons()
+	{
+		this.getMapGen().getSmartTracker().run();
+		this.getMapGen().getStupidTracker().run();
+		this.getMapGen().getBrainLessTracker().run();
+	}
+	
+	public synchronized void StopAllDaemons()
+	{
+		this.getMapGen().getSmartTracker().getMoveTimer().stop();
+		this.getMapGen().getStupidTracker().getMoveTimer().stop();
+		this.getMapGen().getBrainLessTracker().getMoveTimer().stop();
 	}
 
 	public void MoveUP() 
@@ -291,23 +309,6 @@ public class Model extends Observable implements IModel
 
 	public void setDaohelloworld(DAOHelloWorld daohelloworld) {
 		this.daohelloworld = daohelloworld;
-	}
-
-
-	public boolean getLorannStatus() {
-		return this.getLorann().isAlive();
-	}
-
-	public synchronized void AnimateDaemons()
-	{
-		this.getMapGen().getSmartTracker().run();
-		this.getMapGen().getStupidTracker().run();
-	}
-	
-	public synchronized void StopAllDaemons()
-	{
-		this.getMapGen().getSmartTracker().getMoveTimer().stop();
-		this.getMapGen().getStupidTracker().getMoveTimer().stop();
 	}
 	
 	

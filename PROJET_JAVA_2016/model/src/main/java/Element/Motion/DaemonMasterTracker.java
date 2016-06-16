@@ -6,27 +6,23 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import Element.Permeabilite;
-import Element.Motion.MotionElement;
 import PathFinder.PathFinder;
 import model.DimensionMap;
 import model.Model;
 
-public class DaemonMasterTracker extends MotionElement implements Runnable, ActionListener
+public class DaemonMasterTracker extends Daemon implements Runnable, ActionListener
 {
-	private Model model;
-	private Timer MoveTimer;
 	private PathFinder path;
 	private boolean[][] walkable;
 	private int[][] pathWay;
 
 	public DaemonMasterTracker(Model model, int y , int x) 
 	{
-		super("C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);
+		super(model, "C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);
 		
-		this.setModel(model); 
-		this.MoveTimer=new Timer(1500,this);
-		this.X=x;
-		this.Y=y;
+		this.MoveTimer=new Timer(450,this);
+		this.setX(x);
+		this.setY(y);
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
 		this.pathWay = new int [DimensionMap.Y][DimensionMap.X]; 
 		this.path = new PathFinder();
@@ -66,14 +62,6 @@ public class DaemonMasterTracker extends MotionElement implements Runnable, Acti
 				}
 			}
 		}
-	}
-
-	public synchronized Model getModel() {
-		return model;
-	}
-	
-	public void setModel(Model model) {
-		this.model = model;
 	}
 
 	public synchronized PathFinder getPath() {
