@@ -7,7 +7,7 @@ import javax.swing.Timer;
 
 import Element.Permeabilite;
 import Element.Motion.MotionElement;
-import PathFinder.PathFinder2;
+import PathFinder.PathFinder;
 import model.DimensionMap;
 import model.Model;
 
@@ -15,7 +15,7 @@ public class DaemonMasterTracker extends MotionElement implements Runnable, Acti
 {
 	private Model model;
 	private Timer MoveTimer;
-	private PathFinder2 path;
+	private PathFinder path;
 	private boolean[][] walkable;
 	private int[][] pathWay;
 
@@ -29,7 +29,7 @@ public class DaemonMasterTracker extends MotionElement implements Runnable, Acti
 		this.Y=y;
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
 		this.pathWay = new int [DimensionMap.Y][DimensionMap.X]; 
-		this.path = new PathFinder2();
+		this.path = new PathFinder();
 	}
 
 	public void actionPerformed(ActionEvent e) 
@@ -76,11 +76,11 @@ public class DaemonMasterTracker extends MotionElement implements Runnable, Acti
 		this.model = model;
 	}
 
-	public synchronized PathFinder2 getPath() {
+	public synchronized PathFinder getPath() {
 		return path;
 	}
 
-	public void setPath(PathFinder2 path) {
+	public void setPath(PathFinder path) {
 		this.path = path;
 	}
 
