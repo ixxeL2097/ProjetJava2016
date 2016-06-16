@@ -26,12 +26,14 @@ public class Model extends Observable implements IModel
 	private Permeabilite permea;
 	private int score=0;
 	private DemonOMG DaemonMaster;
+	private DAOHelloWorld daohelloworld;
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() 
 	{
+		this.loadMessage();		
 		this.MapFinder = new MapFinder();
 		this.MapGen = new MapGen(this.getMapFinder().getMap(0), this);	
 		this.Lorann = new Hero(5,8);
@@ -53,14 +55,16 @@ public class Model extends Observable implements IModel
 			System.out.println("\n");
 			System.out.println("Connection Database ...");
 			
-			final DAOHelloWorld daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			daohelloworld.ConnectDB();
+			this.daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
+			
 		} 
 		catch (final SQLException e) 
 		{
 			e.printStackTrace();
 		}
 	}
+
+
 
 	/*
 	 * (non-Javadoc)
@@ -277,7 +281,15 @@ public class Model extends Observable implements IModel
 		return MapFinder;
 	}
 	
-	
+	public DAOHelloWorld getDaohelloworld() {
+		return daohelloworld;
+	}
+
+
+	public void setDaohelloworld(DAOHelloWorld daohelloworld) {
+		this.daohelloworld = daohelloworld;
+	}
+
 	
 	
 }

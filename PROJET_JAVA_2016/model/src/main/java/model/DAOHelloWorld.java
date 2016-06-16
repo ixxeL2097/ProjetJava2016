@@ -108,28 +108,25 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 		return null;
 	}
 	
-public HelloWorld ConnectDB(){
-		
-		Statement st;
-		ResultSet resultSet;
-		
-		
-		try
+	public HelloWorld addMapBdd(int i, int x, int y, char c)
+	{
+		try 
 		{
-			st = getConnection().createStatement();
-			resultSet = st.executeQuery("SELECT ID_Map_lvl FROM map");
+			final String db_addmap = "{call AjoutMap(?,?,?,?)}";
+			final CallableStatement call = this.getConnection().prepareCall(db_addmap);
 			
-			while(resultSet.next())
-			{
-				System.out.println("ID Maps : " + resultSet.getString("ID_Map_lvl"));
-			}
+			call.setInt(1, i);
+			call.setInt(2, x);
+			call.setInt(3, y);
+			call.setString(4, Character.toString(c));
+			
+			call.execute();
 		}
-		
-		catch(Exception e)
+		catch (final SQLException e)
 		{
-			System.out.println("Impossible de se connecter à la base de données ou mauvaise requête (synthax error");
+			e.printStackTrace ();
+			
 		}
 		return null;
 	}
-
 }
