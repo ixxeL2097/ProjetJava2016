@@ -45,10 +45,10 @@ final class DBConnection {
 	 * @return the boolean
 	 */
 	private Boolean open() {
-		final DBProperties dbProperties = new DBProperties();
+		//final DBProperties dbProperties = new DBProperties();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection(dbProperties.getUrl(), dbProperties.getLogin(), dbProperties.getPassword());
+			this.connection = DriverManager.getConnection("jdbc:mysql://10.162.128.237:3307/jpu2016project","invite","motdepasse");
 		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (final SQLException e) {

@@ -75,7 +75,6 @@ public class MapGen
 	            	   y++;
 	            	   x=0;
 	            	   map [y][x] = (char)bit;
-	            	   this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
 	               }
 	            }
 	            buf = new byte[8];  				  //Nous réinitialisons le buffer à vide au cas où les derniers byte lus ne soient pas un multiple de 8 Ceci permet d'avoir un buffer vierge à chaque lecture et ne pas avoir de doublon en fin de fichier
