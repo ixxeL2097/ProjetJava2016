@@ -32,12 +32,11 @@ public class Model extends Observable implements IModel
 	 */
 	public Model() 
 	{
-		this.loadMessage();		
+		//this.loadMessage();		
 		this.MapFinder = new MapFinder();
 		this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
 		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
-
 	}
 
 
@@ -98,8 +97,7 @@ public class Model extends Observable implements IModel
 		{
 			System.out.println("BLOCKED");
 			//daemon.DefaultDaemonMove();
-		}
-		
+		}		
 		else if(this.permea == Permeabilite.HERO)
 		{
 			System.out.println("T'es MORT!!!");
@@ -120,12 +118,15 @@ public class Model extends Observable implements IModel
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
-		if(this.getLorann().isHasMoved()==false){
+		System.out.println(this.getMapGen().getMapLevel());
+		
+		if(this.getLorann().isHasMoved()==false)
+		{
 			this.getLorann().setHasMoved(true);
 			this.AnimateDaemons();
 		}
 		
-		if(this.getPermea() != Permeabilite.BLOCKING && this.getPermea() != Permeabilite.TRANSLATABLE && this.getPermea() != Permeabilite.LVLCHANGE && this.getPermea() != Permeabilite.VICTORY && this.getPermea() != Permeabilite.CLOSEDGATE)
+		if(this.getPermea() ==Permeabilite.ENERGY || this.getPermea() ==Permeabilite.MONEY || this.getPermea() ==Permeabilite.PENETRABLE  )
 		{
 			switch(this.getPermea())
 			{
@@ -142,7 +143,7 @@ public class Model extends Observable implements IModel
 			this.getLorann().setY(y);
 			this.getLorann().setX(x);
 		}
-		else if(this.permea == Permeabilite.TRANSLATABLE)
+		else if(this.getPermea() == Permeabilite.TRANSLATABLE)
 		{
 			if(this.getMapGen().getElemMtx(y+UP_DWN,x+RGT_LFT).getPermea()==Permeabilite.PENETRABLE)
 			{
@@ -150,15 +151,22 @@ public class Model extends Observable implements IModel
 				this.getMapGen().setElemMtx(new Empty(), y, x);
 			}
 		}
-		else if(this.permea == Permeabilite.LVLCHANGE)
+		else if(this.getPermea() == Permeabilite.LVLCHANGE)
 		{
 			this.getMapGen().ChangeLevelMap(UP_DWN);
 		}
-		else if(this.permea == Permeabilite.VICTORY)
+		else if(this.getPermea() == Permeabilite.VICTORY)
 		{
 			this.getMapGen().setMapName(this.getMapFinder().getMap(this.getMapGen().getMapLevel()));
 			this.getMapGen().ResetWelcomeMenu(this.getLorann());
+			this.StopAllDaemons();
 		}	
+		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.DEATH || this.getPermea() == Permeabilite.CLOSEDGATE)
+		{
+			System.out.println("T'es MORT!!!");
+			this.StopAllDaemons();
+			this.getLorann().setAlive(false);
+		}
 		this.setChanged();
 		this.notifyObservers();	
 	}

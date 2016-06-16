@@ -24,7 +24,7 @@ public class DaemonMasterTracker extends MotionElement implements Runnable, Acti
 		super("C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);
 		
 		this.setModel(model); 
-		this.MoveTimer=new Timer(350,this);
+		this.MoveTimer=new Timer(1500,this);
 		this.X=x;
 		this.Y=y;
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];

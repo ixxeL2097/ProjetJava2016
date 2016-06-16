@@ -13,7 +13,6 @@ public class MapFinder
 	private String lvl5Map = "C:/ProjetJava/Map/MAP_lvl5.txt";
 	private String lvl6Map = "C:/ProjetJava/Map/MAP_lvl6.txt";
 	private String lvl9Map = "C:/ProjetJava/Map/MAP_lvl9.txt";
-	private String lvlCocoMap = "C:/ProjetJava/Map/MAP_lvl7.txt";
 	
 	public MapFinder()
 	{
@@ -26,7 +25,6 @@ public class MapFinder
 		this.addMap(5, lvl5Map);
 		this.addMap(6, lvl6Map);
 		this.addMap(9, lvl9Map);
-		this.addMap(7, lvlCocoMap);
 	}
 	
 	public void addMap(int index, String MapPath)
@@ -48,5 +46,5 @@ public class MapFinder
 	{
 		return this.MapRanking.get(key);
 	}
-
+	
 }

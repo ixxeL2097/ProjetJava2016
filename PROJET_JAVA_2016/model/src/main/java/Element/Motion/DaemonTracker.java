@@ -21,8 +21,8 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 	
 	public DaemonTracker(Model model, int y , int x) 
 	{
-		super("C:/ProjetJava/Sprite/monster_4.png", Permeabilite.ENNEMY);
-		this.MoveTimer = new Timer(600,this);
+		super("C:/ProjetJava/Sprite/monster_4.png", Permeabilite.DEATH);
+		this.MoveTimer = new Timer(1500,this);
 		this.setModel(model); 
 		this.X=x;
 		this.Y=y;
@@ -129,57 +129,66 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 	
 	public void CheckArea()
 	{
+		Permeabilite permUP = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()).getPermea();
+		Permeabilite permDW = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea();
+		Permeabilite permLF = this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea();
+		Permeabilite permRT = this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea();
+		Permeabilite permUPRT = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea();
+		Permeabilite permUPLF = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea();
+		Permeabilite permDWRT = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea();
+		Permeabilite permDWLF = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea(); 
+		
 		switch(this.vector)
 		{
-			case UP: 	if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()).getPermea() == Permeabilite.PENETRABLE)
+			case UP: 	if(permUP == Permeabilite.PENETRABLE || permUP == Permeabilite.HERO)
 						{
 							this.MoveUP();
 						}
 						else{this.DefaultDaemonMove();}
 				break;
-			case DW: 	if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea() == Permeabilite.PENETRABLE)
+			case DW: 	if(permDW == Permeabilite.PENETRABLE || permDW == Permeabilite.HERO)
 						{
 							this.MoveDW();
 						}	
 						else{this.DefaultDaemonMove();}
 				break;
-			case LF:	if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea() == Permeabilite.PENETRABLE)
+			case LF:	if(permLF == Permeabilite.PENETRABLE || permLF == Permeabilite.HERO)
 						{
 							this.MoveLF();	
 						}
 						else{this.DefaultDaemonMove();}
 				break;
-			case RT: 	if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() == Permeabilite.PENETRABLE)
+			case RT: 	if(permRT == Permeabilite.PENETRABLE || permRT == Permeabilite.HERO)
 						{
 							this.MoveRT();
 						}	
 						else{this.DefaultDaemonMove();}
 				break;
-			case UPRT: 	if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea() == Permeabilite.PENETRABLE)
+			case UPRT: 	if(permUPRT == Permeabilite.PENETRABLE || permUPRT == Permeabilite.HERO)
 						{
 							this.MoveUpRt();
 						}	
 						else{this.DefaultDaemonMove();}
 				break;
-			case UPLF: 	if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea() == Permeabilite.PENETRABLE)
+			case UPLF: 	if(permUPLF == Permeabilite.PENETRABLE || permUPLF == Permeabilite.HERO)
 						{
 							this.MoveUpLf();
 						}
 						else{this.DefaultDaemonMove();}
 				break;
-			case DWRT: 	if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea() == Permeabilite.PENETRABLE)
+			case DWRT: 	if(permDWRT == Permeabilite.PENETRABLE || permDWRT == Permeabilite.HERO)
 						{
 							this.MoveDwRt();
 						}
 						else{this.DefaultDaemonMove();}
 				break;
-			case DWLF: 	if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea() == Permeabilite.PENETRABLE)
+			case DWLF: 	if(permDWLF == Permeabilite.PENETRABLE || permDWLF == Permeabilite.HERO)
 						{
 							this.MoveDwLf();
 						}
 						else{this.DefaultDaemonMove();}
 				break;
-			case UPUPRT:	if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() == Permeabilite.PENETRABLE)
+			case UPUPRT:	if(permUP == Permeabilite.PENETRABLE || permUPRT == Permeabilite.PENETRABLE || permUP == Permeabilite.HERO || permUPRT == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=0;
@@ -187,7 +196,7 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 							}
 							else{this.DefaultDaemonMove();}
 				break;
-			case UPRTRT:	if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() == Permeabilite.PENETRABLE)
+			case UPRTRT:	if(permUPRT == Permeabilite.PENETRABLE || permRT == Permeabilite.PENETRABLE || permUPRT == Permeabilite.HERO || permRT == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=1;
@@ -195,7 +204,7 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 							}
 							else{this.DefaultDaemonMove();}
 				break;
-			case DWRTRT:	if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea() == Permeabilite.PENETRABLE)
+			case DWRTRT:	if(permRT == Permeabilite.PENETRABLE || permDWRT == Permeabilite.PENETRABLE || permRT == Permeabilite.HERO || permDWRT == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=2;
@@ -203,7 +212,7 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 							}
 							else{this.DefaultDaemonMove();}	
 				break;
-			case DWDWRT:	if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea() == Permeabilite.PENETRABLE)
+			case DWDWRT:	if(permDWRT == Permeabilite.PENETRABLE || permDW == Permeabilite.PENETRABLE || permDWRT == Permeabilite.HERO || permDW == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=3;
@@ -211,7 +220,7 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 							}
 							else{this.DefaultDaemonMove();}
 				break;
-			case DWDWLF:	if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea() == Permeabilite.PENETRABLE)
+			case DWDWLF:	if(permDW == Permeabilite.PENETRABLE || permDWLF == Permeabilite.PENETRABLE || permDW == Permeabilite.HERO || permDWLF == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=4;
@@ -219,7 +228,7 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 							}
 							else{this.DefaultDaemonMove();}
 				break;
-			case DWLFLF:	if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea() == Permeabilite.PENETRABLE)
+			case DWLFLF:	if(permDWLF == Permeabilite.PENETRABLE || permLF == Permeabilite.PENETRABLE || permDWLF == Permeabilite.HERO || permLF == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=5;
@@ -227,7 +236,7 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 							}
 							else{this.DefaultDaemonMove();}
 				break;
-			case UPLFLF:	if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea() == Permeabilite.PENETRABLE)
+			case UPLFLF:	if(permLF == Permeabilite.PENETRABLE || permUPLF == Permeabilite.PENETRABLE || permLF == Permeabilite.HERO || permUPLF == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=6;
@@ -235,7 +244,7 @@ public class DaemonTracker extends MotionElement implements Runnable, ActionList
 							}
 							else{this.DefaultDaemonMove();}
 				break;
-			case UPUPLF:	if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()).getPermea() == Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea() == Permeabilite.PENETRABLE)
+			case UPUPLF:	if(permUPLF == Permeabilite.PENETRABLE || permUP == Permeabilite.PENETRABLE || permUPLF == Permeabilite.HERO || permUP == Permeabilite.HERO)
 							{
 								this.RandDigit=2;
 								this.RandomSelectMove=7;

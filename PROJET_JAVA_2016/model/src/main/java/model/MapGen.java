@@ -18,6 +18,7 @@ public class MapGen
 	private Model model;
 	private DaemonTracker StupidTracker;
 	private DaemonMasterTracker SmartTracker;
+	//private DaemonBrainLess BrainLessTracker;
 	
 	public MapGen(String MapName, Model model)
 	{
@@ -27,8 +28,8 @@ public class MapGen
 		this.ElemMtx = new Element [DimensionMap.Y][DimensionMap.X];
 		
 		this.CreateMap();
-		this.ConsoleMap();
-		this.tabMapFromDB();
+		//this.ConsoleMap();
+		//this.tabMapFromDB();
 		this.createModel();
 	}
 	
@@ -70,7 +71,7 @@ public class MapGen
 	               if(x<DimensionMap.X && bit != 10 )
 	               {
 	            	   map [y][x]= (char)bit;
-	            	   this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
+	            	   //this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)
@@ -122,8 +123,6 @@ public class MapGen
         		u = getModel().getDaohelloworld().getDbS();
         		c = u.charAt(0);
         		map[y][x] = c;
-        		System.out.println(map[y][x]);
-
         	}
             
         }
@@ -198,7 +197,7 @@ public class MapGen
 	public void ResetWelcomeMenu(MotionElement Lorann)
 	{
 		this.CreateMap();
-		this.tabMapFromDB();
+		//this.tabMapFromDB();
 		this.createModel();	
 		Lorann.setX(9);
 		Lorann.setY(1);
