@@ -25,7 +25,7 @@ public class Model extends Observable implements IModel
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
-	private DemonMasterTracker DaemonMaster;
+	private DaemonMasterTracker DaemonMaster;
 	private DAOHelloWorld daohelloworld;
 
 	/**
@@ -38,7 +38,7 @@ public class Model extends Observable implements IModel
 		this.MapGen = new MapGen(this.getMapFinder().getMap(3), this);	
 		this.Lorann = new Hero(5,10);
 		this.MapGen.PlaceLorann(this.getLorann());
-		this.DaemonMaster = new DemonMasterTracker(15, 6, this);
+		this.DaemonMaster = new DaemonMasterTracker(this, 6,15);
 		this.MapGen.PlaceLorann(this.DaemonMaster);
 	}
 

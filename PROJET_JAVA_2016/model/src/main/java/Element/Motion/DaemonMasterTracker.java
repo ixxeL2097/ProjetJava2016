@@ -11,7 +11,7 @@ import PathFinder.PathFinder2;
 import model.DimensionMap;
 import model.Model;
 
-public class DemonMasterTracker extends MotionElement implements Runnable, ActionListener
+public class DaemonMasterTracker extends MotionElement implements Runnable, ActionListener
 {
 	private Model model;
 	private Timer MoveTimer;
@@ -19,7 +19,7 @@ public class DemonMasterTracker extends MotionElement implements Runnable, Actio
 	private boolean[][] walkable;
 	private int[][] pathWay;
 
-	public DemonMasterTracker(int x, int y, Model model) 
+	public DaemonMasterTracker(Model model, int y , int x) 
 	{
 		super("C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);
 		
