@@ -30,25 +30,11 @@ public class MapGen
 		this.ElemMtx = new Element [DimensionMap.Y][DimensionMap.X];
 		
 		this.CreateMap();
-		//this.ConsoleMap();
+		this.ConsoleMap();
 		//this.tabMapFromDB();
 		this.createModel();
 	}
-	
-	public void ConsoleMap()
-	{
-		int x =0 ,y = 0;
-		for(y=0; y<DimensionMap.Y; y++)
-		{
-			x=0;
-			System.out.println("");
-			for(x=0; x<DimensionMap.X; x++)
-			{
-				System.out.print(map[y][x]);
-			}
-		}
-	}
-	
+		
 	public void CreateMap()
 	{
 		int x = 0, y=0, i=0;
@@ -68,8 +54,6 @@ public class MapGen
 	         {           
 	            for (byte bit : buf) 					 // On affiche ce qu'a lu notre boucle au format byte et au format char
 	            {
-	               System.out.print("\t" + bit + "(" + (char) bit + ")");
-	               System.out.println("");
 	               if(x<DimensionMap.X && bit != 10 )
 	               {
 	            	   map [y][x]= (char)bit;
@@ -183,7 +167,23 @@ public class MapGen
 	
 	public void ChangeLevelMap()
 	{
-		this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder());
+		if(this.getModel().getLevelMapOrder()>99)
+		{
+			this.ElemMtx[6][1] = new Number(this.getModel().getLevelMapOrder()/100);
+			this.ElemMtx[6][2] = new Number((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)/10);
+			this.ElemMtx[6][3] = new Number((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)-((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)/10)*10);
+		}
+		else if(this.getModel().getLevelMapOrder()>9)
+		{
+			this.ElemMtx[6][1] = new Number(0);
+			this.ElemMtx[6][2] = new Number(this.getModel().getLevelMapOrder()/10);
+			this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/10)*10);
+		}
+		else if(this.getModel().getLevelMapOrder()<10)
+		{
+			this.ElemMtx[6][2] = new Number(0);
+			this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder());
+		}	
 	}
 	
 	public void PlaceLorann(MotionElement elem)
@@ -199,6 +199,20 @@ public class MapGen
 		Lorann.setX(9);
 		Lorann.setY(1);
 		this.PlaceLorann(Lorann);
+	}
+	
+	public void ConsoleMap()
+	{
+		int x =0 ,y = 0;
+		for(y=0; y<DimensionMap.Y; y++)
+		{
+			x=0;
+			System.out.println("");
+			for(x=0; x<DimensionMap.X; x++)
+			{
+				System.out.print(map[y][x]);
+			}
+		}
 	}
 
 	public int getMapLevel() {
