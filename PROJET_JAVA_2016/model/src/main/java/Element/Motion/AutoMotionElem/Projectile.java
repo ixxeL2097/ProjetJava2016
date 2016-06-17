@@ -38,47 +38,49 @@ public class Projectile extends AutoMotionElem implements Runnable, ActionListen
 	{
 		switch(this.getDirection())
 		{
-			case UP: 			this.getModel().MoveDaemon(-1, 0, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()-1,this.getX()).getPermea() != Permeabilite.PENETRABLE)
+			case UP: 			this.getModel().MoveDaemon(-1, 0, this);
+								if(this.getModel().getMapGen().getElemMtx(this.getY()-1,this.getX()).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY()-1,this.getX()).getPermea() != Permeabilite.HERO)
 								{
-									this.setDirection(ControllerOrder.DOWN);
-								}break;
-			case DOWN: 			this.getModel().MoveDaemon(+1, 0, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea() != Permeabilite.PENETRABLE)
+										this.setDirection(ControllerOrder.DOWN);
+								}
+								break;
+			case DOWN: 			this.getModel().MoveDaemon(+1, 0, this);
+								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea() != Permeabilite.HERO)
 								{
 									this.setDirection(ControllerOrder.UP);
-								}break;
+								}
+								break;
 			case LEFT: 			this.getModel().MoveDaemon(0, -1, this);
-								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea() != Permeabilite.PENETRABLE)
+								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea() != Permeabilite.HERO)
 								{
 									this.setDirection(ControllerOrder.RIGHT);
 								}break;
 			case RIGHT: 		this.getModel().MoveDaemon(0, +1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() != Permeabilite.PENETRABLE)
+								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() != Permeabilite.HERO)
 								{
 									this.setDirection(ControllerOrder.LEFT);
 								}break;
 			case UPPERRIGHT : 	this.getModel().MoveDaemon(-1, +1, this);		
-								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea() != Permeabilite.PENETRABLE)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea() != Permeabilite.HERO)
 								{
 									this.setDirection(ControllerOrder.DOWNLEFT);
 								}break;
 			case UPPERLEFT:		this.getModel().MoveDaemon(-1, -1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea() != Permeabilite.PENETRABLE)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea() != Permeabilite.HERO)
 								{
 									this.setDirection(ControllerOrder.DOWNRIGHT);
 								}break;
 			case DOWNRIGHT:		this.getModel().MoveDaemon(+1, +1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea() != Permeabilite.PENETRABLE)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea() != Permeabilite.HERO)
 								{
 									this.setDirection(ControllerOrder.UPPERLEFT);
 								}break;
 			case DOWNLEFT: 		this.getModel().MoveDaemon(+1, -1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea() != Permeabilite.PENETRABLE)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea() != Permeabilite.PENETRABLE && this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea() != Permeabilite.HERO)
 								{
 									this.setDirection(ControllerOrder.UPPERRIGHT);
 								}break;
-								default:
+			default:
 									break;		
 		}
 	}

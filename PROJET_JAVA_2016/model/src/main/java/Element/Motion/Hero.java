@@ -18,7 +18,7 @@ public class Hero extends MotionElement
 	private ImageIcon LorannGIF;
 	protected boolean HasMoved = false;
 	protected boolean Alive ;
-	protected ControllerOrder LastLorannMove;
+	protected ControllerOrder LastLorannMove=ControllerOrder.UP;
 	
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------

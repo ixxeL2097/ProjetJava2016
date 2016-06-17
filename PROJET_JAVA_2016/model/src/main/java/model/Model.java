@@ -202,10 +202,8 @@ public class Model extends Observable implements IModel
 	
 	public synchronized void LorannIsShooting()
 	{
-		System.out.println("On shoot");
 		if(this.getMissile() == null)
 		{
-			System.out.println("Projectile null");
 			switch(this.getLorann().getLastLorannMove())
 			{
 				case UP:			this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()));
@@ -237,7 +235,6 @@ public class Model extends Observable implements IModel
 			}
 			this.getMapGen().PlaceLorann(this.getMissile());		
 		}
-		System.out.println("Projectile ok on affiche");
 		this.setChanged();
 		this.notifyObservers();	
 	}
