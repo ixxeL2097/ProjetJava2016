@@ -8,6 +8,7 @@ import Element.Permeabilite;
 import Element.Motion.*;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Projectile;
+import Element.Motion.AutoMotionElem.Daemon.Daemon;
 import Element.MotionLess.MotionLessElemFACTORY;
 
 import javax.swing.ImageIcon;
@@ -31,6 +32,7 @@ public class Model extends Observable implements IModel
 	private int score=0;
 	private DAOHelloWorld daohelloworld;
 	private int LevelMapOrder=0;
+	private AutoMotionElem destroyedEnnemy;
 
 	/**
 	 * Instantiates a new model.
@@ -91,19 +93,19 @@ public class Model extends Observable implements IModel
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
-		if(this.permea == Permeabilite.PENETRABLE)
+		if(this.getPermea() == Permeabilite.PENETRABLE)
 		{
 			this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y1,x1 ), y, x);
 			this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, y1, x1);
 			daemon.setY(daemon.getY()+UP_DWN);
 			daemon.setX(daemon.getX()+RGT_LFT);		
 		}
-		else if(this.permea == Permeabilite.BLOCKING)
+		else if(this.getPermea() == Permeabilite.BLOCKING)
 		{
 			System.out.println("BLOCKED");
 			daemon.DefaultDaemonMove();
 		}		
-		else if(this.permea == Permeabilite.HERO)
+		else if(this.getPermea() == Permeabilite.HERO)
 		{
 			if(daemon instanceof Projectile)
 			{
@@ -115,6 +117,13 @@ public class Model extends Observable implements IModel
 				this.StopAllDaemons();
 				this.getLorann().setAlive(false);
 			}
+		}
+		else if(this.getMapGen().getElemMtx(y,x) instanceof Daemon && daemon instanceof Projectile)
+		{
+			this.stopShoot();
+			this.setDestroyedEnnemy((Daemon)this.getMapGen().getElemMtx(y,x));
+			this.getDestroyedEnnemy().getMoveTimer().stop();
+			this.getMapGen().resetElemMtx(y, x);	
 		}
 		this.setChanged();
 		this.notifyObservers();
@@ -426,6 +435,17 @@ public class Model extends Observable implements IModel
 	public boolean getLorannStatus() {
 		return this.getLorann().isAlive();
 	}
+
+
+	public AutoMotionElem getDestroyedEnnemy() {
+		return destroyedEnnemy;
+	}
+
+
+	public void setDestroyedEnnemy(AutoMotionElem destroyedEnnemy) {
+		this.destroyedEnnemy = destroyedEnnemy;
+	}
+	
 	
 	
 	

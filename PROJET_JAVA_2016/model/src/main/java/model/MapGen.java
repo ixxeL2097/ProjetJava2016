@@ -281,6 +281,12 @@ public class MapGen
 	public void setBrainLessTracker(DaemonRandom brainLessTracker) {
 		BrainLessTracker = brainLessTracker;
 	}
+	
+	public void resetElemMtx(int y, int x)
+	{
+		ElemMtx[y][x] = null;
+		ElemMtx[y][x] = MotionLessElemFACTORY.EMPTY;
+	}
 
 
 	
