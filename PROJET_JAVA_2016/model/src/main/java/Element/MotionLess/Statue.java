@@ -6,7 +6,7 @@ class Statue extends MotionLessElem {
 
 	public Statue() 
 	{
-		super( "C:/ProjetJava/Sprite/statue.png", Permeabilite.PENETRABLE, 'S');
+		super( "C:/ProjetJava/Sprite/statue.png", Permeabilite.MONEY, 'S');
 	}
 
 }

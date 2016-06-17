@@ -5,6 +5,7 @@ public enum Permeabilite
 	BLOCKING,
 	PENETRABLE, 
 	TRANSLATABLE,
+	DEATH,
 	ENEMY, 
 	ENERGY, 
 	CLOSEDGATE,

@@ -7,7 +7,7 @@ class Tombe extends MotionLessElem
 
 	public Tombe() 
 	{
-		super( "C:/ProjetJava/Sprite/Tombe.png", Permeabilite.ENEMY, 'T');
+		super( "C:/ProjetJava/Sprite/Tombe.png", Permeabilite.DEATH, 'T');
 	}
 
 }

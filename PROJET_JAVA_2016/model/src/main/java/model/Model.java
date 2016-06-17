@@ -185,7 +185,7 @@ public class Model extends Observable implements IModel
 			this.getMapGen().ResetWelcomeMenu(this.getLorann());				
 			this.getLorann().setHasMoved(false);		
 		}	
-		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.ENEMY || this.getPermea() == Permeabilite.CLOSEDGATE)
+		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.ENEMY || this.getPermea() == Permeabilite.CLOSEDGATE || this.getPermea() == Permeabilite.DEATH)
 		{
 			System.out.println("T'es MORT!!!");
 			this.StopAllDaemons();
