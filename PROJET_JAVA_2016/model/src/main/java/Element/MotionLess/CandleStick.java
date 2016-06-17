@@ -6,7 +6,7 @@ class CandleStick extends MotionLessElem {
 
 	public CandleStick() 
 	{
-		super( "C:/ProjetJava/Sprite/candlestick.png", Permeabilite.MONEY, 'C');
+		super( "C:/ProjetJava/Sprite/candlestick.png", Permeabilite.MONEY, '3');		// C
 	}
 
 }

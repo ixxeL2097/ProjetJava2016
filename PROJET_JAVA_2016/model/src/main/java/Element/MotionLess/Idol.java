@@ -6,7 +6,7 @@ class Idol extends MotionLessElem {
 
 	public Idol() 
 	{
-		super( "C:/ProjetJava/Sprite/statue.png", Permeabilite.MONEY, 'S');
+		super( "C:/ProjetJava/Sprite/statue.png", Permeabilite.MONEY, 'W');		// S
 	}
 
 }

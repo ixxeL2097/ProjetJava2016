@@ -135,13 +135,13 @@ public class MapGen
 							  break;
 					case '0': this.setElemMtx(new Number(0), y, x);     																					
 							  break;
-					case 'w': this.setBrainLessTracker(new DaemonRandom(this.getModel(),y,x)); 		
+					case 'A': this.setBrainLessTracker(new DaemonRandom(this.getModel(),y,x)); 		
 							  this.setElemMtx(this.getBrainLessTracker(), y, x); 			
 							  break;
-					case 'x': this.setStupidTracker(new DaemonTracker(this.getModel(),y,x));		
+					case 'B': this.setStupidTracker(new DaemonTracker(this.getModel(),y,x));		
 							  this.setElemMtx(this.getStupidTracker(), y, x);				
 							  break;
-					case 'z': this.setSmartTracker(new DaemonMasterTracker(this.getModel(),y,x)); 	
+					case 'D': this.setSmartTracker(new DaemonMasterTracker(this.getModel(),y,x)); 	
 							  this.setElemMtx(this.getSmartTracker(), y, x); 			
 							  break;
 					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.map[y][x]), y, x);	                            			

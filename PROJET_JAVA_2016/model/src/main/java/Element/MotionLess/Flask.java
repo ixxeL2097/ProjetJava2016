@@ -6,7 +6,7 @@ class Flask extends MotionLessElem {
 
 	public Flask() 
 	{
-		super( "C:/ProjetJava/Sprite/flacon.png", Permeabilite.MONEY, 'F');
+		super( "C:/ProjetJava/Sprite/flacon.png", Permeabilite.MONEY, '2');		// F
 	}
 
 }

@@ -6,7 +6,7 @@ class Plus extends MotionLessElem {
 
 	public Plus() 
 	{
-		super( "C:/ProjetJava/Sprite/plus.png", Permeabilite.BLOCKING, '+');
+		super( "C:/ProjetJava/Sprite/plus.png", Permeabilite.BLOCKING, '/');	// +
 	}
 
 }

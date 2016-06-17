@@ -6,7 +6,7 @@ class Purse extends MotionLessElem {
 
 	public Purse() 
 	{
-		super( "C:/ProjetJava/Sprite/purse.png", Permeabilite.MONEY, 'B');
+		super( "C:/ProjetJava/Sprite/purse.png", Permeabilite.MONEY, '1');		// B
 	}
 
 }
