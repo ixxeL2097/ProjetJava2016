@@ -107,9 +107,7 @@ public class Model extends Observable implements IModel
 		{
 			if(daemon instanceof Projectile)
 			{
-				daemon.getMoveTimer().stop();
-				this.getMapGen().ElemMtx[daemon.getY()][daemon.getX()]=MotionLessElemFACTORY.EMPTY;
-				this.Missile=null;
+				this.stopShoot();
 			}
 			else
 			{
@@ -170,6 +168,7 @@ public class Model extends Observable implements IModel
 		}
 		else if(this.getPermea() == Permeabilite.GATE)
 		{
+			this.stopShoot();
 			this.StopAllDaemons();
 			this.getMapGen().DestroyDaemons();
 			this.getMapGen().setMapLevel(this.getLevelMapOrder());
@@ -183,6 +182,10 @@ public class Model extends Observable implements IModel
 			this.StopAllDaemons();
 			this.getMapGen().DestroyDaemons();
 			this.getLorann().setAlive(false);
+		}
+		else if(this.getPermea() == Permeabilite.MISSILE)
+		{
+			this.stopShoot();
 		}
 		this.setChanged();
 		this.notifyObservers();	
@@ -230,13 +233,14 @@ public class Model extends Observable implements IModel
 		this.notifyObservers();	
 	}
 	
-	public boolean getLorannStatus() {
-		return this.getLorann().isAlive();
-	}
-	
 	public synchronized void stopShoot()
 	{
-		
+		if(this.getMissile() != null)
+		{
+			this.getMissile().getMoveTimer().stop();
+			this.getMapGen().ElemMtx[this.getMissile().getY()][this.getMissile().getX()]=MotionLessElemFACTORY.EMPTY;
+			this.setMissile(null);
+		}
 	}
 
 	public synchronized void AnimateDaemons()
@@ -417,6 +421,10 @@ public class Model extends Observable implements IModel
 
 	public void setMissile(Projectile missile) {
 		Missile = missile;
+	}
+	
+	public boolean getLorannStatus() {
+		return this.getLorann().isAlive();
 	}
 	
 	
