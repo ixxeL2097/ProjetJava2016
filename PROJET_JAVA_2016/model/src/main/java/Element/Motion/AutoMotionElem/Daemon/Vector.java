@@ -1,4 +1,4 @@
-package Element.Motion;
+package Element.Motion.AutoMotionElem.Daemon;
 
 public enum Vector 
 {

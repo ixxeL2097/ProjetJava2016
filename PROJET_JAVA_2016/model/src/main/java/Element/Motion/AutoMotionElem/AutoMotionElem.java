@@ -1,10 +1,11 @@
-package Element.Motion;
+package Element.Motion.AutoMotionElem;
 
 import java.util.Random;
 
 import javax.swing.Timer;
 
 import Element.Permeabilite;
+import Element.Motion.MotionElement;
 import model.Model;
 
 public abstract class AutoMotionElem extends MotionElement 

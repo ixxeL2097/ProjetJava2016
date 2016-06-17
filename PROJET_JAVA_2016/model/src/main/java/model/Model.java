@@ -6,6 +6,8 @@ import java.util.Observable;
 
 import Element.Permeabilite;
 import Element.Motion.*;
+import Element.Motion.AutoMotionElem.AutoMotionElem;
+import Element.Motion.AutoMotionElem.Projectile;
 import Element.MotionLess.MotionLessElemFACTORY;
 
 import javax.swing.ImageIcon;

@@ -3,10 +3,10 @@ package model;
 import java.io.*;
 import Element.*;
 import Element.Number;
-import Element.Motion.DaemonMasterTracker;
-import Element.Motion.DaemonRandom;
-import Element.Motion.DaemonTracker;
 import Element.Motion.MotionElement;
+import Element.Motion.AutoMotionElem.Daemon.DaemonMasterTracker;
+import Element.Motion.AutoMotionElem.Daemon.DaemonRandom;
+import Element.Motion.AutoMotionElem.Daemon.DaemonTracker;
 import Element.MotionLess.*;
 
 

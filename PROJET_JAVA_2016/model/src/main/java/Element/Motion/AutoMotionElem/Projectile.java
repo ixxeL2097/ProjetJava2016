@@ -1,4 +1,4 @@
-package Element.Motion;
+package Element.Motion.AutoMotionElem;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

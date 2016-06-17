@@ -1,4 +1,4 @@
-package Element.Motion;
+package Element.Motion.AutoMotionElem.Daemon;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +8,6 @@ import javax.swing.Timer;
 
 import Element.Permeabilite;
 import model.Model;
-import Element.Motion.Vector;
 
 public class DaemonTracker extends Daemon implements Runnable, ActionListener
 {
@@ -41,21 +40,21 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 		{
 			if(diffY<0)														// plus a droite et plus en bas
 			{
-				if(Abs>0){this.setVector(Element.Motion.Vector.DWRTRT);}
-				if(Abs<0){this.setVector(Element.Motion.Vector.DWDWRT);}
-				else{this.setVector(Element.Motion.Vector.DWRT);}			
+				if(Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWRTRT);}
+				if(Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWDWRT);}
+				else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWRT);}			
 				this.CheckArea();
 			}
 			else if(diffY>0)												// plus a droite et plus en haut
 			{
-				if(Abs>0){this.setVector(Element.Motion.Vector.UPRTRT);}
-				if(Abs<0){this.setVector(Element.Motion.Vector.UPUPRT);}
-				else{this.setVector(Element.Motion.Vector.UPRT);}
+				if(Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPRTRT);}
+				if(Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPUPRT);}
+				else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPRT);}
 				this.CheckArea();
 			}	
 			else															// plus à droite et meme hauteur
 			{
-				this.setVector(Element.Motion.Vector.RT);
+				this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.RT);
 				this.CheckArea();
 			}
 		}
@@ -63,21 +62,21 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 		{
 			if(diffY<0)														// plus a gauche et plus en bas
 			{
-				if(Abs>0){this.setVector(Element.Motion.Vector.DWLFLF);}
-				if(Abs<0){this.setVector(Element.Motion.Vector.DWDWLF);}
-				else{this.setVector(Element.Motion.Vector.DWLF);}
+				if(Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWLFLF);}
+				if(Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWDWLF);}
+				else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWLF);}
 				this.CheckArea();
 			}
 			else if(diffY>0)												// plus a gauche et plus en haut
 			{
-				if(Abs>0){this.setVector(Element.Motion.Vector.UPLFLF);}
-				if(Abs<0){this.setVector(Element.Motion.Vector.UPUPLF);}
-				else{this.setVector(Element.Motion.Vector.UPLF);}
+				if(Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPLFLF);}
+				if(Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPUPLF);}
+				else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPLF);}
 				this.CheckArea();
 			}
 			else															// plus a gauche et meme Y
 			{
-				this.setVector(Element.Motion.Vector.LF);
+				this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.LF);
 				this.CheckArea();
 			}
 		}
@@ -85,12 +84,12 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 		{
 			if(diffY<0)														// meme X et plus en bas
 			{
-				this.setVector(Element.Motion.Vector.DW);
+				this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DW);
 				this.CheckArea();
 			}
 			else if(diffY>0)												// meme X et plus en haut
 			{
-				this.setVector(Element.Motion.Vector.UP);
+				this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UP);
 				this.CheckArea();
 			}
 		}				
