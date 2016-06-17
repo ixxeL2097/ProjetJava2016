@@ -11,7 +11,7 @@ import model.Model;
 
 public class Projectile extends AutoMotionElem implements Runnable, ActionListener
 {
-	protected static String MAGIC_BALL="C:/ProjetJava/Sprite/250ms.gif";
+	private static String MAGIC_BALL="C:/ProjetJava/Sprite/nazi.gif";
 	protected ControllerOrder Direction;
 
 
@@ -44,42 +44,49 @@ public class Projectile extends AutoMotionElem implements Runnable, ActionListen
 								{
 									this.setDirection(ControllerOrder.DOWN);
 								}break;
+								
 			case DOWN: 			this.getModel().MoveDaemon(+1, 0, this);
 								Permeabilite PermDW = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea();
 								if(PermDW != Permeabilite.PENETRABLE && PermDW != Permeabilite.HERO && PermDW != Permeabilite.TRACKER && PermDW != Permeabilite.ENEMY)
 								{
 									this.setDirection(ControllerOrder.UP);
 								}break;
+								
 			case LEFT: 			this.getModel().MoveDaemon(0, -1, this);
 								Permeabilite PermLF = this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea();
 								if(PermLF != Permeabilite.PENETRABLE && PermLF != Permeabilite.HERO && PermLF != Permeabilite.TRACKER && PermLF != Permeabilite.ENEMY)
 								{
 									this.setDirection(ControllerOrder.RIGHT);
 								}break;
+								
 			case RIGHT: 		this.getModel().MoveDaemon(0, +1, this);	
 								Permeabilite PermRT = this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea();
 								if(PermRT != Permeabilite.PENETRABLE && PermRT != Permeabilite.HERO && PermRT != Permeabilite.TRACKER && PermRT != Permeabilite.ENEMY)
 								{
 									this.setDirection(ControllerOrder.LEFT);
 								}break;
+								
 			case UPPERRIGHT : 	this.getModel().MoveDaemon(-1, +1, this);	
 								Permeabilite PermUPRT = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea();
 								if(PermUPRT != Permeabilite.PENETRABLE && PermUPRT != Permeabilite.HERO && PermUPRT != Permeabilite.TRACKER && PermUPRT != Permeabilite.ENEMY)
 								{
 									this.setDirection(ControllerOrder.DOWNLEFT);
 								}break;
+								
 			case UPPERLEFT:		this.getModel().MoveDaemon(-1, -1, this);	
 								Permeabilite PermUPLF = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea();
 								if(PermUPLF != Permeabilite.PENETRABLE && PermUPLF != Permeabilite.HERO && PermUPLF != Permeabilite.TRACKER && PermUPLF != Permeabilite.ENEMY)
 								{
 									this.setDirection(ControllerOrder.DOWNRIGHT);
 								}break;
+								
 			case DOWNRIGHT:		this.getModel().MoveDaemon(+1, +1, this);	
 								Permeabilite PermDWRT = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea();
 								if(PermDWRT != Permeabilite.PENETRABLE && PermDWRT != Permeabilite.HERO && PermDWRT != Permeabilite.TRACKER && PermDWRT != Permeabilite.ENEMY)
 								{
 									this.setDirection(ControllerOrder.UPPERLEFT);
 								}break;
+								
 			case DOWNLEFT: 		this.getModel().MoveDaemon(+1, -1, this);	
 								Permeabilite PermDWLF = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea();
 								if(PermDWLF != Permeabilite.PENETRABLE && PermDWLF != Permeabilite.HERO && PermDWLF != Permeabilite.TRACKER && PermDWLF != Permeabilite.ENEMY)

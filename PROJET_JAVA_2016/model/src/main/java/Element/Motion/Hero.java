@@ -19,6 +19,7 @@ public class Hero extends MotionElement
 	protected boolean HasMoved = false;
 	protected boolean Alive ;
 	protected ControllerOrder LastLorannMove=ControllerOrder.UP;
+	private boolean Shootable=true;
 	
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
@@ -100,6 +101,14 @@ public class Hero extends MotionElement
 
 	public void setLastLorannMove(ControllerOrder lastLorannMove) {
 		LastLorannMove = lastLorannMove;
+	}
+
+	public boolean isShootable() {
+		return Shootable;
+	}
+
+	public void setShootable(boolean shootable) {
+		Shootable = shootable;
 	}
 	
 	

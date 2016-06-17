@@ -9,6 +9,7 @@ import Element.Motion.*;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Projectile;
 import Element.Motion.AutoMotionElem.Daemon.Daemon;
+import Element.MotionLess.MotionLessElem;
 import Element.MotionLess.MotionLessElemFACTORY;
 
 import javax.swing.ImageIcon;
@@ -196,6 +197,16 @@ public class Model extends Observable implements IModel
 		{
 			this.stopShoot();
 		}
+		if(this.getMapGen().getElemMtx(this.getLorann().getY()-UP_DWN, this.getLorann().getX()-RGT_LFT) instanceof MotionLessElem)
+		{
+			if(this.getMapGen().getElemMtx(this.getLorann().getY()-UP_DWN, this.getLorann().getX()-RGT_LFT) == MotionLessElemFACTORY.EMPTY)
+			{
+				this.getLorann().setShootable(true);
+			}
+			else{this.getLorann().setShootable(false);}
+		}
+		else{this.getLorann().setShootable(true);}
+		
 		this.setChanged();
 		this.notifyObservers();	
 	}
@@ -204,36 +215,40 @@ public class Model extends Observable implements IModel
 	{
 		if(this.getMissile() == null)
 		{
-			switch(this.getLorann().getLastLorannMove())
+			if(this.getLorann().isShootable())
 			{
-				case UP:			this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()));
-									this.getMissile().setDirection(ControllerOrder.DOWN);
-				break;
-				case DOWN:			this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()));
-									this.getMissile().setDirection(ControllerOrder.UP);
-				break;
-				case LEFT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()+1));
-									this.getMissile().setDirection(ControllerOrder.RIGHT);
-				break;
-				case RIGHT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()-1));
-									this.getMissile().setDirection(ControllerOrder.LEFT);
-				break;
-				case UPPERRIGHT:	this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()-1));
-									this.getMissile().setDirection(ControllerOrder.DOWNLEFT);
-				break;
-				case UPPERLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()+1));
-									this.getMissile().setDirection(ControllerOrder.DOWNRIGHT);
-				break;
-				case DOWNLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()+1));
-									this.getMissile().setDirection(ControllerOrder.UPPERRIGHT);
-				break;
-				case DOWNRIGHT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()-1));
-									this.getMissile().setDirection(ControllerOrder.UPPERLEFT);
-				break;
-				default:
-				break;			
+				switch(this.getLorann().getLastLorannMove())
+				{
+					case UP:			this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()));
+										this.getMissile().setDirection(ControllerOrder.DOWN);
+										break;
+					case DOWN:			this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()));
+										this.getMissile().setDirection(ControllerOrder.UP);
+										break;
+					case LEFT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()+1));
+										this.getMissile().setDirection(ControllerOrder.RIGHT);
+										break;
+					case RIGHT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()-1));
+										this.getMissile().setDirection(ControllerOrder.LEFT);
+										break;
+					case UPPERRIGHT:	this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()-1));
+										this.getMissile().setDirection(ControllerOrder.DOWNLEFT);
+										break;
+					case UPPERLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()+1));
+										this.getMissile().setDirection(ControllerOrder.DOWNRIGHT);
+										break;
+					case DOWNLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()+1));
+										this.getMissile().setDirection(ControllerOrder.UPPERRIGHT);
+										break;
+					case DOWNRIGHT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()-1));
+										this.getMissile().setDirection(ControllerOrder.UPPERLEFT);
+										break;
+					default:
+					break;			
+				}
+				this.getMapGen().PlaceLorann(this.getMissile());	
 			}
-			this.getMapGen().PlaceLorann(this.getMissile());		
+				
 		}
 		this.setChanged();
 		this.notifyObservers();	
