@@ -42,6 +42,7 @@ public class Hero extends MotionElement
 		this.LorannGIF = new ImageIcon("C:/ProjetJava/Sprite/lorann.gif");
 		this.setAlive(true);
 	}
+	
 
 	public ImageIcon getMoveUp() {
 		return MoveUp;
@@ -110,10 +111,5 @@ public class Hero extends MotionElement
 	public void setShootable(boolean shootable) {
 		Shootable = shootable;
 	}
-	
-	
-	
-	
-	
 	
 }

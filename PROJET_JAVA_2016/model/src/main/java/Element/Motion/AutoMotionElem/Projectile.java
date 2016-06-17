@@ -11,7 +11,7 @@ import model.Model;
 
 public class Projectile extends AutoMotionElem implements Runnable, ActionListener
 {
-	private static String MAGIC_BALL="C:/ProjetJava/Sprite/nazi.gif";
+	private static String MAGIC_BALL="C:/ProjetJava/Sprite/250ms.gif";
 	protected ControllerOrder Direction;
 
 

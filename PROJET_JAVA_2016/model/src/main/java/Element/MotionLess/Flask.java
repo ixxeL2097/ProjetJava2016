@@ -2,9 +2,9 @@ package Element.MotionLess;
 
 import Element.*;
 
-class Flacon extends MotionLessElem {
+class Flask extends MotionLessElem {
 
-	public Flacon() 
+	public Flask() 
 	{
 		super( "C:/ProjetJava/Sprite/flacon.png", Permeabilite.MONEY, 'F');
 	}

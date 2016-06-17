@@ -1,5 +1,6 @@
 package Element.Motion;
 import Element.*;
+import model.Model;
 
 public abstract class MotionElement extends Element 
 {
@@ -7,10 +8,13 @@ public abstract class MotionElement extends Element
 	protected int Y;
 	protected int lastX;
 	protected int lastY;
-	protected int NextX;
-	protected int NextY;
+	protected Model model;
 	
-	
+	public MotionElement(Model model,String picture, Permeabilite permea )
+	{
+		super(picture, permea);
+		this.setModel(model);
+	}	
 	
 	public void setLastX(int lastX) {
 		this.lastX = lastX;
@@ -26,22 +30,6 @@ public abstract class MotionElement extends Element
 
 	public synchronized void setY(int currentY) {
 		this.Y = currentY;
-	}
-
-	public int getNextX() {
-		return NextX;
-	}
-
-	public void setNextX(int nextX) {
-		NextX = nextX;
-	}
-
-	public int getNextY() {
-		return NextY;
-	}
-
-	public void setNextY(int nextY) {
-		NextY = nextY;
 	}
 
 	public synchronized int getX() {
@@ -64,6 +52,14 @@ public abstract class MotionElement extends Element
 	{
 		super(picture, permea);
 
+	}
+	
+	public synchronized Model getModel() {
+		return model;
+	}
+	
+	public void setModel(Model model) {
+		this.model = model;
 	}
 	
 

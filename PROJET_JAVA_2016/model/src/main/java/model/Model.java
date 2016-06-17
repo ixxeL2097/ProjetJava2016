@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import Element.Permeabilite;
-import Element.Motion.*;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Projectile;
 import Element.Motion.AutoMotionElem.Daemon.Daemon;
@@ -26,13 +25,12 @@ public class Model extends Observable implements IModel
 {
 	/** The message. */
 	private MapGen MapGen;
-	private Hero Lorann;
 	private Projectile Missile;
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
-	private DAOHelloWorld daohelloworld;
 	private int LevelMapOrder=0;
+	private DAOHelloWorld daohelloworld;
 	private AutoMotionElem destroyedEnnemy;
 
 	/**
@@ -43,8 +41,6 @@ public class Model extends Observable implements IModel
 		//this.loadMessage();		
 		this.MapFinder = new MapFinder();
 		this.MapGen = new MapGen(this.getLevelMapOrder(),this);
-		this.Lorann = new Hero(5,10);
-		this.MapGen.PlaceLorann(this.getLorann());
 	}
 
 
@@ -79,18 +75,18 @@ public class Model extends Observable implements IModel
 
 	public void setLorannGIF() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getLorannGIF());
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getLorannGIF());
 		this.setChanged();
 		this.notifyObservers();
 	}
 	
-	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, AutoMotionElem daemon)
+	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, AutoMotionElem MovingObject)
 	{
 		int y, x, y1, x1;
-		y=daemon.getY()+UP_DWN;
-		x=daemon.getX()+RGT_LFT;
-		y1=daemon.getY();
-		x1=daemon.getX();
+		y=MovingObject.getY()+UP_DWN;
+		x=MovingObject.getX()+RGT_LFT;
+		y1=MovingObject.getY();
+		x1=MovingObject.getX();
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
@@ -98,28 +94,29 @@ public class Model extends Observable implements IModel
 		{
 			this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y1,x1 ), y, x);
 			this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, y1, x1);
-			daemon.setY(daemon.getY()+UP_DWN);
-			daemon.setX(daemon.getX()+RGT_LFT);		
+			MovingObject.setY(MovingObject.getY()+UP_DWN);
+			MovingObject.setX(MovingObject.getX()+RGT_LFT);		
 		}
-		else if(this.getPermea() == Permeabilite.BLOCKING && daemon instanceof Daemon)
+		else if(this.getPermea() == Permeabilite.BLOCKING && MovingObject instanceof Daemon)
 		{
 			System.out.println("BLOCKED");
-			daemon.DefaultDaemonMove();		
+			MovingObject.DefaultDaemonMove();		
 		}		
 		else if(this.getPermea() == Permeabilite.HERO)
 		{
-			if(daemon instanceof Projectile)
+			if(MovingObject instanceof Projectile)
 			{
 				this.stopShoot();
 			}
 			else
 			{
 				System.out.println("T'es MORT!!!");
-				this.StopAllDaemons();
-				this.getLorann().setAlive(false);
+				this.getMapGen().StopAllDaemons();
+				this.getMapGen().DestroyAllDaemons();
+				this.getMapGen().getLorann().setAlive(false);
 			}
 		}
-		else if(this.getMapGen().getElemMtx(y,x) instanceof Daemon && daemon instanceof Projectile)
+		else if(this.getMapGen().getElemMtx(y,x) instanceof Daemon && MovingObject instanceof Projectile)
 		{
 			this.stopShoot();
 			this.setDestroyedEnnemy((Daemon)this.getMapGen().getElemMtx(y,x));
@@ -133,18 +130,14 @@ public class Model extends Observable implements IModel
 	public synchronized void MoveLorann(int UP_DWN, int RGT_LFT) 
 	{
 		int y, x, y1, x1;
-		y=this.getLorann().getY()+UP_DWN;
-		x=this.getLorann().getX()+RGT_LFT;
-		y1=this.getLorann().getY();
-		x1=this.getLorann().getX();
+		y=this.getMapGen().getLorann().getY()+UP_DWN;
+		x=this.getMapGen().getLorann().getX()+RGT_LFT;
+		y1=this.getMapGen().getLorann().getY();
+		x1=this.getMapGen().getLorann().getX();
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
-		if(this.getLorann().isHasMoved()==false && this.getMapGen().getMapLevel() != 0)
-		{
-			this.getLorann().setHasMoved(true);
-			this.AnimateDaemons();
-		}
+		this.ActivateDaemonsOnMap();
 		
 		if(this.getPermea() ==Permeabilite.ENERGY || this.getPermea() ==Permeabilite.MONEY || this.getPermea() ==Permeabilite.PENETRABLE )
 		{
@@ -160,8 +153,8 @@ public class Model extends Observable implements IModel
 			}
 			this.getMapGen().setElemMtx(this.getMapGen().getElemMtx(y1,x1), y, x);
 			this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, y1, x1);
-			this.getLorann().setY(y);
-			this.getLorann().setX(x);
+			this.getMapGen().getLorann().setY(y);
+			this.getMapGen().getLorann().setX(x);
 		}
 		else if(this.getPermea() == Permeabilite.TRANSLATABLE)
 		{
@@ -179,76 +172,90 @@ public class Model extends Observable implements IModel
 		else if(this.getPermea() == Permeabilite.GATE)
 		{
 			this.stopShoot();
-			this.StopAllDaemons();
-			this.getMapGen().DestroyDaemons();
+			this.getMapGen().StopAllDaemons();
+			this.getMapGen().DestroyAllDaemons();
 			this.getMapGen().setMapLevel(this.getLevelMapOrder());
 			this.getMapGen().setMapName(this.getMapFinder().getMap(this.getMapGen().getMapLevel()));
-			this.getMapGen().ResetWelcomeMenu(this.getLorann());				
-			this.getLorann().setHasMoved(false);		
+			this.getMapGen().ChangeCurrentMap();				
+			this.getMapGen().getLorann().setHasMoved(false);		
 		}	
 		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.ENEMY || this.getPermea() == Permeabilite.CLOSEDGATE || this.getPermea() == Permeabilite.DEATH)
 		{
 			System.out.println("T'es MORT!!!");
-			this.StopAllDaemons();
-			this.getMapGen().DestroyDaemons();
-			this.getLorann().setAlive(false);
+			this.getMapGen().StopAllDaemons();
+			this.getMapGen().DestroyAllDaemons();
+			this.getMapGen().getLorann().setAlive(false);
 		}
 		else if(this.getPermea() == Permeabilite.MISSILE)
 		{
 			this.stopShoot();
 		}
-		if(this.getMapGen().getElemMtx(this.getLorann().getY()-UP_DWN, this.getLorann().getX()-RGT_LFT) instanceof MotionLessElem)
-		{
-			if(this.getMapGen().getElemMtx(this.getLorann().getY()-UP_DWN, this.getLorann().getX()-RGT_LFT) == MotionLessElemFACTORY.EMPTY)
-			{
-				this.getLorann().setShootable(true);
-			}
-			else{this.getLorann().setShootable(false);}
-		}
-		else{this.getLorann().setShootable(true);}
 		
+		this.CheckShootableElem(UP_DWN, RGT_LFT);
 		this.setChanged();
 		this.notifyObservers();	
 	}
+	
+	public void ActivateDaemonsOnMap()
+	{
+		if(this.getMapGen().getLorann().isHasMoved()==false && this.getMapGen().getMapLevel() != 0)
+		{
+			this.getMapGen().getLorann().setHasMoved(true);
+			this.getMapGen().AnimateDaemons();
+		}
+	}
+	
+	public void CheckShootableElem(int UP_DWN, int RGT_LFT)
+	{
+		if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) instanceof MotionLessElem)
+		{
+			if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) == MotionLessElemFACTORY.EMPTY)
+			{
+				this.getMapGen().getLorann().setShootable(true);
+			}
+			else{this.getMapGen().getLorann().setShootable(false);}
+		}
+		else{this.getMapGen().getLorann().setShootable(true);}
+	}
+
 	
 	public synchronized void LorannIsShooting()
 	{
 		if(this.getMissile() == null)
 		{
-			if(this.getLorann().isShootable())
+			if(this.getMapGen().getLorann().isShootable())
 			{
-				switch(this.getLorann().getLastLorannMove())
+				switch(this.getMapGen().getLorann().getLastLorannMove())
 				{
-					case UP:			this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()));
+					case UP:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()+1, this.getMapGen().getLorann().getX()));
 										this.getMissile().setDirection(ControllerOrder.DOWN);
 										break;
-					case DOWN:			this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()));
+					case DOWN:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()-1, this.getMapGen().getLorann().getX()));
 										this.getMissile().setDirection(ControllerOrder.UP);
 										break;
-					case LEFT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()+1));
+					case LEFT:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY(), this.getMapGen().getLorann().getX()+1));
 										this.getMissile().setDirection(ControllerOrder.RIGHT);
 										break;
-					case RIGHT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()-1));
+					case RIGHT:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY(), this.getMapGen().getLorann().getX()-1));
 										this.getMissile().setDirection(ControllerOrder.LEFT);
 										break;
-					case UPPERRIGHT:	this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()-1));
+					case UPPERRIGHT:	this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()+1, this.getMapGen().getLorann().getX()-1));
 										this.getMissile().setDirection(ControllerOrder.DOWNLEFT);
 										break;
-					case UPPERLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()+1));
+					case UPPERLEFT:		this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()+1, this.getMapGen().getLorann().getX()+1));
 										this.getMissile().setDirection(ControllerOrder.DOWNRIGHT);
 										break;
-					case DOWNLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()+1));
+					case DOWNLEFT:		this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()-1, this.getMapGen().getLorann().getX()+1));
 										this.getMissile().setDirection(ControllerOrder.UPPERRIGHT);
 										break;
-					case DOWNRIGHT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()-1));
+					case DOWNRIGHT:		this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()-1, this.getMapGen().getLorann().getX()-1));
 										this.getMissile().setDirection(ControllerOrder.UPPERLEFT);
 										break;
 					default:
 					break;			
 				}
-				this.getMapGen().PlaceLorann(this.getMissile());	
-			}
-				
+				this.getMapGen().PlaceMotionElem(this.getMissile());	
+			}			
 		}
 		this.setChanged();
 		this.notifyObservers();	
@@ -259,96 +266,64 @@ public class Model extends Observable implements IModel
 		if(this.getMissile() != null)
 		{
 			this.getMissile().getMoveTimer().stop();
-			this.getMapGen().ElemMtx[this.getMissile().getY()][this.getMissile().getX()]=MotionLessElemFACTORY.EMPTY;
+			this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, this.getMissile().getY(), this.getMissile().getX());
 			this.setMissile(null);
 		}
 	}
 
-	public synchronized void AnimateDaemons()
-	{
-		if(this.getMapGen().getSmartTracker() != null)
-		{
-			this.getMapGen().getSmartTracker().run();
-		}
-		if(this.getMapGen().getStupidTracker() != null)
-		{
-			this.getMapGen().getStupidTracker().run();
-		}
-		if(this.getMapGen().getBrainLessTracker() != null)
-		{
-			this.getMapGen().getBrainLessTracker().run();
-		}
-	}
-	
-	public synchronized void StopAllDaemons()
-	{
-		if(this.getMapGen().getSmartTracker() != null)
-		{
-			this.getMapGen().getSmartTracker().getMoveTimer().stop();
-		}
-		if(this.getMapGen().getStupidTracker() != null)
-		{
-			this.getMapGen().getStupidTracker().getMoveTimer().stop();
-		}
-		if(this.getMapGen().getBrainLessTracker() != null)
-		{
-			this.getMapGen().getBrainLessTracker().getMoveTimer().stop();
-		}	
-	}
-
 	public void MoveUP() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveUp());
-		this.getLorann().setLastLorannMove(ControllerOrder.UP);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveUp());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.UP);
 		this.MoveLorann(-1,0);		
 	}
 
 	public void MoveDW() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveDw());
-		this.getLorann().setLastLorannMove(ControllerOrder.DOWN);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveDw());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.DOWN);
 		this.MoveLorann(1,0);	
 	}
 
 	public void MoveLF() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveLf());
-		this.getLorann().setLastLorannMove(ControllerOrder.LEFT);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveLf());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.LEFT);
 		this.MoveLorann(0,-1);	
 	}
 
 	public void MoveRT() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveRt());
-		this.getLorann().setLastLorannMove(ControllerOrder.RIGHT);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveRt());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.RIGHT);
 		this.MoveLorann(0,1);	
 	}
 
 	public void MoveUpLf() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveUpLf());
-		this.getLorann().setLastLorannMove(ControllerOrder.UPPERLEFT);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveUpLf());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.UPPERLEFT);
 		this.MoveLorann(-1,-1);
 	}
 
 	public void MoveUpRt() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveUpRt());
-		this.getLorann().setLastLorannMove(ControllerOrder.UPPERRIGHT);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveUpRt());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.UPPERRIGHT);
 		this.MoveLorann(-1,1);
 	}
 
 	public void MoveDwLf() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveDwLf());
-		this.getLorann().setLastLorannMove(ControllerOrder.DOWNLEFT);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveDwLf());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.DOWNLEFT);
 		this.MoveLorann(1,-1);
 	}
 
 	public void MoveDwRt() 
 	{
-		this.getLorann().setElemIcon(this.getLorann().getMoveDwRt());
-		this.getLorann().setLastLorannMove(ControllerOrder.DOWNRIGHT);
+		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveDwRt());
+		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.DOWNRIGHT);
 		this.MoveLorann(1,1);
 	}
 
@@ -392,13 +367,13 @@ public class Model extends Observable implements IModel
 		return DimensionMap.WINDOW_HEIGHT;
 	}
 
-	public synchronized Hero getLorann() {
+	/*public synchronized Hero getLorann() {
 		return Lorann;
 	}
 
 	public synchronized void setLorann(Hero lorann) {
 		Lorann = lorann;
-	}
+	}*/
 
 	public synchronized MapGen getMapGen() {
 		return MapGen;
@@ -445,7 +420,7 @@ public class Model extends Observable implements IModel
 	}
 	
 	public boolean getLorannStatus() {
-		return this.getLorann().isAlive();
+		return this.getMapGen().getLorann().isAlive();
 	}
 
 

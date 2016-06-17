@@ -2,10 +2,10 @@ package Element.MotionLess;
 
 import Element.*;
 
-class Tombe extends MotionLessElem 
+class Grave extends MotionLessElem 
 {
 
-	public Tombe() 
+	public Grave() 
 	{
 		super( "C:/ProjetJava/Sprite/Tombe.png", Permeabilite.DEATH, 'T');
 	}

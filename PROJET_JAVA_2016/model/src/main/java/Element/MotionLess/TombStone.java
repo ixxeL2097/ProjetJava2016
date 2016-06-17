@@ -2,9 +2,9 @@ package Element.MotionLess;
 
 import Element.*;
 
-class Rip extends MotionLessElem {
+class TombStone extends MotionLessElem {
 
-	public Rip() 
+	public TombStone() 
 	{
 		super( "C:/ProjetJava/Sprite/croixtombe.png", Permeabilite.TRANSLATABLE, 'I');
 	}

@@ -10,15 +10,13 @@ import model.Model;
 
 public abstract class AutoMotionElem extends MotionElement 
 {
-	protected Model model;
 	protected Timer MoveTimer;
 	protected Random RandomMove;
 	protected int RandomSelectMove;
 
 	public AutoMotionElem(Model model, String picture, Permeabilite permea) 
 	{
-		super(picture, permea);
-		this.setModel(model);
+		super(model, picture, permea);
 		this.RandomMove = new Random();
 	}
 	
@@ -84,14 +82,6 @@ public abstract class AutoMotionElem extends MotionElement
 	public void MoveDwRt() 
 	{
 		this.MoveDaemon(1,1);
-	}
-	
-	public synchronized Model getModel() {
-		return model;
-	}
-	
-	public void setModel(Model model) {
-		this.model = model;
 	}
 
 	public Timer getMoveTimer() {

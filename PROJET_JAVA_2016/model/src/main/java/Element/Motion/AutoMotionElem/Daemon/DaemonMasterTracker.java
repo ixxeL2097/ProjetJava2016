@@ -32,8 +32,8 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 	{
 		int x = this.getX();
 		int y = this.getY();
-		int k = this.getModel().getLorann().getX();
-		int j = this.getModel().getLorann().getY();
+		int k = this.getModel().getMapGen().getLorann().getX();
+		int j = this.getModel().getMapGen().getLorann().getY();
 		
 		this.GenerateBooleanMtx();
 		this.setPathWay(this.getPath().findPath(x, y, k, j, this.getWalkable()));

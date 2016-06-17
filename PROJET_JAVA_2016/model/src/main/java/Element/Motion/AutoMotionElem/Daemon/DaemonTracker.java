@@ -30,8 +30,8 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		int diffX = this.getX()-this.getModel().getLorann().getX(); 
-		int diffY = this.getY()-this.getModel().getLorann().getY();
+		int diffX = this.getX()-this.getModel().getMapGen().getLorann().getX(); 
+		int diffY = this.getY()-this.getModel().getMapGen().getLorann().getY();
 		int Abs = Math.abs(diffX)-Math.abs(diffY);
 		this.RandDigit=8;
 		this.RandomSelectMove=0;
