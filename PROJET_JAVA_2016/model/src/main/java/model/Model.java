@@ -100,10 +100,10 @@ public class Model extends Observable implements IModel
 			daemon.setY(daemon.getY()+UP_DWN);
 			daemon.setX(daemon.getX()+RGT_LFT);		
 		}
-		else if(this.getPermea() == Permeabilite.BLOCKING)
+		else if(this.getPermea() == Permeabilite.BLOCKING && daemon instanceof Daemon)
 		{
 			System.out.println("BLOCKED");
-			daemon.DefaultDaemonMove();
+			daemon.DefaultDaemonMove();		
 		}		
 		else if(this.getPermea() == Permeabilite.HERO)
 		{

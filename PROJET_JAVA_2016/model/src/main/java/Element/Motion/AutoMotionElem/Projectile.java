@@ -31,56 +31,56 @@ public class Projectile extends AutoMotionElem implements Runnable, ActionListen
 
 	public void actionPerformed(ActionEvent e) 
 	{
+		this.UpdatePosition();
+	}
+	
+	public void UpdatePosition()
+	{
 		switch(this.getDirection())
 		{
 			case UP: 			this.getModel().MoveDaemon(-1, 0, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()-1,this.getX()).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()-1,this.getX()).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.DOWN);
 								}break;
 			case DOWN: 			this.getModel().MoveDaemon(+1, 0, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.UP);
 								}break;
 			case LEFT: 			this.getModel().MoveDaemon(0, -1, this);
-								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.RIGHT);
 								}break;
 			case RIGHT: 		this.getModel().MoveDaemon(0, +1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.LEFT);
 								}break;
 			case UPPERRIGHT : 	this.getModel().MoveDaemon(-1, +1, this);		
-								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.DOWNLEFT);
 								}break;
 			case UPPERLEFT:		this.getModel().MoveDaemon(-1, -1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.DOWNRIGHT);
 								}break;
 			case DOWNRIGHT:		this.getModel().MoveDaemon(+1, +1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.UPPERLEFT);
 								}break;
 			case DOWNLEFT: 		this.getModel().MoveDaemon(+1, -1, this);	
-								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea()==Permeabilite.BLOCKING)
+								if(this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea() != Permeabilite.PENETRABLE)
 								{
 									this.setDirection(ControllerOrder.UPPERRIGHT);
 								}break;
 								default:
 									break;		
 		}
-	}
-	
-	public void Shoot()
-	{
-		
 	}
 
 	public ControllerOrder getDirection() 
