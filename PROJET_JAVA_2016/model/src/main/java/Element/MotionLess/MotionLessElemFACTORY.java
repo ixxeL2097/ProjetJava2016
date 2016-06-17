@@ -1,6 +1,5 @@
 package Element.MotionLess;
 
-
 public abstract class MotionLessElemFACTORY 
 {
 	public static final MotionLessElem BOURSE 								= new Bourse();

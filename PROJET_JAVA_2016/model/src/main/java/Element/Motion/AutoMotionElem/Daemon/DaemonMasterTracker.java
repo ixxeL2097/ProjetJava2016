@@ -37,7 +37,15 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 		
 		this.GenerateBooleanMtx();
 		this.setPathWay(this.getPath().findPath(x, y, k, j, this.getWalkable()));
-		this.getModel().MoveDaemon(pathWay[0][1], pathWay[0][0], this);
+		if(this.getPathWay() != null)
+		{
+			this.getModel().MoveDaemon(pathWay[0][1], pathWay[0][0], this);
+		}
+		else
+		{
+			this.DefaultDaemonMove();
+		}
+		
 	}
 
 	public void run() 

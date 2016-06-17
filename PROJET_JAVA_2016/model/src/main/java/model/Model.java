@@ -146,7 +146,7 @@ public class Model extends Observable implements IModel
 			this.AnimateDaemons();
 		}
 		
-		if(this.getPermea() ==Permeabilite.ENERGY || this.getPermea() ==Permeabilite.MONEY || this.getPermea() ==Permeabilite.PENETRABLE  )
+		if(this.getPermea() ==Permeabilite.ENERGY || this.getPermea() ==Permeabilite.MONEY || this.getPermea() ==Permeabilite.PENETRABLE )
 		{
 			switch(this.getPermea())
 			{

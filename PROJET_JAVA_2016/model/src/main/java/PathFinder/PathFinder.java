@@ -32,8 +32,16 @@ public class PathFinder
 		
 		this.initDistanceMtx();
 		this.CalculateDistancePath();
-		this.GenerateMoveTab();	  
-	    return path;
+		if(steps<142)
+		{
+			this.GenerateMoveTab();	  
+		    return path;
+		}
+		else
+		{
+			return path;
+		}
+		
 	}
 	
 	public void initDistanceMtx()
@@ -56,7 +64,7 @@ public class PathFinder
 	{
 		 this.steps = 1;
 
-		 while(distance[this.getStartY()][this.getStartX()] == -1 ) 
+		 while(distance[this.getStartY()][this.getStartX()] == -1 && steps < 142) 
 		 {
 			 for(int i=0; i < this.getDistanceLength(); i++) 
 		        {     	
