@@ -12,5 +12,6 @@ public enum Permeabilite
 	LVLCHANGE, 
 	MONEY, 
 	TRACKER,
+	MISSILE,
 	HERO;
 }

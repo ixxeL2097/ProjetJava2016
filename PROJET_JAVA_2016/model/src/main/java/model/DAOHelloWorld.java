@@ -12,12 +12,10 @@ import java.sql.Statement;
  * @author Jean-Aymeric Diet
  */
 class DAOHelloWorld extends DAOEntity<HelloWorld> {
-
+	
 	int dbX = 0;
 	int dbY = 0;
 	String dbS;
-	String dbV;
-	int nbLigne = 0;
 
 
 	/**
@@ -63,40 +61,6 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	public boolean update(final HelloWorld entity) {
 		// Not implemented
 		return false;
-	}
-
-	
-public HelloWorld verifExist(int i){
-		
-		try
-		{
-			
-			final String db_verif = "{call VerifExist(?)}";
-			final CallableStatement callVerif = this.getConnection().prepareCall(db_verif);
-			
-			callVerif.setInt(1, i);
-			
-			callVerif.execute();
-			
-		final ResultSet resultSet = callVerif.getResultSet();
-		resultSet.last();
-		int nbLigne = resultSet.getRow();
-		resultSet.beforeFirst();
-		System.out.println(nbLigne);
-		
-		if(nbLigne != 0){
-			
-			dbV = "false";
-			}
-		
-		}
-		catch (final SQLException e)
-		{
-			e.printStackTrace ();
-			
-		}
-		return null;
-		
 	}
 
 
@@ -171,9 +135,5 @@ public HelloWorld verifExist(int i){
 
 	public String getDbS() {
 		return dbS;
-	}
-	
-	public String getDbV(){
-		return dbV;
 	}
 }

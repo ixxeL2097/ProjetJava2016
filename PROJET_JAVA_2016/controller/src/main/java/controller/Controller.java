@@ -87,6 +87,9 @@ public class Controller implements IController
 					this.getModel().MoveDwRt();break;
 			case DOWNLEFT:
 					this.getModel().MoveDwLf();break;
+			case SPACE:	
+				this.getModel().LorannIsShooting();
+				break;
 			default: break;
 		}
 	}

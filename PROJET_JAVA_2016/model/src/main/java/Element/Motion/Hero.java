@@ -2,6 +2,7 @@ package Element.Motion;
 import javax.swing.ImageIcon;
 
 import Element.*;
+import contract.ControllerOrder;
 
 public class Hero extends MotionElement
 {
@@ -17,6 +18,7 @@ public class Hero extends MotionElement
 	private ImageIcon LorannGIF;
 	protected boolean HasMoved = false;
 	protected boolean Alive ;
+	protected ControllerOrder LastLorannMove;
 	
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
@@ -24,10 +26,10 @@ public class Hero extends MotionElement
 	public Hero(int Y, int X) 
 	{
 		super(HERO_MOVE, Permeabilite.HERO);
-		this.X=X;
-		this.Y=Y;	
-		this.lastX=X;
-		this.lastY=Y;
+		this.setX(X);
+		this.setY(Y);
+		this.setLastX(X);
+		this.setLastY(Y);
 		this.MoveUp = new ImageIcon("C:/ProjetJava/Sprite/lorann_u.png");
 		this.MoveDw = new ImageIcon("C:/ProjetJava/Sprite/lorann_b.png");
 		this.MoveLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_l.png");
@@ -91,6 +93,15 @@ public class Hero extends MotionElement
 	public void setAlive(boolean alive) {
 		Alive = alive;
 	}
+
+	public ControllerOrder getLastLorannMove() {
+		return LastLorannMove;
+	}
+
+	public void setLastLorannMove(ControllerOrder lastLorannMove) {
+		LastLorannMove = lastLorannMove;
+	}
+	
 	
 	
 	

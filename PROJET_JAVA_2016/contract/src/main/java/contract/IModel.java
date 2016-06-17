@@ -46,6 +46,7 @@ public interface IModel
 	void MoveDwLf();
 	void MoveDwRt();
 	void setLorannGIF();
+	void LorannIsShooting();
 	
 	int getScore();
 	void setScore(int score);
