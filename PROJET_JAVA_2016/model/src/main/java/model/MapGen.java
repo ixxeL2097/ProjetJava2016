@@ -31,13 +31,14 @@ public class MapGen
 		
 		this.CreateMap();
 		this.ConsoleMap();
-		//this.tabMapFromDB();
+		this.tabMapFromDB();
 		this.createModel();
 	}
 		
 	public void CreateMap()
 	{
 		int x = 0, y=0, i=0;
+		String v;
 		String s = null;
 		FileInputStream fis = null;
 		
@@ -48,16 +49,24 @@ public class MapGen
 	         
 	         s = MapName.substring(25, 26);
 	         i = Integer.parseInt(s);
-	         System.out.println(i);
+	         
+	         this.getModel().getDaohelloworld().verifExist(i);
+	         v = getModel().getDaohelloworld().getDbV();
+	         
 	         
 	         while ((fis.read(buf)) >= 0) 				// Vaut -1 quand c'est fini Lorsque la lecture du fichier est terminée On sort donc de la boucle
 	         {           
 	            for (byte bit : buf) 					 // On affiche ce qu'a lu notre boucle au format byte et au format char
 	            {
+	               System.out.print("\t" + bit + "(" + (char) bit + ")");
+	               System.out.println("");
 	               if(x<DimensionMap.X && bit != 10 )
 	               {
 	            	   map [y][x]= (char)bit;
-	            	   //this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
+	            	   
+	            	   if (v != "false"){
+	            	   this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
+	            	   }
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)
@@ -70,7 +79,9 @@ public class MapGen
 	            buf = new byte[8];  				  //Nous réinitialisons le buffer à vide au cas où les derniers byte lus ne soient pas un multiple de 8 Ceci permet d'avoir un buffer vierge à chaque lecture et ne pas avoir de doublon en fin de fichier
 	         }
 	         System.out.println("Copie terminée !");
-	      } 
+	         
+		
+		}
 		  catch (FileNotFoundException e) 
 		  {
 	         e.printStackTrace();
@@ -90,7 +101,7 @@ public class MapGen
 	         {
 	            e.printStackTrace();
 	         }     
-	      }
+		  } 
 	}
 	
 	public void tabMapFromDB(){
