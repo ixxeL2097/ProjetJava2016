@@ -10,6 +10,11 @@ public abstract class MotionElement extends Element
 	protected int lastY;
 	protected Model model;
 	
+	public MotionElement(String picture, Permeabilite permea )
+	{
+		super(picture, permea);
+	}	
+	
 	public MotionElement(Model model,String picture, Permeabilite permea )
 	{
 		super(picture, permea);
@@ -46,12 +51,6 @@ public abstract class MotionElement extends Element
 
 	public int getLastY() {
 		return lastY;
-	}
-
-	public MotionElement(String picture, Permeabilite permea) 
-	{
-		super(picture, permea);
-
 	}
 	
 	public synchronized Model getModel() {

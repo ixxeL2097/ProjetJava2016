@@ -36,9 +36,19 @@ public class Projectile extends AutoMotionElem implements Runnable, ActionListen
 	
 	public void UpdatePosition()
 	{
+		int UP = -1;
+		int DW = 1;
+		int LF = -1;
+		int RT = 1;
+		int NULL = 0;
+
 		switch(this.getDirection())
 		{
-			case UP: 			this.getModel().MoveDaemon(-1, 0, this);
+			case UP: 			if(this.CheckAllowedMapBounds(UP, NULL))
+								{this.getModel().MoveDaemon(UP, NULL, this);}
+								else{
+									
+								}
 								Permeabilite PermUP = this.getModel().getMapGen().getElemMtx(this.getY()-1,this.getX()).getPermea();
 								if(PermUP != Permeabilite.PENETRABLE && PermUP != Permeabilite.HERO && PermUP != Permeabilite.TRACKER && PermUP != Permeabilite.ENEMY)
 								{

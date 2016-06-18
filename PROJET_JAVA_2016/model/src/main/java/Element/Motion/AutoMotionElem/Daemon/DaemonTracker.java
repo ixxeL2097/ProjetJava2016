@@ -30,6 +30,29 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 
 	public void actionPerformed(ActionEvent e) 
 	{
+		this.ExecuteTranslation();		
+	}
+	
+	public void SelectRandomMove()
+	{
+		this.RandomSelectMove = this.RandomSelectMove+RandomMove.nextInt(RandDigit);	
+		switch(RandomSelectMove)
+		{
+			case 0: this.MoveUP();		break;
+			case 1: this.MoveUpRt();	break;
+			case 2: this.MoveRT();		break;
+			case 3: this.MoveDwRt();	break;
+			case 4: this.MoveDW();		break;
+			case 5: this.MoveDwLf();	break;
+			case 6: this.MoveLF();		break;
+			case 7: this.MoveUpLf();	break;
+			case 8: this.MoveUP();		break;
+			case 9: this.MoveUpRt();	break;
+		}
+	}
+	
+	public void ExecuteTranslation()
+	{
 		int diffX = this.getX()-this.getModel().getMapGen().getLorann().getX(); 
 		int diffY = this.getY()-this.getModel().getMapGen().getLorann().getY();
 		int Abs = Math.abs(diffX)-Math.abs(diffY);
@@ -92,153 +115,94 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 				this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UP);
 				this.CheckArea();
 			}
-		}				
-	}
-	
-	public void SelectRandomMove()
-	{
-		this.RandomSelectMove = this.RandomSelectMove+RandomMove.nextInt(RandDigit);	
-		switch(RandomSelectMove)
-		{
-			case 0: this.MoveUP();		break;
-			case 1: this.MoveUpRt();	break;
-			case 2: this.MoveRT();		break;
-			case 3: this.MoveDwRt();	break;
-			case 4: this.MoveDW();		break;
-			case 5: this.MoveDwLf();	break;
-			case 6: this.MoveLF();		break;
-			case 7: this.MoveUpLf();	break;
-			case 8: this.MoveUP();		break;
-			case 9: this.MoveUpRt();	break;
 		}
 	}
 	
 	public void CheckArea()
-	{
-		Permeabilite permUP = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()).getPermea();
-		Permeabilite permDW = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()).getPermea();
-		Permeabilite permLF = this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()-1).getPermea();
-		Permeabilite permRT = this.getModel().getMapGen().getElemMtx(this.getY(), this.getX()+1).getPermea();
-		Permeabilite permUPRT = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()+1).getPermea();
-		Permeabilite permUPLF = this.getModel().getMapGen().getElemMtx(this.getY()-1, this.getX()-1).getPermea();
-		Permeabilite permDWRT = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()+1).getPermea();
-		Permeabilite permDWLF = this.getModel().getMapGen().getElemMtx(this.getY()+1, this.getX()-1).getPermea(); 
+	{	
+		int UP = -1;
+		int DW = 1;
+		int LF = -1;
+		int RT = 1;
+		int NULL = 0;
 		
 		switch(this.vector)
 		{
-			case UP: 	if(permUP == Permeabilite.PENETRABLE || permUP == Permeabilite.HERO)
-						{
-							this.MoveUP();
-						}
-						else{this.DefaultDaemonMove();}
-				break;
-			case DW: 	if(permDW == Permeabilite.PENETRABLE || permDW == Permeabilite.HERO)
-						{
-							this.MoveDW();
-						}	
-						else{this.DefaultDaemonMove();}
-				break;
-			case LF:	if(permLF == Permeabilite.PENETRABLE || permLF == Permeabilite.HERO)
-						{
-							this.MoveLF();	
-						}
-						else{this.DefaultDaemonMove();}
-				break;
-			case RT: 	if(permRT == Permeabilite.PENETRABLE || permRT == Permeabilite.HERO)
-						{
-							this.MoveRT();
-						}	
-						else{this.DefaultDaemonMove();}
-				break;
-			case UPRT: 	if(permUPRT == Permeabilite.PENETRABLE || permUPRT == Permeabilite.HERO)
-						{
-							this.MoveUpRt();
-						}	
-						else{this.DefaultDaemonMove();}
-				break;
-			case UPLF: 	if(permUPLF == Permeabilite.PENETRABLE || permUPLF == Permeabilite.HERO)
-						{
-							this.MoveUpLf();
-						}
-						else{this.DefaultDaemonMove();}
-				break;
-			case DWRT: 	if(permDWRT == Permeabilite.PENETRABLE || permDWRT == Permeabilite.HERO)
-						{
-							this.MoveDwRt();
-						}
-						else{this.DefaultDaemonMove();}
-				break;
-			case DWLF: 	if(permDWLF == Permeabilite.PENETRABLE || permDWLF == Permeabilite.HERO)
-						{
-							this.MoveDwLf();
-						}
-						else{this.DefaultDaemonMove();}
-				break;
-			case UPUPRT:	if(permUP == Permeabilite.PENETRABLE || permUPRT == Permeabilite.PENETRABLE || permUP == Permeabilite.HERO || permUPRT == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=0;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}
-				break;
-			case UPRTRT:	if(permUPRT == Permeabilite.PENETRABLE || permRT == Permeabilite.PENETRABLE || permUPRT == Permeabilite.HERO || permRT == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=1;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}
-				break;
-			case DWRTRT:	if(permRT == Permeabilite.PENETRABLE || permDWRT == Permeabilite.PENETRABLE || permRT == Permeabilite.HERO || permDWRT == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=2;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}	
-				break;
-			case DWDWRT:	if(permDWRT == Permeabilite.PENETRABLE || permDW == Permeabilite.PENETRABLE || permDWRT == Permeabilite.HERO || permDW == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=3;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}
-				break;
-			case DWDWLF:	if(permDW == Permeabilite.PENETRABLE || permDWLF == Permeabilite.PENETRABLE || permDW == Permeabilite.HERO || permDWLF == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=4;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}
-				break;
-			case DWLFLF:	if(permDWLF == Permeabilite.PENETRABLE || permLF == Permeabilite.PENETRABLE || permDWLF == Permeabilite.HERO || permLF == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=5;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}
-				break;
-			case UPLFLF:	if(permLF == Permeabilite.PENETRABLE || permUPLF == Permeabilite.PENETRABLE || permLF == Permeabilite.HERO || permUPLF == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=6;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}
-				break;
-			case UPUPLF:	if(permUPLF == Permeabilite.PENETRABLE || permUP == Permeabilite.PENETRABLE || permUPLF == Permeabilite.HERO || permUP == Permeabilite.HERO)
-							{
-								this.RandDigit=2;
-								this.RandomSelectMove=7;
-								this.SelectRandomMove();
-							}
-							else{this.DefaultDaemonMove();}
-				break;	
+			case UP: 		this.CheckSimpleVectorProperties(UP, NULL);
+							break;
+			case DW: 		this.CheckSimpleVectorProperties(DW, NULL);		
+							break;
+			case LF:		this.CheckSimpleVectorProperties(NULL, LF);
+							break;
+			case RT: 		this.CheckSimpleVectorProperties(NULL, RT);
+							break;
+			case UPRT: 		this.CheckSimpleVectorProperties(UP, RT);
+							break;
+			case UPLF: 		this.CheckSimpleVectorProperties(UP, LF);
+							break;
+			case DWRT: 		this.CheckSimpleVectorProperties(DW, RT);
+							break;
+			case DWLF: 		this.CheckSimpleVectorProperties(DW, LF);
+							break;			
+			case UPUPRT:	this.CheckDoubleVectorProperties(UP, NULL, UP, RT, 0);
+							break;
+			case UPRTRT:	this.CheckDoubleVectorProperties(UP, RT, NULL, RT, 1);
+							break;
+			case DWRTRT:	this.CheckDoubleVectorProperties(DW, RT, NULL, RT, 2);
+							break;
+			case DWDWRT:	this.CheckDoubleVectorProperties(DW, NULL, DW, RT, 3);
+							break;
+			case DWDWLF:	this.CheckDoubleVectorProperties(DW, NULL, DW, LF, 4);
+							break;
+			case DWLFLF:	this.CheckDoubleVectorProperties(DW, LF, NULL, LF, 5);
+							break;
+			case UPLFLF:	this.CheckDoubleVectorProperties(UP, LF, NULL, LF, 6);
+							break;
+			case UPUPLF:	this.CheckDoubleVectorProperties(UP, NULL, UP, LF, 6);
+							break;	
 		}
+	}
+	
+	public void executeSimpleMove(int UP_DW, int RT_LF)
+	{
+		Permeabilite perm = this.getModel().getMapGen().getElemMtx(this.getY()+UP_DW, this.getX()+RT_LF).getPermea();
+		if(perm == Permeabilite.PENETRABLE || perm == Permeabilite.HERO)
+		{
+			this.MoveDaemon(UP_DW, RT_LF);
+		}
+		else{this.DefaultDaemonMove();}	
+	}
+	
+	public void executeDoubleMove(int UP_DW_1, int RT_LF_1, int UP_DW_2, int RT_LF_2, int Random)
+	{
+		Permeabilite perm1 = this.getModel().getMapGen().getElemMtx(this.getY()+UP_DW_1, this.getX()+RT_LF_1).getPermea();
+		Permeabilite perm2 = this.getModel().getMapGen().getElemMtx(this.getY()+UP_DW_2, this.getX()+RT_LF_2).getPermea();
+		this.RandDigit=2;
+		
+		if(perm1 == Permeabilite.PENETRABLE || perm1 == Permeabilite.HERO || perm2 == Permeabilite.HERO || perm2 == Permeabilite.HERO)
+		{
+			this.RandomSelectMove=Random;
+			this.SelectRandomMove();
+		}
+		else{this.DefaultDaemonMove();}	
+	}
+	
+	public void CheckSimpleVectorProperties(int UP_DW, int RT_LF)
+	{
+		if(this.CheckAllowedMapBounds(UP_DW, RT_LF))
+		{
+			this.executeSimpleMove(UP_DW, RT_LF);
+		}
+		else{this.DefaultDaemonMove();}
+	}
+	
+	public void CheckDoubleVectorProperties(int UP_DW_1, int RT_LF_1, int UP_DW_2, int RT_LF_2, int Random)
+	{
+		if(this.CheckAllowedMapBounds(UP_DW_1, RT_LF_1) && this.CheckAllowedMapBounds(UP_DW_2, RT_LF_2))
+		{
+			this.executeDoubleMove(UP_DW_1, RT_LF_1, UP_DW_2, RT_LF_2, Random);
+		}
+		else{this.DefaultDaemonMove();}
 	}
 
 	public Vector getVector() {

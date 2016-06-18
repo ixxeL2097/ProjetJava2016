@@ -28,15 +28,40 @@ public abstract class AutoMotionElem extends MotionElement
 		RandomSelectMove = RandomMove.nextInt(8);
 		switch(RandomSelectMove)
 		{
-			case 0: this.MoveUP();		break;
-			case 1: this.MoveUpRt();	break;
-			case 2: this.MoveRT();		break;
-			case 3: this.MoveDwRt();	break;
-			case 4: this.MoveDW();		break;
-			case 5: this.MoveDwLf();	break;
-			case 6: this.MoveLF();		break;
-			case 7: this.MoveUpLf();	break;
+			case 0: if(this.CheckAllowedMapBounds(-1,0)){this.MoveUP();}
+					else{this.DefaultDaemonMove();}
+					break;					
+			case 1: if(this.CheckAllowedMapBounds(-1,1)){this.MoveUpRt();}
+					else{this.DefaultDaemonMove();}
+					break;
+			case 2: if(this.CheckAllowedMapBounds(0,1)){this.MoveRT();}
+					else{this.DefaultDaemonMove();}
+					break;
+			case 3: if(this.CheckAllowedMapBounds(1,1)){this.MoveDwRt();}
+					else{this.DefaultDaemonMove();}
+					break;
+			case 4: if(this.CheckAllowedMapBounds(1,0)){this.MoveDW();}
+					else{this.DefaultDaemonMove();}
+					break;
+			case 5: if(this.CheckAllowedMapBounds(1,-1)){this.MoveDwLf();}
+					else{this.DefaultDaemonMove();}
+					break;
+			case 6: if(this.CheckAllowedMapBounds(0,-1)){this.MoveLF();}	
+					else{this.DefaultDaemonMove();}
+					break;
+			case 7: if(this.CheckAllowedMapBounds(-1,-1)){this.MoveUpLf();}
+					else{this.DefaultDaemonMove();}
+					break;
 		}
+	}
+	
+	public boolean CheckAllowedMapBounds(int UP_DW, int RT_LF)
+	{
+		if((this.getY()+UP_DW < this.getModel().getDimensionMapY() && this.getX()+RT_LF < this.getModel().getDimensionMapX()) && (this.getY()+UP_DW >= 0 && this.getX()+RT_LF >= 0)) 
+		{
+			return true;
+		}
+		else {return false;}
 	}
 	
 	public void MoveDaemon(int NextMove_UP_DW, int NextMove_RT_LF)

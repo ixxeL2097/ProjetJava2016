@@ -87,7 +87,7 @@ public class Model extends Observable implements IModel
 		x=MovingObject.getX()+RGT_LFT;
 		y1=MovingObject.getY();
 		x1=MovingObject.getX();
-		
+
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
 		if(this.getPermea() == Permeabilite.PENETRABLE)
@@ -366,14 +366,6 @@ public class Model extends Observable implements IModel
 	{
 		return DimensionMap.WINDOW_HEIGHT;
 	}
-
-	/*public synchronized Hero getLorann() {
-		return Lorann;
-	}
-
-	public synchronized void setLorann(Hero lorann) {
-		Lorann = lorann;
-	}*/
 
 	public synchronized MapGen getMapGen() {
 		return MapGen;
