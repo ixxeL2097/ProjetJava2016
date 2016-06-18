@@ -19,11 +19,12 @@ public class DaemonRandom extends Daemon implements Runnable, ActionListener
 		this.setX(x);
 		this.setY(y);
 		this.RandomMove = new Random();
+		this.setIA(new RandomBehaviour(this));
 	}
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.DefaultDaemonMove();
+		this.getIA().AutoMove();
 	}
 
 	public void run() 

@@ -147,6 +147,23 @@ public abstract class AutoMotionElem extends MotionElement
 	{
 		Direction = direction;
 	}
+
+	public Random getRandomMove() {
+		return RandomMove;
+	}
+
+	public void setRandomMove(Random randomMove) {
+		RandomMove = randomMove;
+	}
+
+	public int getRandomSelectMove() {
+		return RandomSelectMove;
+	}
+
+	public void setRandomSelectMove(int randomSelectMove) {
+		RandomSelectMove = randomSelectMove;
+	}
+	
 	
 	
 
