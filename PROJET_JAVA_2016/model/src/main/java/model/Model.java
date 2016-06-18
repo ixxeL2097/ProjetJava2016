@@ -122,7 +122,8 @@ public class Model extends Observable implements IModel
 			this.stopShoot();
 			this.setDestroyedEnnemy((Daemon)this.getMapGen().getElemMtx(y,x));
 			this.getDestroyedEnnemy().getMoveTimer().stop();
-			this.getMapGen().resetElemMtx(y, x);	
+			this.getMapGen().resetElemMtx(y, x);
+			this.setScore(this.getScore()+300);
 		}
 		this.setChanged();
 		this.notifyObservers();
@@ -190,8 +191,7 @@ public class Model extends Observable implements IModel
 		else if(this.getPermea() == Permeabilite.MISSILE)
 		{
 			this.stopShoot();
-		}
-		
+		}		
 		this.CheckShootableElem(UP_DWN, RGT_LFT);
 		this.setChanged();
 		this.notifyObservers();	
@@ -417,6 +417,12 @@ public class Model extends Observable implements IModel
 
 	public void setDestroyedEnnemy(AutoMotionElem destroyedEnnemy) {
 		this.destroyedEnnemy = destroyedEnnemy;
+	}
+
+
+	public int getLives() 
+	{
+		return this.getMapGen().getLorann().getLives();
 	}
 	
 	

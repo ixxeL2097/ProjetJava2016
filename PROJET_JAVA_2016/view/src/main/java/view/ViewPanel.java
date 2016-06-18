@@ -24,6 +24,7 @@ class ViewPanel extends JPanel implements Observer
 	private ViewFrame					viewFrame;
 	private JLabel [][] JLabelMap;
 	private JLabel score;
+	private JLabel lives;
 	private JLabel GameOver;
 	private String gameOver="C:/ProjetJava/Sprite/GameOver4.gif";
 	private GridBagConstraints gbc; 
@@ -45,10 +46,7 @@ class ViewPanel extends JPanel implements Observer
 		this.setPreferredSize(this.getViewFrame().getModel().getD());
 		viewFrame.getModel().getObservable().addObserver(this);
 		JLabelMap = new JLabel [this.getViewFrame().getModel().getDimensionMapY()][this.getViewFrame().getModel().getDimensionMapX()];
-		this.score = new JLabel("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
-		this.ScoreFont = new Font("Arial", Font.BOLD, 15);
-		this.getScore().setForeground(Color.ORANGE);
-		this.getScore().setFont(this.getScoreFont());
+		this.CreateHUD();
 		this.gbc = new GridBagConstraints();
 		this.setLayout(new GridBagLayout());	
 		
@@ -72,19 +70,44 @@ class ViewPanel extends JPanel implements Observer
 				this.add(sprite, gbc);	
 			}
 		}		
-		this.getGbc().gridx = 0;
-		this.getGbc().gridy++;
-		this.getGbc().gridwidth = 5;
-		this.getScore().setText("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
-		this.add(this.score, gbc);		
+		this.setHUD();
 		this.getViewFrame().pack();
 		this.setVisible(true);
 		this.repaint();
 	}
 	
+	public void CreateHUD()
+	{
+		this.score = new JLabel("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
+		this.lives = new JLabel("LIVES : "+Integer.toString(this.getViewFrame().getModel().getLives()));
+		this.ScoreFont = new Font("Arial", Font.BOLD, 15);
+		this.getScore().setForeground(Color.ORANGE);
+		this.getScore().setFont(this.getScoreFont());
+		this.getLives().setForeground(Color.ORANGE);
+		this.getLives().setFont(this.getScoreFont());
+	}
+	
+	public void setHUD()
+	{
+		this.getGbc().gridx = 0;
+		this.getGbc().gridy++;
+		this.getGbc().gridwidth = 5;
+		this.getScore().setText("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
+		this.add(this.score, gbc);	
+		this.getGbc().gridx = 5;
+		this.getLives().setText("LIVES : "+Integer.toString(this.getViewFrame().getModel().getLives()));
+		this.add(this.lives, gbc);	
+	}
+	
+	
 	public void GameOver()
 	{
-		
+		this.removeAll();
+		this.repaint();	
+		this.setLayout(null);
+		this.GameOver = new JLabel(new ImageIcon(this.gameOver));
+		this.GameOver.setBounds(0, 0, this.getWidth(), this.getHeight());
+		this.add(this.GameOver);
 	}
 
 	/**
@@ -117,12 +140,7 @@ class ViewPanel extends JPanel implements Observer
 	{
 		if(this.getViewFrame().getModel().getLorannStatus()==false)
 		{
-			this.removeAll();
-			this.repaint();	
-			this.setLayout(null);
-			this.GameOver = new JLabel(new ImageIcon(this.gameOver));
-			this.GameOver.setBounds(0, 0, this.getWidth(), this.getHeight());
-			this.add(this.GameOver);
+			this.GameOver();
 		}
 		else
 		{
@@ -176,6 +194,15 @@ class ViewPanel extends JPanel implements Observer
 	public void setScoreFont(Font scoreFont) {
 		ScoreFont = scoreFont;
 	}
+
+	public JLabel getLives() {
+		return lives;
+	}
+
+	public void setLives(JLabel lives) {
+		this.lives = lives;
+	}
+	
 	
 	
 }

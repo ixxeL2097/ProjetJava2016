@@ -49,6 +49,7 @@ public interface IModel
 	void LorannIsShooting();
 	
 	int getScore();
+	int getLives();
 	void setScore(int score);
 	boolean getLorannStatus();
 }

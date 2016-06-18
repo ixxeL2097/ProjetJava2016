@@ -22,6 +22,7 @@ public class Hero extends MotionElement
 	private boolean Alive ;
 	private boolean Shootable=true;
 	private int score=0;
+	private int lives=0;
 	private ControllerOrder LastLorannMove=ControllerOrder.UP;
 	
 	
@@ -45,6 +46,7 @@ public class Hero extends MotionElement
 		this.MoveDwLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
 		this.LorannGIF = new ImageIcon("C:/ProjetJava/Sprite/lorann.gif");
 		this.setAlive(true);
+		this.setLives(1);
 	}
 	
 	public void CheckAvailableMove(int UP_DW, int RT_LF)
@@ -203,6 +205,16 @@ public class Hero extends MotionElement
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+	public int getLives() {
+		return lives;
+	}
+
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
+	
+	
 	
 	
 	

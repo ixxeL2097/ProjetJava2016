@@ -14,7 +14,7 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 	{
 		super(model, "C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);
 		
-		this.MoveTimer=new Timer(450,this);
+		this.MoveTimer=new Timer(400,this);
 		this.setX(x);
 		this.setY(y);
 		this.setIA(new TrackingBehavior(this));
