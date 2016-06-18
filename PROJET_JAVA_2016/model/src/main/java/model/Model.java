@@ -208,15 +208,20 @@ public class Model extends Observable implements IModel
 	
 	public void CheckShootableElem(int UP_DWN, int RGT_LFT)
 	{
-		if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) instanceof MotionLessElem)
+		if(this.getMapGen().getLorann().CheckAvailablePosition(UP_DWN, RGT_LFT))
 		{
-			if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) == MotionLessElemFACTORY.EMPTY)
+			if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) instanceof MotionLessElem)
 			{
-				this.getMapGen().getLorann().setShootable(true);
+				if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) == MotionLessElemFACTORY.EMPTY)
+				{
+					this.getMapGen().getLorann().setShootable(true);
+				}
+				else{this.getMapGen().getLorann().setShootable(false);}
 			}
-			else{this.getMapGen().getLorann().setShootable(false);}
+			else{this.getMapGen().getLorann().setShootable(true);}
 		}
-		else{this.getMapGen().getLorann().setShootable(true);}
+		else
+		{this.getMapGen().getLorann().setShootable(false);}	
 	}
 
 	

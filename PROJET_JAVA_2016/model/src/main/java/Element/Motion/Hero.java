@@ -3,6 +3,7 @@ import javax.swing.ImageIcon;
 
 import Element.*;
 import contract.ControllerOrder;
+import model.DimensionMap;
 import model.Model;
 
 public class Hero extends MotionElement
@@ -46,60 +47,84 @@ public class Hero extends MotionElement
 		this.setAlive(true);
 	}
 	
+	public void CheckAvailableMove(int UP_DW, int RT_LF)
+	{
+		if((this.getY()+UP_DW >=0 && this.getX()+RT_LF >=0) && (this.getY()+UP_DW < DimensionMap.Y && this.getX()+RT_LF < DimensionMap.X))
+		{
+			this.getModel().MoveLorann(UP_DW, RT_LF);
+		}
+		else
+		{
+			this.setShootable(false);
+		}
+	}
+	
+	public boolean CheckAvailablePosition(int UP_DW, int RT_LF )
+	{
+		if((this.getY()-UP_DW >=0 && this.getX()-RT_LF >=0) && (this.getY()-UP_DW < DimensionMap.Y && this.getX()-RT_LF < DimensionMap.X))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}	
+	}
+	
 	public void MoveUP() 
 	{
 		this.setElemIcon(this.getMoveUp());
 		this.setLastLorannMove(ControllerOrder.UP);
-		this.getModel().MoveLorann(-1,0);		
+		this.CheckAvailableMove(-1, 0);	
 	}
 
 	public void MoveDW() 
 	{
 		this.setElemIcon(this.getMoveDw());
 		this.setLastLorannMove(ControllerOrder.DOWN);
-		this.getModel().MoveLorann(1,0);	
+		this.CheckAvailableMove(1, 0);		
 	}
 
 	public void MoveLF() 
 	{
 		this.setElemIcon(this.getMoveLf());
 		this.setLastLorannMove(ControllerOrder.LEFT);
-		this.getModel().MoveLorann(0,-1);	
+		this.CheckAvailableMove(0, -1);		
 	}
 
 	public void MoveRT() 
 	{
 		this.setElemIcon(this.getMoveRt());
 		this.setLastLorannMove(ControllerOrder.RIGHT);
-		this.getModel().MoveLorann(0,1);	
+		this.CheckAvailableMove(0, 1);		
 	}
 
 	public void MoveUpLf() 
 	{
 		this.setElemIcon(this.getMoveUpLf());
 		this.setLastLorannMove(ControllerOrder.UPPERLEFT);
-		this.getModel().MoveLorann(-1,-1);
+		this.CheckAvailableMove(-1, -1);	
 	}
 
 	public void MoveUpRt() 
 	{
 		this.setElemIcon(this.getMoveUpRt());
 		this.setLastLorannMove(ControllerOrder.UPPERRIGHT);
-		this.getModel().MoveLorann(-1,1);
+		this.CheckAvailableMove(-1, 1);	
 	}
 
 	public void MoveDwLf() 
 	{
 		this.setElemIcon(this.getMoveDwLf());
 		this.setLastLorannMove(ControllerOrder.DOWNLEFT);
-		this.getModel().MoveLorann(1,-1);
+		this.CheckAvailableMove(1, -1);	
 	}
 
 	public void MoveDwRt() 
 	{
 		this.setElemIcon(this.getMoveDwRt());
 		this.setLastLorannMove(ControllerOrder.DOWNRIGHT);
-		this.getModel().MoveLorann(1,1);
+		this.CheckAvailableMove(1, 1);	
 	}
 	
 
