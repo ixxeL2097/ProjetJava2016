@@ -52,7 +52,7 @@ public class TrackingBehavior implements IArtificialIntelligence
 		{
 			for(x=0; x<DimensionMap.X; x++)
 			{
-				if(this.getMobil().getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.PENETRABLE || this.getMobil().getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.TRACKER)
+				if(this.getMobil().getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.PENETRABLE || this.getMobil().getModel().getMapGen().getElemMtx(y, x).getPermea()==this.getMobil().getPermea())
 				{
 					this.setWalkableValue(true, y, x);
 				}

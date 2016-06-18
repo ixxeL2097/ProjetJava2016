@@ -8,6 +8,7 @@ import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Projectile;
 import Element.Motion.AutoMotionElem.Daemon.Daemon;
+import Element.Motion.AutoMotionElem.Daemon.TrackingBehavior;
 import Element.MotionLess.MotionLessElem;
 import Element.MotionLess.MotionLessElemFACTORY;
 
@@ -256,6 +257,10 @@ public class Model extends Observable implements IModel
 				}
 				this.getMapGen().PlaceMotionElem(this.getMissile());	
 			}			
+		}
+		else
+		{
+			this.getMissile().setIA(new TrackingBehavior(this.getMissile()));
 		}
 		this.setChanged();
 		this.notifyObservers();	
