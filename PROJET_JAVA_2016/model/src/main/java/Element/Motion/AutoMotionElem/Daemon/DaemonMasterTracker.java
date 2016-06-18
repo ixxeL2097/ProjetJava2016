@@ -27,6 +27,11 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 		this.pathWay = new int [DimensionMap.Y][DimensionMap.X]; 
 		this.path = new PathFinder();
 	}
+	
+	public void run() 
+	{
+		this.getMoveTimer().start();
+	}
 
 	public void actionPerformed(ActionEvent e) 
 	{
@@ -45,14 +50,8 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 		{
 			this.DefaultDaemonMove();
 		}
-		
 	}
 
-	public void run() 
-	{
-		this.MoveTimer.start();
-	}
-	
 	public void GenerateBooleanMtx()
 	{
 		int x=0,y=0;
@@ -62,14 +61,19 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 			{
 				if(this.getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.TRACKER)
 				{
-					this.walkable[y][x]=true;
+					this.setWalkableValue(true, y, x);
 				}
 				else
 				{
-					this.walkable[y][x]=false;
+					this.setWalkableValue(false, y, x);
 				}
 			}
 		}
+	}
+	
+	public void setWalkableValue(boolean value, int y, int x)
+	{
+		this.walkable[y][x]=value;
 	}
 
 	public synchronized PathFinder getPath() {
@@ -95,17 +99,4 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 	public synchronized void setPathWay(int[][] pathWay) {
 		this.pathWay = pathWay;
 	}
-
-	public Timer getMoveTimer() {
-		return MoveTimer;
-	}
-
-	public void setMoveTimer(Timer moveTimer) {
-		MoveTimer = moveTimer;
-	}
-	
-	
-
-	
-
 }

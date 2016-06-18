@@ -28,7 +28,7 @@ public class DaemonRandom extends Daemon implements Runnable, ActionListener
 
 	public void run() 
 	{
-		this.MoveTimer.start();
+		this.getMoveTimer().start();
 	}
 		
 

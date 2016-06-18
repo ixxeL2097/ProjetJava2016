@@ -1,5 +1,6 @@
 package Element.Motion.AutoMotionElem;
 
+import java.awt.Point;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -13,6 +14,15 @@ public abstract class AutoMotionElem extends MotionElement
 	protected Timer MoveTimer;
 	protected Random RandomMove;
 	protected int RandomSelectMove;
+	protected static Point UP = new Point(0,-1);			// pour un point les X et Y sont inversés par rapport a une matrie ==> new Point( X, Y)
+	protected static Point DW = new Point(0,1);
+	protected static Point LF = new Point(-1,0);
+	protected static Point RT = new Point(1,0);
+	protected static Point UPRT = new Point(1,-1);
+	protected static Point DWRT = new Point(1,1);
+	protected static Point UPLF = new Point(-1,-1);
+	protected static Point DWLF = new Point(-1,1);
+	
 
 	public AutoMotionElem(Model model, String picture, Permeabilite permea) 
 	{

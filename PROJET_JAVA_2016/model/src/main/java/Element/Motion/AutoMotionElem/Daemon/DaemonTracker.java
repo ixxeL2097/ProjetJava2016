@@ -25,7 +25,7 @@ public class DaemonTracker extends Daemon implements Runnable, ActionListener
 
 	public void run() 
 	{
-		this.MoveTimer.start();
+		this.getMoveTimer().start();
 	}
 
 	public void actionPerformed(ActionEvent e) 
