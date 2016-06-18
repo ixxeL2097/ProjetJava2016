@@ -29,7 +29,6 @@ public class Model extends Observable implements IModel
 	private AutoMotionElem Missile;
 	private MapFinder MapFinder;
 	private Permeabilite permea;
-	private int score=0;
 	private int LevelMapOrder=0;
 	private DAOHelloWorld daohelloworld;
 	private AutoMotionElem destroyedEnnemy;
@@ -55,8 +54,9 @@ public class Model extends Observable implements IModel
 		try 
 		{
 			System.out.println("\n");
-			System.out.println("Connection Database ...");		
-			this.daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());			
+			System.out.println("Connection Database ...");	
+			this.setDaohelloworld(new DAOHelloWorld(DBConnection.getInstance().getConnection()));
+			//this.daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());			
 		} 
 		catch (final SQLException e) 
 		{
@@ -276,70 +276,54 @@ public class Model extends Observable implements IModel
 		}
 	}
 
-	public void MoveUP() 
+	public void MoveLorannUP() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveUp());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.UP);
-		this.MoveLorann(-1,0);		
+		this.getMapGen().getLorann().MoveUP();
 	}
 
-	public void MoveDW() 
+	public void MoveLorannDW() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveDw());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.DOWN);
-		this.MoveLorann(1,0);	
+		this.getMapGen().getLorann().MoveDW();	
 	}
 
-	public void MoveLF() 
+	public void MoveLorannLF() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveLf());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.LEFT);
-		this.MoveLorann(0,-1);	
+		this.getMapGen().getLorann().MoveLF();
 	}
 
-	public void MoveRT() 
+	public void MoveLorannRT() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveRt());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.RIGHT);
-		this.MoveLorann(0,1);	
+		this.getMapGen().getLorann().MoveRT();	
 	}
 
-	public void MoveUpLf() 
+	public void MoveLorannUpLf() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveUpLf());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.UPPERLEFT);
-		this.MoveLorann(-1,-1);
+		this.getMapGen().getLorann().MoveUpLf();
 	}
 
-	public void MoveUpRt() 
+	public void MoveLorannUpRt() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveUpRt());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.UPPERRIGHT);
-		this.MoveLorann(-1,1);
+		this.getMapGen().getLorann().MoveUpRt();
 	}
 
-	public void MoveDwLf() 
+	public void MoveLorannDwLf() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveDwLf());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.DOWNLEFT);
-		this.MoveLorann(1,-1);
+		this.getMapGen().getLorann().MoveDwLf();
 	}
 
-	public void MoveDwRt() 
+	public void MoveLorannDwRt() 
 	{
-		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getMoveDwRt());
-		this.getMapGen().getLorann().setLastLorannMove(ControllerOrder.DOWNRIGHT);
-		this.MoveLorann(1,1);
+		this.getMapGen().getLorann().MoveDwRt();
 	}
 
 	public int getScore() 
 	{
-		return this.score;
+		return this.getMapGen().getLorann().getScore();
 	}
 
 	public void setScore(int score) 
 	{
-		this.score=score;
+		this.getMapGen().getLorann().setScore(score);
 	}
 	
 	public ImageIcon getImageElement(int y, int x) 

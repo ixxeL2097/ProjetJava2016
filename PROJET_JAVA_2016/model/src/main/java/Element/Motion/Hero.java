@@ -3,6 +3,7 @@ import javax.swing.ImageIcon;
 
 import Element.*;
 import contract.ControllerOrder;
+import model.Model;
 
 public class Hero extends MotionElement
 {
@@ -16,17 +17,19 @@ public class Hero extends MotionElement
 	private ImageIcon MoveUpLf;
 	private ImageIcon MoveDwLf;
 	private ImageIcon LorannGIF;
-	protected boolean HasMoved = false;
-	protected boolean Alive ;
-	protected ControllerOrder LastLorannMove=ControllerOrder.UP;
+	private boolean HasMoved = false;
+	private boolean Alive ;
 	private boolean Shootable=true;
+	private int score=0;
+	private ControllerOrder LastLorannMove=ControllerOrder.UP;
+	
 	
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
 
-	public Hero(int Y, int X) 
+	public Hero(Model model,int Y, int X) 
 	{
-		super(HERO_MOVE, Permeabilite.HERO);
+		super(model ,HERO_MOVE, Permeabilite.HERO);
 		this.setX(X);
 		this.setY(Y);
 		this.setLastX(X);
@@ -41,6 +44,62 @@ public class Hero extends MotionElement
 		this.MoveDwLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
 		this.LorannGIF = new ImageIcon("C:/ProjetJava/Sprite/lorann.gif");
 		this.setAlive(true);
+	}
+	
+	public void MoveUP() 
+	{
+		this.setElemIcon(this.getMoveUp());
+		this.setLastLorannMove(ControllerOrder.UP);
+		this.getModel().MoveLorann(-1,0);		
+	}
+
+	public void MoveDW() 
+	{
+		this.setElemIcon(this.getMoveDw());
+		this.setLastLorannMove(ControllerOrder.DOWN);
+		this.getModel().MoveLorann(1,0);	
+	}
+
+	public void MoveLF() 
+	{
+		this.setElemIcon(this.getMoveLf());
+		this.setLastLorannMove(ControllerOrder.LEFT);
+		this.getModel().MoveLorann(0,-1);	
+	}
+
+	public void MoveRT() 
+	{
+		this.setElemIcon(this.getMoveRt());
+		this.setLastLorannMove(ControllerOrder.RIGHT);
+		this.getModel().MoveLorann(0,1);	
+	}
+
+	public void MoveUpLf() 
+	{
+		this.setElemIcon(this.getMoveUpLf());
+		this.setLastLorannMove(ControllerOrder.UPPERLEFT);
+		this.getModel().MoveLorann(-1,-1);
+	}
+
+	public void MoveUpRt() 
+	{
+		this.setElemIcon(this.getMoveUpRt());
+		this.setLastLorannMove(ControllerOrder.UPPERRIGHT);
+		this.getModel().MoveLorann(-1,1);
+	}
+
+	public void MoveDwLf() 
+	{
+		this.setElemIcon(this.getMoveDwLf());
+		this.setLastLorannMove(ControllerOrder.DOWNLEFT);
+		this.getModel().MoveLorann(1,-1);
+	}
+
+	public void MoveDwRt() 
+	{
+		this.setElemIcon(this.getMoveDwRt());
+		this.setLastLorannMove(ControllerOrder.DOWNRIGHT);
+		this.getModel().MoveLorann(1,1);
 	}
 	
 
@@ -111,5 +170,15 @@ public class Hero extends MotionElement
 	public void setShootable(boolean shootable) {
 		Shootable = shootable;
 	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	
 	
 }

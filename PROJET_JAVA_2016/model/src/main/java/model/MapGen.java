@@ -130,7 +130,7 @@ public class MapGen
 			{
 				switch(this.map[y][x])
 				{
-					case '@': this.setLorann(new Hero(y,x));
+					case '@': this.setLorann(new Hero(this.getModel(),y,x));
 							  this.setElemMtx(this.getLorann(), y, x);
 							  break;
 					case '0': this.setElemMtx(new Number(0), y, x);     																					

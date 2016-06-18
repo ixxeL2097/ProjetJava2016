@@ -36,15 +36,15 @@ public interface IModel
 	ImageIcon getImageElement(int y, int x);
 	
 	void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT);
-	void MoveUP();
-	void MoveDW();
-	void MoveLF();
-	void MoveRT();
+	void MoveLorannUP();
+	void MoveLorannDW();
+	void MoveLorannLF();
+	void MoveLorannRT();
 	
-	void MoveUpLf();
-	void MoveUpRt();
-	void MoveDwLf();
-	void MoveDwRt();
+	void MoveLorannUpLf();
+	void MoveLorannUpRt();
+	void MoveLorannDwLf();
+	void MoveLorannDwRt();
 	void setLorannGIF();
 	void LorannIsShooting();
 	
