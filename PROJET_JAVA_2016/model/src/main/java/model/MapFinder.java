@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class MapFinder 
 {
 	private HashMap<Integer, String> MapRanking; 
-	private String BodyPathText = "C:/ProjetJava/Map/MAP_lvl";
+	private String FolderPath = "C:/ProjetJava/Map/MAP_lvl";
 	private String Extension =".txt";
-	private int MapNumber = 100;
+	private int MapNumber = 101;
 	
 	public MapFinder()
 	{
@@ -15,7 +15,7 @@ public class MapFinder
 		int x=0;
 		for(x=0; x<MapNumber; x++)
 		{
-			this.addMap(x, BodyPathText+x+Extension);
+			this.addMap(x, FolderPath+x+Extension);
 		}
 	}
 	

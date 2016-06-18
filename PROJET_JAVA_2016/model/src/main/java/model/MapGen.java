@@ -5,7 +5,7 @@ import Element.*;
 import Element.Number;
 import Element.Motion.Hero;
 import Element.Motion.MotionElement;
-import Element.Motion.AutoMotionElem.Daemon.DaemonMasterTracker;
+import Element.Motion.AutoMotionElem.Daemon.DaemonBlind;
 import Element.Motion.AutoMotionElem.Daemon.DaemonRandom;
 import Element.Motion.AutoMotionElem.Daemon.DaemonTracker;
 import Element.MotionLess.*;
@@ -18,8 +18,8 @@ public class MapGen
 	private String MapName;
 	private int MapLevel=0;
 	private Model model;
-	private DaemonTracker StupidTracker;
-	private DaemonMasterTracker SmartTracker;
+	private DaemonBlind StupidTracker;
+	private DaemonTracker SmartTracker;
 	private DaemonRandom BrainLessTracker;
 	private Hero Lorann;
 	
@@ -138,10 +138,10 @@ public class MapGen
 					case 'A': this.setBrainLessTracker(new DaemonRandom(this.getModel(),y,x)); 		
 							  this.setElemMtx(this.getBrainLessTracker(), y, x); 			
 							  break;
-					case 'B': this.setStupidTracker(new DaemonTracker(this.getModel(),y,x));		
+					case 'B': this.setStupidTracker(new DaemonBlind(this.getModel(),y,x));		
 							  this.setElemMtx(this.getStupidTracker(), y, x);				
 							  break;
-					case 'D': this.setSmartTracker(new DaemonMasterTracker(this.getModel(),y,x)); 	
+					case 'D': this.setSmartTracker(new DaemonTracker(this.getModel(),y,x)); 	
 							  this.setElemMtx(this.getSmartTracker(), y, x); 			
 							  break;
 					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.map[y][x]), y, x);	                            			
@@ -211,6 +211,7 @@ public class MapGen
 	public void ChangeCurrentMap()
 	{
 		this.CreateMap();
+		this.ConsoleMap();
 		//this.tabMapFromDB();
 		this.createModel();	
 	}
@@ -300,19 +301,19 @@ public class MapGen
 		ElemMtx[y][x] = elemMtx;
 	}
 
-	public DaemonTracker getStupidTracker() {
+	public DaemonBlind getStupidTracker() {
 		return StupidTracker;
 	}
 
-	public void setStupidTracker(DaemonTracker stupidTracker) {
+	public void setStupidTracker(DaemonBlind stupidTracker) {
 		StupidTracker = stupidTracker;
 	}
 
-	public DaemonMasterTracker getSmartTracker() {
+	public DaemonTracker getSmartTracker() {
 		return SmartTracker;
 	}
 
-	public void setSmartTracker(DaemonMasterTracker smartTracker) {
+	public void setSmartTracker(DaemonTracker smartTracker) {
 		SmartTracker = smartTracker;
 	}
 

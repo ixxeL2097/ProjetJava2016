@@ -1,57 +1,50 @@
 package Element.Motion.AutoMotionElem.Daemon;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
-
 import Element.Permeabilite;
+import Element.Motion.AutoMotionElem.AutoMotionElem;
+import Element.Motion.AutoMotionElem.IArtificialIntelligence;
 import PathFinder.PathFinder;
 import model.DimensionMap;
-import model.Model;
 
-public class DaemonMasterTracker extends Daemon implements Runnable, ActionListener
+public class TrackingBehavior implements IArtificialIntelligence
 {
+	private AutoMotionElem Mobil;
 	private PathFinder path;
 	private boolean[][] walkable;
 	private int[][] pathWay;
-
-	public DaemonMasterTracker(Model model, int y , int x) 
+	
+	public TrackingBehavior(AutoMotionElem Mobil)
 	{
-		super(model, "C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);
-		
-		this.MoveTimer=new Timer(450,this);
-		this.setX(x);
-		this.setY(y);
+		this.setMobil(Mobil);
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
 		this.pathWay = new int [DimensionMap.Y][DimensionMap.X]; 
 		this.path = new PathFinder();
 	}
-	
-	public void run() 
-	{
-		this.getMoveTimer().start();
-	}
 
-	public void actionPerformed(ActionEvent e) 
+	public void AutoMove() 
 	{
-		int x = this.getX();
-		int y = this.getY();
-		int k = this.getModel().getMapGen().getLorann().getX();
-		int j = this.getModel().getMapGen().getLorann().getY();
+		this.UpdatePosition();	
+	}
+	
+	public void UpdatePosition()
+	{
+		int x = this.getMobil().getX();
+		int y = this.getMobil().getY();
+		int k = this.getMobil().getModel().getMapGen().getLorann().getX();
+		int j = this.getMobil().getModel().getMapGen().getLorann().getY();
 		
 		this.GenerateBooleanMtx();
 		this.setPathWay(this.getPath().findPath(x, y, k, j, this.getWalkable()));
 		if(this.getPathWay() != null)
 		{
-			this.getModel().MoveDaemon(pathWay[0][1], pathWay[0][0], this);
+			this.getMobil().getModel().MoveDaemon(pathWay[0][1], pathWay[0][0], this.getMobil());
 		}
 		else
 		{
-			this.DefaultDaemonMove();
+			this.getMobil().DefaultDaemonMove();
 		}
 	}
-
+	
 	public void GenerateBooleanMtx()
 	{
 		int x=0,y=0;
@@ -59,7 +52,7 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 		{
 			for(x=0; x<DimensionMap.X; x++)
 			{
-				if(this.getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.PENETRABLE || this.getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.TRACKER)
+				if(this.getMobil().getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.PENETRABLE || this.getMobil().getModel().getMapGen().getElemMtx(y, x).getPermea()==Permeabilite.TRACKER)
 				{
 					this.setWalkableValue(true, y, x);
 				}
@@ -99,4 +92,15 @@ public class DaemonMasterTracker extends Daemon implements Runnable, ActionListe
 	public synchronized void setPathWay(int[][] pathWay) {
 		this.pathWay = pathWay;
 	}
+
+	public AutoMotionElem getMobil() {
+		return Mobil;
+	}
+
+	public void setMobil(AutoMotionElem mobil) {
+		Mobil = mobil;
+	}
+	
+	
+
 }

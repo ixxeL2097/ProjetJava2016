@@ -25,7 +25,7 @@ public class Model extends Observable implements IModel
 {
 	/** The message. */
 	private MapGen MapGen;
-	private Projectile Missile;
+	private AutoMotionElem Missile;
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int score=0;
@@ -402,7 +402,7 @@ public class Model extends Observable implements IModel
 	}
 
 
-	public Projectile getMissile() {
+	public AutoMotionElem getMissile() {
 		return Missile;
 	}
 

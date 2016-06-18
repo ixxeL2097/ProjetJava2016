@@ -7,6 +7,7 @@ import javax.swing.Timer;
 
 import Element.Permeabilite;
 import Element.Motion.MotionElement;
+import contract.ControllerOrder;
 import model.Model;
 
 public abstract class AutoMotionElem extends MotionElement 
@@ -14,6 +15,8 @@ public abstract class AutoMotionElem extends MotionElement
 	protected Timer MoveTimer;
 	protected Random RandomMove;
 	protected int RandomSelectMove;
+	protected IArtificialIntelligence IA;
+	protected ControllerOrder Direction;
 	protected static Point UP = new Point(0,-1);			// pour un point les X et Y sont inversés par rapport a une matrie ==> new Point( X, Y)
 	protected static Point DW = new Point(0,1);
 	protected static Point LF = new Point(-1,0);
@@ -126,5 +129,25 @@ public abstract class AutoMotionElem extends MotionElement
 	public void setMoveTimer(Timer moveTimer) {
 		MoveTimer = moveTimer;
 	}
+
+	public IArtificialIntelligence getIA() {
+		return IA;
+	}
+
+	public void setIA(IArtificialIntelligence iA) {
+		IA = iA;
+	}
+	
+	public ControllerOrder getDirection() 
+	{
+		return Direction;
+	}
+
+	public void setDirection(ControllerOrder direction) 
+	{
+		Direction = direction;
+	}
+	
+	
 
 }
