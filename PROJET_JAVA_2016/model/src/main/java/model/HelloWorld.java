@@ -9,17 +9,11 @@ class HelloWorld extends Entity {
 
 	private String	message;
 
-	public HelloWorld(final int id, final String key, final String message) {
-		this.setId(id);
-		this.setKey(key);
-		this.setMessage(message);
+	public HelloWorld() 
+	{
+		
 	}
-
-	public HelloWorld() {
-		this(0, "", "");
-	}
-
-
+	
 	public int getId() {
 		return this.id;
 	}

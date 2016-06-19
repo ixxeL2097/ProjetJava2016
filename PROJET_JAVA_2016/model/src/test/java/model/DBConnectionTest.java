@@ -19,11 +19,11 @@ public class DBConnectionTest
 	{
 		if(this.DBC_init.ConnectToDB() == true)
 		{
-			System.out.println("ConnecToDB return true");
+			System.out.println("ConnectToDB return true");
 		}
 		else if(this.DBC_init.ConnectToDB() == false)
 		{
-			System.out.println("ConnecToDB return false");
+			System.out.println("ConnectToDB return false");
 		}
 		
 		// Check if DBConnectionJDB returns true. True => connection success

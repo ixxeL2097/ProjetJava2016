@@ -7,12 +7,12 @@ import org.junit.Test;
 
 public class DAOHelloWorldTest 
 {
-	private DAOHelloWorld DAOHWInit;
+	private DAOMapDB DAOHWInit;
 	
 	@Before
 	public void setUp() throws Exception 
 	{
-		this.DAOHWInit = new DAOHelloWorld(DBConnection.getInstance().getConnection());
+		this.DAOHWInit = new DAOMapDB(DBConnection.getInstance().getConnection());
 	}
 
 	@Test

@@ -10,7 +10,7 @@ import java.sql.SQLException;
  *
  * @author Jean-Aymeric Diet
  */
-class DAOHelloWorld extends DAOEntity<HelloWorld> {
+class DAOMapDB extends DAOEntity<HelloWorld> {
 	
 	int dbX = 0;
 	int dbY = 0;
@@ -27,7 +27,7 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	 * @throws SQLException
 	 *           the SQL exception
 	 */
-	public DAOHelloWorld(final Connection connection) throws SQLException {
+	public DAOMapDB(final Connection connection) throws SQLException {
 		super(connection);
 	}
 

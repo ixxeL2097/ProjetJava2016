@@ -32,7 +32,7 @@ public class Model extends Observable implements IModel
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int LevelMapOrder=0;
-	private DAOHelloWorld daohelloworld;
+	private DAOMapDB daomapdb;
 	private AutoMotionElem destroyedEnnemy;
 
 	/**
@@ -57,7 +57,7 @@ public class Model extends Observable implements IModel
 		{
 			System.out.println("\n");
 			System.out.println("Connection Database ...");	
-			this.setDaohelloworld(new DAOHelloWorld(DBConnection.getInstance().getConnection()));
+			this.setDaoMapDb(new DAOMapDB(DBConnection.getInstance().getConnection()));
 						
 		} 
 		catch (final SQLException e) 
@@ -341,13 +341,13 @@ public class Model extends Observable implements IModel
 		return MapFinder;
 	}
 	
-	public DAOHelloWorld getDaohelloworld() {
-		return daohelloworld;
+	public DAOMapDB getDaoMapDb() {
+		return daomapdb;
 	}
 
 
-	public void setDaohelloworld(DAOHelloWorld daohelloworld) {
-		this.daohelloworld = daohelloworld;
+	public void setDaoMapDb(DAOMapDB daomapdb) {
+		this.daomapdb = daomapdb;
 	}
 
 	public int getLevelMapOrder() {

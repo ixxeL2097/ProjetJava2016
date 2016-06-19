@@ -54,8 +54,8 @@ public class MapGen
 	         s = MapName.substring(25, 26);
 	         i = Integer.parseInt(s);
 	         
-	        this.getModel().getDaohelloworld().CheckIfExist(i);
-	         v = getModel().getDaohelloworld().getDbV();
+	        this.getModel().getDaoMapDb().CheckIfExist(i);
+	         v = getModel().getDaoMapDb().getDbV();
 	         	         
 	         while ((fis.read(buf)) >= 0) 				// Vaut -1 quand c'est fini Lorsque la lecture du fichier est terminée On sort donc de la boucle
 	         {           
@@ -67,7 +67,7 @@ public class MapGen
 	            	   
 	            	  if (v != "false")
 	            	  {
-	            	  this.getModel().getDaohelloworld().addMapDB(i, x, y, (char)bit);
+	            	  this.getModel().getDaoMapDb().addMapDB(i, x, y, (char)bit);
 	            	  }
 	            	   x++;
 	               }
@@ -116,8 +116,8 @@ public class MapGen
         {     	
         	for(y=0; y<11; y++)
         	{        		
-        		getModel().getDaohelloworld().DataFromDB(i,x,y);
-        		u = getModel().getDaohelloworld().getDbS();
+        		getModel().getDaoMapDb().DataFromDB(i,x,y);
+        		u = getModel().getDaoMapDb().getDbS();
         		c = u.charAt(0);
         		map[y][x] = c;
         	}        
