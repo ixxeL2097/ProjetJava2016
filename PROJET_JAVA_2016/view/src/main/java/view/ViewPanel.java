@@ -1,6 +1,5 @@
 package view;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -103,11 +102,12 @@ class ViewPanel extends JPanel implements Observer
 	public void GameOver()
 	{
 		this.removeAll();
-		this.repaint();	
 		this.setLayout(null);
 		this.GameOver = new JLabel(new ImageIcon(this.gameOver));
 		this.GameOver.setBounds(0, 0, this.getWidth(), this.getHeight());
-		this.add(this.GameOver);
+		this.add(this.GameOver);	
+		this.setVisible(true);
+		this.repaint();
 	}
 
 	/**

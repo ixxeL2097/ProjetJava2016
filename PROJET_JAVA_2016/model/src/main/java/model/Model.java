@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import Element.Permeabilite;
+import Element.Motion.Hero;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Projectile;
 import Element.Motion.AutoMotionElem.Daemon.Daemon;
@@ -16,6 +17,7 @@ import javax.swing.ImageIcon;
 
 import contract.ControllerOrder;
 import contract.IModel;
+import contract.IPlayer;
 
 /**
  * The Class Model.
@@ -187,6 +189,7 @@ public class Model extends Observable implements IModel
 			this.getMapGen().StopAllDaemons();
 			this.getMapGen().DestroyAllDaemons();
 			this.getMapGen().getLorann().setAlive(false);
+			System.out.println(this.getMapGen().getLorann().isAlive());
 		}
 		else if(this.getPermea() == Permeabilite.MISSILE)
 		{
@@ -281,46 +284,6 @@ public class Model extends Observable implements IModel
 		}
 	}
 
-	public void MoveLorannUP() 
-	{
-		this.getMapGen().getLorann().MoveUP();
-	}
-
-	public void MoveLorannDW() 
-	{
-		this.getMapGen().getLorann().MoveDW();	
-	}
-
-	public void MoveLorannLF() 
-	{
-		this.getMapGen().getLorann().MoveLF();
-	}
-
-	public void MoveLorannRT() 
-	{
-		this.getMapGen().getLorann().MoveRT();	
-	}
-
-	public void MoveLorannUpLf() 
-	{
-		this.getMapGen().getLorann().MoveUpLf();
-	}
-
-	public void MoveLorannUpRt() 
-	{
-		this.getMapGen().getLorann().MoveUpRt();
-	}
-
-	public void MoveLorannDwLf() 
-	{
-		this.getMapGen().getLorann().MoveDwLf();
-	}
-
-	public void MoveLorannDwRt() 
-	{
-		this.getMapGen().getLorann().MoveDwRt();
-	}
-
 	public int getScore() 
 	{
 		return this.getMapGen().getLorann().getScore();
@@ -328,7 +291,7 @@ public class Model extends Observable implements IModel
 
 	public void setScore(int score) 
 	{
-		this.getMapGen().getLorann().setScore(score);
+		Hero.setScore(score);
 	}
 	
 	public ImageIcon getImageElement(int y, int x) 
@@ -423,6 +386,11 @@ public class Model extends Observable implements IModel
 	public int getLives() 
 	{
 		return this.getMapGen().getLorann().getLives();
+	}
+	
+	public IPlayer getPlayer()
+	{
+		return this.getMapGen().getLorann();
 	}
 	
 	

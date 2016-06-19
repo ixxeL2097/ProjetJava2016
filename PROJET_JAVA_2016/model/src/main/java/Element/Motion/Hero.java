@@ -3,26 +3,27 @@ import javax.swing.ImageIcon;
 
 import Element.*;
 import contract.ControllerOrder;
+import contract.IPlayer;
 import model.DimensionMap;
 import model.Model;
 
-public class Hero extends MotionElement
+public class Hero extends MotionElement implements IPlayer
 {
-	private static String HERO_MOVE="C:/ProjetJava/Sprite/lorann.gif";
-	private ImageIcon MoveUp;
-	private ImageIcon MoveDw;
-	private ImageIcon MoveLf;
-	private ImageIcon MoveRt;
-	private ImageIcon MoveUpRt;
-	private ImageIcon MoveDwRt;
-	private ImageIcon MoveUpLf;
-	private ImageIcon MoveDwLf;
-	private ImageIcon LorannGIF;
+	private static final String HERO_MOVE="C:/ProjetJava/Sprite/lorann.gif";
+	private static final ImageIcon MOVEUP = new ImageIcon("C:/ProjetJava/Sprite/lorann_u.png");
+	private static final ImageIcon MOVEDW = new ImageIcon("C:/ProjetJava/Sprite/lorann_b.png");
+	private static final ImageIcon MOVELF = new ImageIcon("C:/ProjetJava/Sprite/lorann_l.png");
+	private static final ImageIcon MOVERT = new ImageIcon("C:/ProjetJava/Sprite/lorann_r.png");
+	private static final ImageIcon MOVEUPRT = new ImageIcon("C:/ProjetJava/Sprite/lorann_ur.png");
+	private static final ImageIcon MOVEDWRT = new ImageIcon("C:/ProjetJava/Sprite/lorann_br.png");
+	private static final ImageIcon MOVEUPLF = new ImageIcon("C:/ProjetJava/Sprite/lorann_ul.png");
+	private static final ImageIcon MOVEDWLF = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
+	private static final ImageIcon LORANNGIF = new ImageIcon("C:/ProjetJava/Sprite/lorann.gif");
 	private boolean HasMoved = false;
 	private boolean Alive ;
 	private boolean Shootable=true;
-	private int score=0;
-	private int lives=0;
+	private static int SCORE=0;
+	private static int LIVES=1;
 	private ControllerOrder LastLorannMove=ControllerOrder.UP;
 	
 	
@@ -36,17 +37,7 @@ public class Hero extends MotionElement
 		this.setY(Y);
 		this.setLastX(X);
 		this.setLastY(Y);
-		this.MoveUp = new ImageIcon("C:/ProjetJava/Sprite/lorann_u.png");
-		this.MoveDw = new ImageIcon("C:/ProjetJava/Sprite/lorann_b.png");
-		this.MoveLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_l.png");
-		this.MoveRt = new ImageIcon("C:/ProjetJava/Sprite/lorann_r.png");
-		this.MoveUpRt = new ImageIcon("C:/ProjetJava/Sprite/lorann_ur.png");
-		this.MoveDwRt = new ImageIcon("C:/ProjetJava/Sprite/lorann_br.png");
-		this.MoveUpLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_ul.png");
-		this.MoveDwLf = new ImageIcon("C:/ProjetJava/Sprite/lorann_bl.png");
-		this.LorannGIF = new ImageIcon("C:/ProjetJava/Sprite/lorann.gif");
 		this.setAlive(true);
-		this.setLives(1);
 	}
 	
 	public void CheckAvailableMove(int UP_DW, int RT_LF)
@@ -131,39 +122,39 @@ public class Hero extends MotionElement
 	
 
 	public ImageIcon getMoveUp() {
-		return MoveUp;
+		return MOVEUP;
 	}
 
 	public ImageIcon getMoveDw() {
-		return MoveDw;
+		return MOVEDW;
 	}
 
 	public ImageIcon getMoveLf() {
-		return MoveLf;
+		return MOVELF;
 	}
 
 	public ImageIcon getMoveRt() {
-		return MoveRt;
+		return MOVERT;
 	}
 
 	public ImageIcon getMoveUpRt() {
-		return MoveUpRt;
+		return MOVEUPRT;
 	}
 
 	public ImageIcon getMoveDwRt() {
-		return MoveDwRt;
+		return MOVEDWRT;
 	}
 
 	public ImageIcon getMoveUpLf() {
-		return MoveUpLf;
+		return MOVEUPLF;
 	}
 
 	public ImageIcon getMoveDwLf() {
-		return MoveDwLf;
+		return MOVEDWLF;
 	}
 
 	public ImageIcon getLorannGIF() {
-		return LorannGIF;
+		return LORANNGIF;
 	}
 
 	public boolean isHasMoved() {
@@ -199,19 +190,19 @@ public class Hero extends MotionElement
 	}
 
 	public int getScore() {
-		return score;
+		return SCORE;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public static void setScore(int score) {
+		Hero.SCORE = score;
 	}
 
 	public int getLives() {
-		return lives;
+		return LIVES;
 	}
 
 	public void setLives(int lives) {
-		this.lives = lives;
+		Hero.LIVES = lives;
 	}
 	
 	

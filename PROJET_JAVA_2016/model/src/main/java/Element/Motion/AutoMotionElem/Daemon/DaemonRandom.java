@@ -15,7 +15,7 @@ public class DaemonRandom extends Daemon implements Runnable, ActionListener
 	public DaemonRandom(Model model, int y , int x) 
 	{
 		super(model, "C:/ProjetJava/Sprite/monster_2.png", Permeabilite.ENEMY);
-		this.MoveTimer = new Timer(350,this);
+		this.MoveTimer = new Timer(300,this);
 		this.setX(x);
 		this.setY(y);
 		this.RandomMove = new Random();

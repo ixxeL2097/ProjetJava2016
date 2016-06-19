@@ -36,15 +36,6 @@ public interface IModel
 	ImageIcon getImageElement(int y, int x);
 	
 	void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT);
-	void MoveLorannUP();
-	void MoveLorannDW();
-	void MoveLorannLF();
-	void MoveLorannRT();
-	
-	void MoveLorannUpLf();
-	void MoveLorannUpRt();
-	void MoveLorannDwLf();
-	void MoveLorannDwRt();
 	void setLorannGIF();
 	void LorannIsShooting();
 	
@@ -52,4 +43,6 @@ public interface IModel
 	int getLives();
 	void setScore(int score);
 	boolean getLorannStatus();
+	IPlayer getPlayer();
+	
 }

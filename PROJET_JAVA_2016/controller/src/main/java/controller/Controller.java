@@ -72,21 +72,21 @@ public class Controller implements IController
 		switch (controllerOrder) 
 		{
 			case UP:
-					this.getModel().MoveLorannUP();break;
+				this.getModel().getPlayer().MoveUP();break;
 			case DOWN:
-					this.getModel().MoveLorannDW();break;
+				this.getModel().getPlayer().MoveDW();break;
 			case LEFT:
-					this.getModel().MoveLorannLF();break;
+				this.getModel().getPlayer().MoveLF();break;
 			case RIGHT:
-					this.getModel().MoveLorannRT();break;
+				this.getModel().getPlayer().MoveRT();break;
 			case UPPERRIGHT:
-					this.getModel().MoveLorannUpRt();break;
+				this.getModel().getPlayer().MoveUpRt();break;
 			case UPPERLEFT:
-					this.getModel().MoveLorannUpLf();break;
+				this.getModel().getPlayer().MoveUpLf();break;
 			case DOWNRIGHT:
-					this.getModel().MoveLorannDwRt();break;
+				this.getModel().getPlayer().MoveDwRt();break;
 			case DOWNLEFT:
-					this.getModel().MoveLorannDwLf();break;
+				this.getModel().getPlayer().MoveDwLf();break;
 			case SPACE:	
 				this.getModel().LorannIsShooting();
 				break;
@@ -97,6 +97,4 @@ public class Controller implements IController
 	public IModel getModel() {
 		return model;
 	}
-
-	
 }
