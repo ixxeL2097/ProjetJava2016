@@ -6,26 +6,24 @@ import Element.Motion.AutoMotionElem.IArtificialIntelligence;
 import PathFinder.PathFinder;
 import model.DimensionMap;
 
-public class TrackingBehavior implements IArtificialIntelligence
+public class SadisticBehaviour implements IArtificialIntelligence
 {
 	private AutoMotionElem Mobil;
 	private PathFinder path;
 	private boolean[][] walkable;
 	private int[][] pathWay;
-	private int WalkParameter;
 	
-	public TrackingBehavior(AutoMotionElem Mobil, int WalkParameter)
+	public SadisticBehaviour(AutoMotionElem Mobil)
 	{
 		this.setMobil(Mobil);
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
 		this.pathWay = new int [DimensionMap.Y][DimensionMap.X]; 
 		this.path = new PathFinder();
-		this.setWalkParameter(WalkParameter);
 	}
-
+	
 	public void AutoMove() 
 	{
-		this.UpdatePosition();	
+		this.UpdatePosition();
 	}
 	
 	public void UpdatePosition()
@@ -37,13 +35,13 @@ public class TrackingBehavior implements IArtificialIntelligence
 		
 		this.GenerateBooleanMtx();
 		this.setPathWay(this.getPath().findPath(x, y, k, j, this.getWalkable()));
-		if(this.getPathWay() != null && this.getPath().getSteps() > this.getWalkParameter())
+		if(this.getPathWay() != null && this.getPath().getSteps()>2)
 		{
 			this.getMobil().getModel().MoveDaemon(pathWay[0][1], pathWay[0][0], this.getMobil());
 		}
 		else
 		{
-			this.getMobil().DefaultDaemonMove();
+			this.getMobil().SadisticDaemonMove();
 		}
 	}
 	
@@ -103,16 +101,6 @@ public class TrackingBehavior implements IArtificialIntelligence
 		Mobil = mobil;
 	}
 
-	public int getWalkParameter() {
-		return WalkParameter;
-	}
 
-	public void setWalkParameter(int walkParameter) {
-		WalkParameter = walkParameter;
-	}
-	
-	
-	
-	
 
 }

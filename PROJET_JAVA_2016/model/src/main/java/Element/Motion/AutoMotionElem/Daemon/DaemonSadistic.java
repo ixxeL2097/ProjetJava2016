@@ -8,25 +8,25 @@ import javax.swing.Timer;
 import Element.Permeabilite;
 import model.Model;
 
-public class DaemonTracker extends Daemon implements Runnable, ActionListener
+public class DaemonSadistic extends Daemon implements Runnable, ActionListener
 {
-	public DaemonTracker(Model model, int y , int x) 
+	public DaemonSadistic(Model model, int y , int x) 
 	{
-		super(model, "C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);		
+		super(model, "C:/ProjetJava/Sprite/monster_3.png", Permeabilite.ENEMY);
 		this.MoveTimer=new Timer(400,this);
 		this.setX(x);
 		this.setY(y);
-		this.setIA(new TrackingBehavior(this, 0));
+		this.setIA(new SadisticBehaviour(this));
 	}
-	
+
 	public void run() 
 	{
 		this.getMoveTimer().start();
 	}
-
+	
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.getIA().AutoMove();
+		this.getIA().AutoMove();	
 	}
 
 }

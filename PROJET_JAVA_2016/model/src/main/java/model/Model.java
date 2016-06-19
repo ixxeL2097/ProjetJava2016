@@ -268,7 +268,7 @@ public class Model extends Observable implements IModel
 		}
 		else
 		{
-			this.getMissile().setIA(new TrackingBehavior(this.getMissile()));
+			this.getMissile().setIA(new TrackingBehavior(this.getMissile(),0));
 		}
 		this.setChanged();
 		this.notifyObservers();	

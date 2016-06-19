@@ -7,6 +7,7 @@ import Element.Motion.Hero;
 import Element.Motion.MotionElement;
 import Element.Motion.AutoMotionElem.Daemon.DaemonBlind;
 import Element.Motion.AutoMotionElem.Daemon.DaemonRandom;
+import Element.Motion.AutoMotionElem.Daemon.DaemonSadistic;
 import Element.Motion.AutoMotionElem.Daemon.DaemonTracker;
 import Element.MotionLess.*;
 
@@ -21,6 +22,7 @@ public class MapGen
 	private DaemonBlind StupidTracker;
 	private DaemonTracker SmartTracker;
 	private DaemonRandom BrainLessTracker;
+	private DaemonSadistic SadisticTracker;
 	private Hero Lorann;
 	
 	public MapGen(int MapNumber, Model model)
@@ -141,6 +143,9 @@ public class MapGen
 					case 'B': this.setStupidTracker(new DaemonBlind(this.getModel(),y,x));		
 							  this.setElemMtx(this.getStupidTracker(), y, x);				
 							  break;
+					case 'C': this.setSadisticTracker(new DaemonSadistic(this.getModel(),y,x));		  
+							  this.setElemMtx(this.getSadisticTracker(), y, x);
+							  break;
 					case 'D': this.setSmartTracker(new DaemonTracker(this.getModel(),y,x)); 	
 							  this.setElemMtx(this.getSmartTracker(), y, x); 			
 							  break;
@@ -184,7 +189,8 @@ public class MapGen
 	{
 		this.setBrainLessTracker(null);
 		this.setStupidTracker(null);
-		this.setSmartTracker(null);		
+		this.setSmartTracker(null);	
+		this.setSadisticTracker(null);
 	}
 	
 	public void ChangeLevelMap()
@@ -230,6 +236,10 @@ public class MapGen
 		{
 			this.getBrainLessTracker().run();
 		}
+		if(this.getSadisticTracker() != null)
+		{
+			this.getSadisticTracker().run();
+		}
 	}
 	
 	public synchronized void StopAllDaemons()
@@ -246,6 +256,10 @@ public class MapGen
 		{
 			this.getBrainLessTracker().getMoveTimer().stop();
 		}	
+		if(this.getSadisticTracker() != null)
+		{
+			this.getSadisticTracker().getMoveTimer().stop();
+		}
 	}
 	
 	public void ConsoleMap()
@@ -333,10 +347,13 @@ public class MapGen
 		Lorann = lorann;
 	}
 
+	public DaemonSadistic getSadisticTracker() {
+		return SadisticTracker;
+	}
 
-	
-	
-	
-	
-	
+	public void setSadisticTracker(DaemonSadistic sadisticTracker) {
+		SadisticTracker = sadisticTracker;
+	}
+
+
 }

@@ -68,6 +68,20 @@ public abstract class AutoMotionElem extends MotionElement
 		}
 	}
 	
+	public void SadisticDaemonMove()
+	{
+		System.out.println("Sadistic Move");
+		
+		int RandomUP_DW = -2;
+		int RandomRT_LF = -2;
+		RandomUP_DW = RandomUP_DW+RandomMove.nextInt(5);
+		RandomRT_LF = RandomRT_LF+RandomMove.nextInt(5);
+		
+		if(this.CheckAllowedMapBounds(RandomUP_DW, RandomRT_LF)){this.MoveDaemon(RandomUP_DW,RandomRT_LF);}
+		else{this.SadisticDaemonMove();}
+
+	}
+	
 	public boolean CheckAllowedMapBounds(int UP_DW, int RT_LF)
 	{
 		if((this.getY()+UP_DW < this.getModel().getDimensionMapY() && this.getX()+RT_LF < this.getModel().getDimensionMapX()) && (this.getY()+UP_DW >= 0 && this.getX()+RT_LF >= 0)) 
