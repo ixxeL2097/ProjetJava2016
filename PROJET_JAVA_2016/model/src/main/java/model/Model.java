@@ -40,7 +40,7 @@ public class Model extends Observable implements IModel
 	 */
 	public Model() 
 	{
-		//this.loadMessage();		
+		this.loadDB();		
 		this.MapFinder = new MapFinder();
 		this.MapGen = new MapGen(this.getLevelMapOrder(),this);
 	}
@@ -51,14 +51,14 @@ public class Model extends Observable implements IModel
 	 *
 	 * @see contract.IModel#getMessage(java.lang.String)
 	 */
-	public void loadMessage() 
+	public void loadDB() 
 	{
 		try 
 		{
 			System.out.println("\n");
 			System.out.println("Connection Database ...");	
 			this.setDaohelloworld(new DAOHelloWorld(DBConnection.getInstance().getConnection()));
-			//this.daohelloworld = new DAOHelloWorld(DBConnection.getInstance().getConnection());			
+						
 		} 
 		catch (final SQLException e) 
 		{

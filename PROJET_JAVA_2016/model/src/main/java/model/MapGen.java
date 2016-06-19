@@ -35,7 +35,7 @@ public class MapGen
 		
 		this.CreateMap();
 		this.ConsoleMap();
-		//this.tabMapFromDB();
+		this.tabMapFromDB();
 		this.createModel();
 	}
 		
@@ -54,8 +54,8 @@ public class MapGen
 	         s = MapName.substring(25, 26);
 	         i = Integer.parseInt(s);
 	         
-	        // this.getModel().getDaohelloworld().verifExist(i);
-	        // v = getModel().getDaohelloworld().getDbV();
+	        this.getModel().getDaohelloworld().CheckIfExist(i);
+	         v = getModel().getDaohelloworld().getDbV();
 	         	         
 	         while ((fis.read(buf)) >= 0) 				// Vaut -1 quand c'est fini Lorsque la lecture du fichier est terminée On sort donc de la boucle
 	         {           
@@ -65,9 +65,10 @@ public class MapGen
 	               {
 	            	   map [y][x]= (char)bit;
 	            	   
-	            	   //if (v != "false"){
-	            	  // this.getModel().getDaohelloworld().addMapBdd(i, x, y, (char)bit);
-	            	   //}
+	            	  if (v != "false")
+	            	  {
+	            	  this.getModel().getDaohelloworld().addMapDB(i, x, y, (char)bit);
+	            	  }
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)
@@ -218,7 +219,7 @@ public class MapGen
 	{
 		this.CreateMap();
 		this.ConsoleMap();
-		//this.tabMapFromDB();
+		this.tabMapFromDB();
 		this.createModel();	
 	}
 	

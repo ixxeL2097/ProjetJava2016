@@ -4,7 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * The Class DAOHelloWorld.
@@ -66,12 +65,12 @@ class DAOHelloWorld extends DAOEntity<HelloWorld> {
 	}
 
 
-public HelloWorld verifExist(int i){
+public HelloWorld CheckIfExist(int i){
 		
 		try
 		{
 			
-			final String db_verif = "{call VerifExist(?)}";
+			final String db_verif = "{call CheckExist(?)}";
 			final CallableStatement callVerif = this.getConnection().prepareCall(db_verif);
 			
 			callVerif.setInt(1, i);
@@ -99,11 +98,11 @@ public HelloWorld verifExist(int i){
 		
 	}
 	
-	public HelloWorld addMapBdd(int i, int x, int y, char c)
+	public HelloWorld addMapDB(int i, int x, int y, char c)
 	{
 		try 
 		{
-			final String db_addmap = "{call AjoutMap(?,?,?,?)}";
+			final String db_addmap = "{call AddMap(?,?,?,?)}";
 			final CallableStatement call = this.getConnection().prepareCall(db_addmap);
 			
 			call.setInt(1, i);
