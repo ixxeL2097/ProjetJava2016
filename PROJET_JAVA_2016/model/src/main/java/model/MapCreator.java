@@ -117,7 +117,6 @@ public class MapCreator
 		char c;
         t = this.getMapgen().getMapName();
 		int length = t.length();
-        System.out.println("\n" + length);
         
         if (length == 30){
         
