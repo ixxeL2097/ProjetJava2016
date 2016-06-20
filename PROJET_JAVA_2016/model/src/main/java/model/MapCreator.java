@@ -32,17 +32,30 @@ public class MapCreator
 		
 	public void CreateMap()
 	{
-		int x = 0, y=0, i=0;
+		int x = 0, y=0, i=0, z;
 		String v;
 		String s = null;
+		String t;
 		FileInputStream fis = null;
 		
 		try {
 	         fis = new FileInputStream(new File(this.getMapgen().getMapName()));
-
+	         t = this.getMapgen().getMapName();
 	         byte[] buf = new byte[8];	// On crée un tableau de byte pour indiquer le nombre de bytes lus à chaque tour de boucle
+	        
+	         int length = t.length();
+	         System.out.println(length);
+	         
+	         if (length == 30){
 	         
 	         s = this.getMapgen().getMapName().substring(25, 26);
+	         }
+	         else if (length == 31){
+	        	 s = this.getMapgen().getMapName().substring(25, 27);
+	         }
+	         else if (length == 32){
+	        	 s = this.getMapgen().getMapName().substring(25, 28);
+	         }
 	         i = Integer.parseInt(s);
 	         
 	        this.getMapgen().getModel().getDaoMapDb().CheckIfExist(i);
