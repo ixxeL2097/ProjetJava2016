@@ -32,7 +32,7 @@ public class MapCreator
 		
 	public void CreateMap()
 	{
-		int x = 0, y=0, i=0, z;
+		int x = 0, y=0, i=0;
 		String v;
 		String s = null;
 		String t;
