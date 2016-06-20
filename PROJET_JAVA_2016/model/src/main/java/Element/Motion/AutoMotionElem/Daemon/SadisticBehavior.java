@@ -2,20 +2,19 @@ package Element.Motion.AutoMotionElem.Daemon;
 
 import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
-import Element.Motion.AutoMotionElem.IArtificialIntelligence;
+import Element.Motion.AutoMotionElem.Behavior;
 import PathFinder.PathFinder;
 import model.DimensionMap;
 
-public class SadisticBehavior implements IArtificialIntelligence
+public class SadisticBehavior extends Behavior
 {
-	private AutoMotionElem Mobil;
 	private PathFinder path;
 	private boolean[][] walkable;
 	private int[][] pathWay;
 	
 	public SadisticBehavior(AutoMotionElem Mobil)
 	{
-		this.setMobil(Mobil);
+		super(Mobil);
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
 		this.pathWay = new int [DimensionMap.Y][DimensionMap.X]; 
 		this.path = new PathFinder();
@@ -92,15 +91,6 @@ public class SadisticBehavior implements IArtificialIntelligence
 	public synchronized void setPathWay(int[][] pathWay) {
 		this.pathWay = pathWay;
 	}
-
-	public AutoMotionElem getMobil() {
-		return Mobil;
-	}
-
-	public void setMobil(AutoMotionElem mobil) {
-		Mobil = mobil;
-	}
-
 
 
 }

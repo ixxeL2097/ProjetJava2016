@@ -2,11 +2,11 @@ package Element.Motion.AutoMotionElem.Daemon;
 
 import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
+import Element.Motion.AutoMotionElem.Behavior;
 import Element.Motion.AutoMotionElem.IArtificialIntelligence;
 
-public class BlindBehavior implements IArtificialIntelligence
+public class BlindBehavior extends Behavior
 {
-	protected AutoMotionElem Mobil;
 	private int RandDigit;
 	private Vector vector;
 	private int deltaX;
@@ -15,7 +15,7 @@ public class BlindBehavior implements IArtificialIntelligence
 
 	public BlindBehavior(AutoMotionElem Mobil) 
 	{
-		this.setMobil(Mobil);
+		super(Mobil);
 	}
 
 	public void AutoMove() 
@@ -211,14 +211,6 @@ public class BlindBehavior implements IArtificialIntelligence
 			this.executeDoubleMove(UP_DW_1, RT_LF_1, UP_DW_2, RT_LF_2, Random);
 		}
 		else{this.getMobil().DefaultDaemonMove();}
-	}
-	
-	public AutoMotionElem getMobil() {
-		return Mobil;
-	}
-
-	public void setMobil(AutoMotionElem mobil) {
-		Mobil = mobil;
 	}
 	
 	public Vector getVector() {

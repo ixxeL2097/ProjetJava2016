@@ -5,7 +5,9 @@ import Element.Number;
 import Element.Motion.Hero;
 import Element.Motion.MotionElement;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
+import Element.Motion.AutoMotionElem.MotionElemFACTORY;
 import Element.Motion.AutoMotionElem.Projectile;
+import Element.Motion.AutoMotionElem.ShootingBehavior;
 import Element.Motion.AutoMotionElem.Daemon.DemonBlind;
 import Element.Motion.AutoMotionElem.Daemon.DemonRandom;
 import Element.Motion.AutoMotionElem.Daemon.DemonSadistic;
@@ -26,7 +28,7 @@ public class MapGen implements IMapGen
 	private DemonRandom BrainLessTracker;
 	private DemonSadistic SadisticTracker;
 	private Hero Lorann;
-	private AutoMotionElem Missile;
+	private Projectile Missile;
 	private MapCreator mapcreator;
 	
 	public MapGen(int MapNumber, Model model)
@@ -52,22 +54,22 @@ public class MapGen implements IMapGen
 			{
 				switch(this.getMapcreator().getMapChar(y, x))	
 				{
-					case '@': this.setLorann(new Hero(this,y,x));
-							  this.setElemMtx(this.getLorann(), y, x);
+					case '@': this.PlaceMotionElem(MotionElemFACTORY.HERO, y, x);
+							  this.setLorann((Hero)this.getElemMtx(y, x));
 							  break;
 					case '0': this.setElemMtx(new Number(0), y, x);     																					
 							  break;
-					case 'A': this.setBrainLessTracker(new DemonRandom(this,y,x)); 		
-							  this.setElemMtx(this.getBrainLessTracker(), y, x); 			
+					case 'A': this.PlaceMotionElem(MotionElemFACTORY.DEMONRANDOM, y, x);
+							  this.setBrainLessTracker((DemonRandom)this.getElemMtx(y, x));
 							  break;
-					case 'B': this.setStupidTracker(new DemonBlind(this,y,x));		
-							  this.setElemMtx(this.getStupidTracker(), y, x);				
+					case 'B': this.PlaceMotionElem(MotionElemFACTORY.DEMONBLIND, y, x);	
+							  this.setStupidTracker((DemonBlind)this.getElemMtx(y, x));
 							  break;
-					case 'C': this.setSadisticTracker(new DemonSadistic(this,y,x));		  
-							  this.setElemMtx(this.getSadisticTracker(), y, x);
+					case 'C': this.PlaceMotionElem(MotionElemFACTORY.DEMONSADISTIC, y, x);
+							  this.setSadisticTracker((DemonSadistic)this.getElemMtx(y, x));
 							  break;
-					case 'D': this.setSmartTracker(new DemonTracker(this,y,x)); 	
-							  this.setElemMtx(this.getSmartTracker(), y, x); 			
+					case 'D': this.PlaceMotionElem(MotionElemFACTORY.DEMONTRACKER, y, x);
+					  	      this.setSmartTracker((DemonTracker)this.getElemMtx(y, x)); 			
 							  break;
 					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.getMapcreator().getMapChar(y, x)), y, x);	                            			
 							  break;		
@@ -81,9 +83,10 @@ public class MapGen implements IMapGen
 		this.ElemMtx [y][x] = element;
 	}
 	
-	public void PlaceMotionElem(MotionElement elem)
+	public void PlaceMotionElem(final MotionElement elem, int y, int x)
 	{
-		this.setElemMtx(elem, elem.getY(), elem.getX());
+		this.setElemMtx(elem, y, x);
+		elem.setState(this, y, x);
 	}
 	
 	public void UnlockGate()
@@ -186,42 +189,53 @@ public class MapGen implements IMapGen
 	{
 		if(this.getMissile() == null)
 		{
+			System.out.println("Le missile est null");
 			if(this.getLorann().isShootable())
 			{
 				switch(this.getLorann().getLastLorannMove())
 				{
-					case UP:			this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()));
+					case UP:			this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY()+1, this.getLorann().getX());
+					  					this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY()+1, this.getLorann().getX()));
 										this.getMissile().setDirection(ControllerOrder.DOWN);
 										break;
-					case DOWN:			this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()));
+					case DOWN:			this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY()-1, this.getLorann().getX());
+  										this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY()-1, this.getLorann().getX()));
 										this.getMissile().setDirection(ControllerOrder.UP);
 										break;
-					case LEFT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()+1));
+					case LEFT:			this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY(), this.getLorann().getX()+1);
+  										this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY(), this.getLorann().getX()+1));
 										this.getMissile().setDirection(ControllerOrder.RIGHT);
 										break;
-					case RIGHT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()-1));
+					case RIGHT:			this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY(), this.getLorann().getX()-1);
+  										this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY(), this.getLorann().getX()-1));
 										this.getMissile().setDirection(ControllerOrder.LEFT);
 										break;
-					case UPPERRIGHT:	this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()-1));
+					case UPPERRIGHT:	this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY()+1, this.getLorann().getX()-1);
+  										this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY()+1, this.getLorann().getX()-1));
 										this.getMissile().setDirection(ControllerOrder.DOWNLEFT);
 										break;
-					case UPPERLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()+1));
+					case UPPERLEFT:		this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY()+1, this.getLorann().getX()+1);
+										this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY()+1, this.getLorann().getX()+1));
 										this.getMissile().setDirection(ControllerOrder.DOWNRIGHT);
 										break;
-					case DOWNLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()+1));
+					case DOWNLEFT:		this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY()-1, this.getLorann().getX()+1);
+										this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY()-1, this.getLorann().getX()+1));
 										this.getMissile().setDirection(ControllerOrder.UPPERRIGHT);
 										break;
-					case DOWNRIGHT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()-1));
+					case DOWNRIGHT:		this.PlaceMotionElem(MotionElemFACTORY.PROJECTILE, this.getLorann().getY()-1, this.getLorann().getX()-1);
+										this.setMissile((Projectile)this.getElemMtx(this.getLorann().getY()-1, this.getLorann().getX()-1));
 										this.getMissile().setDirection(ControllerOrder.UPPERLEFT);
 										break;
 					default:
 					break;			
 				}
-				this.PlaceMotionElem(this.getMissile());	
+				this.getMissile().setIA(new ShootingBehavior(this.getMissile()));
+				this.getMissile().getMoveTimer().start();
 			}			
 		}
 		else
 		{
+			System.out.println("on met le DP tracker");
 			this.getMissile().setIA(new TrackingBehavior(this.getMissile(),0));
 		}
 		this.getModel().notifyView();
@@ -232,7 +246,7 @@ public class MapGen implements IMapGen
 		if(this.getMissile() != null)
 		{
 			this.getMissile().getMoveTimer().stop();
-			this.setElemMtx(MotionLessElemFACTORY.EMPTY, this.getMissile().getY(), this.getMissile().getX());
+			this.resetElemMtx(this.getMissile().getY(), this.getMissile().getX());
 			this.setMissile(null);
 		}
 	}

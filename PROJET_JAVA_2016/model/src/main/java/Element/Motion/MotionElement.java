@@ -9,17 +9,19 @@ public abstract class MotionElement extends Element
 	protected int lastX;
 	protected int lastY;
 	protected IMapGen mapgen;
+	private final char MapSymbol;
 	
-	public MotionElement(String picture, Permeabilite permea )
+	public MotionElement(String picture, Permeabilite permea, final char MapSymbol )
 	{
 		super(picture, permea);
+		this.MapSymbol=MapSymbol;
 	}	
 	
-	public MotionElement(IMapGen mapgen,String picture, Permeabilite permea )
+/*	public MotionElement(IMapGen mapgen,String picture, Permeabilite permea )
 	{
 		super(picture, permea);
 		this.setMapgen(mapgen);
-	}	
+	}	*/
 	
 	public void setLastX(int lastX) {
 		this.lastX = lastX;
@@ -59,6 +61,18 @@ public abstract class MotionElement extends Element
 
 	public void setMapgen(IMapGen mapgen) {
 		this.mapgen = mapgen;
+	}
+	
+	public void setState(IMapGen mapgen, int y, int x)
+	{
+		this.setMapgen(mapgen);
+		this.setY(y);
+		this.setX(x);
+	}
+	
+	public char getMapSymbol() 
+	{
+		return this.MapSymbol;
 	}
 	
 	

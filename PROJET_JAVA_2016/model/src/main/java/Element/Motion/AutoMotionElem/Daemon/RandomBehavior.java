@@ -1,15 +1,14 @@
 package Element.Motion.AutoMotionElem.Daemon;
 
 import Element.Motion.AutoMotionElem.AutoMotionElem;
-import Element.Motion.AutoMotionElem.IArtificialIntelligence;
+import Element.Motion.AutoMotionElem.Behavior;
 
-public class RandomBehavior implements IArtificialIntelligence
+public class RandomBehavior extends Behavior
 {
-	private AutoMotionElem Mobil;
 	
 	public RandomBehavior(AutoMotionElem Mobil)
 	{
-		this.setMobil(Mobil);
+		super(Mobil);
 	}
 
 	public void AutoMove() 
@@ -22,12 +21,4 @@ public class RandomBehavior implements IArtificialIntelligence
 		this.getMobil().DefaultDaemonMove();
 	}
 	
-	public AutoMotionElem getMobil() {
-		return Mobil;
-	}
-
-	public void setMobil(AutoMotionElem mobil) {
-		Mobil = mobil;
-	}
-
 }

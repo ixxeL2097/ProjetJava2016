@@ -1,6 +1,5 @@
 package Element.Motion.AutoMotionElem;
 
-import java.awt.Point;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -8,7 +7,6 @@ import javax.swing.Timer;
 import Element.Permeabilite;
 import Element.Motion.MotionElement;
 import contract.ControllerOrder;
-import model.IMapGen;
 
 public abstract class AutoMotionElem extends MotionElement 
 {
@@ -16,20 +14,11 @@ public abstract class AutoMotionElem extends MotionElement
 	protected Random RandomMove;
 	protected int RandomSelectMove;
 	protected IArtificialIntelligence IA;
-	protected ControllerOrder Direction;
-	protected static Point UP = new Point(0,-1);			// pour un point les X et Y sont inversés par rapport a une matrie ==> new Point( X, Y)
-	protected static Point DW = new Point(0,1);
-	protected static Point LF = new Point(-1,0);
-	protected static Point RT = new Point(1,0);
-	protected static Point UPRT = new Point(1,-1);
-	protected static Point DWRT = new Point(1,1);
-	protected static Point UPLF = new Point(-1,-1);
-	protected static Point DWLF = new Point(-1,1);
-	
+	protected ControllerOrder Direction;	
 
-	public AutoMotionElem(IMapGen mapgen, String picture, Permeabilite permea) 
+	public AutoMotionElem(String picture, Permeabilite permea, final char MapSymbol) 
 	{
-		super(mapgen, picture, permea);
+		super(picture, permea, MapSymbol);
 		this.RandomMove = new Random();
 	}
 	

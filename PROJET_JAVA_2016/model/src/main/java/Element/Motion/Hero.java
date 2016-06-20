@@ -5,7 +5,6 @@ import Element.*;
 import contract.ControllerOrder;
 import contract.IPlayer;
 import model.DimensionMap;
-import model.IMapGen;
 
 public class Hero extends MotionElement implements IPlayer
 {
@@ -30,13 +29,13 @@ public class Hero extends MotionElement implements IPlayer
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
 
-	public Hero(IMapGen mapgen,int Y, int X) 
+	public Hero() 
 	{
-		super(mapgen ,HERO_MOVE, Permeabilite.HERO);
-		this.setX(X);
+		super(HERO_MOVE, Permeabilite.HERO, '@');
+		/*this.setX(X);
 		this.setY(Y);
 		this.setLastX(X);
-		this.setLastY(Y);
+		this.setLastY(Y);*/
 		this.setAlive(true);
 	}
 	

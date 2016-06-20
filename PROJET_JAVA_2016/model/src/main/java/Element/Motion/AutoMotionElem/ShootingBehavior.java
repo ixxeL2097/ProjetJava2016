@@ -3,13 +3,11 @@ package Element.Motion.AutoMotionElem;
 import Element.Permeabilite;
 import contract.ControllerOrder;
 
-public class ShootingBehavior implements IArtificialIntelligence
-{
-	protected AutoMotionElem Mobil;
-	
+public class ShootingBehavior extends Behavior
+{	
 	public ShootingBehavior(AutoMotionElem Mobil)
 	{
-		this.setMobil(Mobil);
+		super(Mobil);
 	}
 
 	public void AutoMove()
@@ -73,14 +71,5 @@ public class ShootingBehavior implements IArtificialIntelligence
 			default:break;		
 		}
 	}
-
-	public AutoMotionElem getMobil() {
-		return Mobil;
-	}
-
-	public void setMobil(AutoMotionElem mobil) {
-		Mobil = mobil;
-	}
-	
 	
 }

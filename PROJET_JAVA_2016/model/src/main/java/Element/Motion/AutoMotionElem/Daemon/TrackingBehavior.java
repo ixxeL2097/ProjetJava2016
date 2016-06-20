@@ -2,13 +2,12 @@ package Element.Motion.AutoMotionElem.Daemon;
 
 import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
-import Element.Motion.AutoMotionElem.IArtificialIntelligence;
+import Element.Motion.AutoMotionElem.Behavior;
 import PathFinder.PathFinder;
 import model.DimensionMap;
 
-public class TrackingBehavior implements IArtificialIntelligence
+public class TrackingBehavior extends Behavior
 {
-	private AutoMotionElem Mobil;
 	private PathFinder path;
 	private boolean[][] walkable;
 	private int[][] pathWay;
@@ -16,7 +15,7 @@ public class TrackingBehavior implements IArtificialIntelligence
 	
 	public TrackingBehavior(AutoMotionElem Mobil, int WalkParameter)
 	{
-		this.setMobil(Mobil);
+		super(Mobil);
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];
 		this.pathWay = new int [DimensionMap.Y][DimensionMap.X]; 
 		this.path = new PathFinder();
@@ -95,14 +94,6 @@ public class TrackingBehavior implements IArtificialIntelligence
 		this.pathWay = pathWay;
 	}
 
-	public AutoMotionElem getMobil() {
-		return Mobil;
-	}
-
-	public void setMobil(AutoMotionElem mobil) {
-		Mobil = mobil;
-	}
-
 	public int getWalkParameter() {
 		return WalkParameter;
 	}
@@ -110,9 +101,5 @@ public class TrackingBehavior implements IArtificialIntelligence
 	public void setWalkParameter(int walkParameter) {
 		WalkParameter = walkParameter;
 	}
-	
-	
-	
-	
 
 }

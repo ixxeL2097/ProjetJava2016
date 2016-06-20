@@ -3,14 +3,13 @@ package Element.Motion.AutoMotionElem.Daemon;
 
 import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
-import model.IMapGen;
 
 public abstract class Demon extends AutoMotionElem 
 {
 
-	public Demon(IMapGen mapgen, String picture, Permeabilite permea) 
+	public Demon(String picture, Permeabilite permea, final char MapSymbol) 
 	{
-		super(mapgen, picture, permea);
+		super(picture, permea, MapSymbol);
 	}
 
 }

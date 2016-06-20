@@ -106,6 +106,7 @@ public class Model extends Observable implements IModel
 			if(MovingObject instanceof Projectile)
 			{
 				this.getMapGen().stopShoot();
+				System.out.println("On a reset le missile");
 			}
 			else
 			{
