@@ -1,5 +1,6 @@
 package Element.Motion.AutoMotionElem;
 
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -8,7 +9,7 @@ import Element.Permeabilite;
 import Element.Motion.MotionElement;
 import contract.ControllerOrder;
 
-public abstract class AutoMotionElem extends MotionElement 
+public abstract class AutoMotionElem extends MotionElement implements Runnable, ActionListener
 {
 	protected Timer MoveTimer;
 	protected Random RandomMove;

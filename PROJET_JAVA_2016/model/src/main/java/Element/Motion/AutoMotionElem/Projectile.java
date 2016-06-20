@@ -1,7 +1,6 @@
 package Element.Motion.AutoMotionElem;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -9,7 +8,7 @@ import javax.swing.Timer;
 
 import Element.Permeabilite;
 
-public class Projectile extends AutoMotionElem implements Runnable, ActionListener
+public class Projectile extends AutoMotionElem
 {
 	private static String MAGIC_FIREBALL = "C:/ProjetJava/Sprite/fireball_1.png";
 	private final ImageIcon GREEN = new ImageIcon("C:/ProjetJava/Sprite/fireball_1.png");

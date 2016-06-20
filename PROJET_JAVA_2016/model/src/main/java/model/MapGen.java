@@ -41,7 +41,7 @@ public class MapGen implements IMapGen
 		
 		this.getMapcreator().CreateMap();
 		this.getMapcreator().ConsoleMap();
-		this.getMapcreator().tabMapFromDB();
+		//this.getMapcreator().tabMapFromDB();
 		this.createModel();
 	}
 	
@@ -141,7 +141,7 @@ public class MapGen implements IMapGen
 	{
 		this.getMapcreator().CreateMap();
 		this.getMapcreator().ConsoleMap();
-		this.getMapcreator().tabMapFromDB();
+		//this.getMapcreator().tabMapFromDB();
 		this.createModel();	
 	}
 	
