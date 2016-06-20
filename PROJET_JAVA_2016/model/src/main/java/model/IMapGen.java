@@ -1,14 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+
 import Element.Element;
 import Element.Motion.Hero;
-import Element.Motion.AutoMotionElem.Daemon.DemonBlind;
-import Element.Motion.AutoMotionElem.Daemon.DemonRandom;
-import Element.Motion.AutoMotionElem.Daemon.DemonSadistic;
-import Element.Motion.AutoMotionElem.Daemon.DemonTracker;
+import Element.Motion.AutoMotionElem.AutoMotionElem;
+
 
 public interface IMapGen 
-{
+{		
 	Model getModel();
 	
 	int getMapLevel();
@@ -24,25 +24,29 @@ public interface IMapGen
 	Element getElemMtx(int y, int x);
 
 	void setElemMtx(Element elemMtx, int y, int x);
-
-	DemonBlind getStupidTracker();
-
-	void setStupidTracker(DemonBlind stupidTracker);
-
-	DemonTracker getSmartTracker();
-
-	void setSmartTracker(DemonTracker smartTracker);
 	
-	DemonRandom getBrainLessTracker();
+	ArrayList<AutoMotionElem> getMobilList();
 
-	void setBrainLessTracker(DemonRandom brainLessTracker);
+	/*AutoMotionElem getStupidTracker();
+
+	void setStupidTracker(AutoMotionElem stupidTracker);
+
+	AutoMotionElem getSmartTracker();
+
+	void setSmartTracker(AutoMotionElem smartTracker);
+	
+	AutoMotionElem getBrainLessTracker();
+
+	void setBrainLessTracker(AutoMotionElem brainLessTracker);
+	
+	AutoMotionElem getSadisticTracker();
+
+	void setSadisticTracker(AutoMotionElem sadisticTracker);*/
 
 	Hero getLorann();
 
 	void setLorann(Hero lorann);
 
-	DemonSadistic getSadisticTracker();
-
-	void setSadisticTracker(DemonSadistic sadisticTracker);
+	
 	
 }

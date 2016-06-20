@@ -54,8 +54,7 @@ public class Model extends Observable implements IModel
 		{
 			System.out.println("\n");
 			System.out.println("Connection Database ...");	
-			this.setDaoMapDb(new DAOMapDB(DBConnection.getInstance().getConnection()));
-						
+			this.setDaoMapDb(new DAOMapDB(DBConnection.getInstance().getConnection()));					
 		} 
 		catch (final SQLException e) 
 		{
@@ -106,13 +105,12 @@ public class Model extends Observable implements IModel
 			if(MovingObject instanceof Projectile)
 			{
 				this.getMapGen().stopShoot();
-				System.out.println("On a reset le missile");
 			}
 			else
 			{
 				System.out.println("T'es MORT!!!");
-				this.getMapGen().StopAllDaemons();
-				this.getMapGen().DestroyAllDaemons();
+				this.getMapGen().StopAllDemons();
+				this.getMapGen().DestroyAllMobil();
 				this.getMapGen().getLorann().setAlive(false);
 			}
 		}
@@ -172,8 +170,8 @@ public class Model extends Observable implements IModel
 		else if(this.getPermea() == Permeabilite.GATE)
 		{
 			this.getMapGen().stopShoot();
-			this.getMapGen().StopAllDaemons();
-			this.getMapGen().DestroyAllDaemons();
+			this.getMapGen().StopAllDemons();
+			this.getMapGen().DestroyAllMobil();
 			this.getMapGen().setMapLevel(this.getLevelMapOrder());
 			this.getMapGen().setMapName(this.getMapFinder().getMap(this.getMapGen().getMapLevel()));
 			this.getMapGen().ChangeCurrentMap();				
@@ -182,8 +180,8 @@ public class Model extends Observable implements IModel
 		else if(this.getPermea() == Permeabilite.TRACKER || this.getPermea() == Permeabilite.ENEMY || this.getPermea() == Permeabilite.CLOSEDGATE || this.getPermea() == Permeabilite.DEATH)
 		{
 			System.out.println("T'es MORT!!!");
-			this.getMapGen().StopAllDaemons();
-			this.getMapGen().DestroyAllDaemons();
+			this.getMapGen().StopAllDemons();
+			this.getMapGen().DestroyAllMobil();
 			this.getMapGen().getLorann().setAlive(false);
 			System.out.println(this.getMapGen().getLorann().isAlive());
 		}

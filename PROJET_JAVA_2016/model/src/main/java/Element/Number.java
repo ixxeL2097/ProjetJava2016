@@ -7,7 +7,7 @@ public class Number extends Element
 
 	public Number(int digit) 
 	{
-		super( "C:/ProjetJava/Sprite/zero.png", Permeabilite.BLOCKING);
+		super("C:/ProjetJava/Sprite/zero.png", Permeabilite.BLOCKING, '0');
 		
 		switch(digit)
 		{

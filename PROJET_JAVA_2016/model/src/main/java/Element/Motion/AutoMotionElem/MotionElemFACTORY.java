@@ -7,13 +7,13 @@ import Element.Motion.AutoMotionElem.Daemon.DemonSadistic;
 import Element.Motion.AutoMotionElem.Daemon.DemonTracker;
 
 public class MotionElemFACTORY 
-{
-	public static final Projectile PROJECTILE 								= new Projectile();
-	public static final Hero HERO 											= new Hero();
-	public static final DemonBlind DEMONBLIND 								= new DemonBlind();
-	public static final DemonRandom DEMONRANDOM 							= new DemonRandom();
-	public static final DemonSadistic DEMONSADISTIC 						= new DemonSadistic();
-	public static final DemonTracker DEMONTRACKER							= new DemonTracker();
+{	
+	public static final MotionElement PROJECTILE 							= new Projectile();
+	public static final MotionElement HERO 									= new Hero();
+	public static final MotionElement DEMONBLIND 							= new DemonBlind();
+	public static final MotionElement DEMONRANDOM 							= new DemonRandom();
+	public static final MotionElement DEMONSADISTIC 						= new DemonSadistic();
+	public static final MotionElement DEMONTRACKER							= new DemonTracker();
 
 	
 	private static MotionElement	MotionElemFACTORY []	= 
@@ -22,20 +22,19 @@ public class MotionElemFACTORY
 	
 	public static MotionElement getElemenFromCHAR(final char MapSymbol) 
 	{
-		for (final MotionElement motionlessElem : MotionElemFACTORY) 
+		for (final MotionElement motionElem : MotionElemFACTORY) 
 		{
-			if (motionlessElem.getMapSymbol() == MapSymbol) 
+			if (motionElem.getMapSymbol() == MapSymbol) 
 			{
-				return motionlessElem;
+				return motionElem;
 			}
 		}
-		return HERO;
+		return null;
 	}
 
-
-	public static void setMotionLessElemFACTORY(MotionElement motionLessElemFACTORY[]) 
+	public static void setMotionElemFACTORY(MotionElement motionElemFACTORY[]) 
 	{
-		MotionElemFACTORY = motionLessElemFACTORY;
+		MotionElemFACTORY = motionElemFACTORY;
 	}
 }
 

@@ -24,18 +24,10 @@ public class Hero extends MotionElement implements IPlayer
 	private static int SCORE=0;
 	private static int LIVES=1;
 	private ControllerOrder LastLorannMove=ControllerOrder.UP;
-	
-	
-	
-	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
 
 	public Hero() 
 	{
 		super(HERO_MOVE, Permeabilite.HERO, '@');
-		/*this.setX(X);
-		this.setY(Y);
-		this.setLastX(X);
-		this.setLastY(Y);*/
 		this.setAlive(true);
 	}
 	
@@ -202,10 +194,5 @@ public class Hero extends MotionElement implements IPlayer
 
 	public void setLives(int lives) {
 		Hero.LIVES = lives;
-	}
-	
-	
-	
-	
-	
+	}		
 }

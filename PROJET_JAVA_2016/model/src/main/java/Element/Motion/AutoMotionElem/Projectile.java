@@ -26,7 +26,6 @@ public class Projectile extends AutoMotionElem
 		this.setIA(new ShootingBehavior(this));
 		this.ChangeColor = new ArrayList<ImageIcon>();
 		this.fillArrayList();
-		//this.run();
 	}
 
 	public void run() 
@@ -98,9 +97,4 @@ public class Projectile extends AutoMotionElem
 	public void setChangeColor(ArrayList<ImageIcon> changeColor) {
 		ChangeColor = changeColor;
 	}
-	
-	
-	
-	
-
 }
