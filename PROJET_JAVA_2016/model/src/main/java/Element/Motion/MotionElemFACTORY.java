@@ -1,6 +1,7 @@
-package Element.Motion.AutoMotionElem;
+package Element.Motion;
 
 import Element.Motion.*;
+import Element.Motion.AutoMotionElem.Projectile;
 import Element.Motion.AutoMotionElem.Daemon.DemonBlind;
 import Element.Motion.AutoMotionElem.Daemon.DemonRandom;
 import Element.Motion.AutoMotionElem.Daemon.DemonSadistic;
