@@ -44,7 +44,7 @@ public class MapCreator
 	         byte[] buf = new byte[8];	// On crée un tableau de byte pour indiquer le nombre de bytes lus à chaque tour de boucle
 	        
 	         int length = t.length();
-	         System.out.println(length);
+	         System.out.println("\n" + length);
 	         
 /*	         if (length == 30)
 	         {        
@@ -113,9 +113,22 @@ public class MapCreator
 	public void tabMapFromDB()
 	{
 		int i=0, x=0, y=0;
-		String s, u;
+		String s = null, u, t;
 		char c;
+        t = this.getMapgen().getMapName();
+		int length = t.length();
+        
+        if (length == 30){
+        
         s = this.getMapgen().getMapName().substring(25, 26);
+        }
+        else if (length == 31){
+       	 s = this.getMapgen().getMapName().substring(25, 27);
+        }
+        else if (length == 32){
+       	 s = this.getMapgen().getMapName().substring(25, 28);
+        }
+		
         i = Integer.parseInt(s);
       
         for(x=0; x<19; x++)
