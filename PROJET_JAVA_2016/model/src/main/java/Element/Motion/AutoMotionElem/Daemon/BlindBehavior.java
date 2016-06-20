@@ -3,7 +3,6 @@ package Element.Motion.AutoMotionElem.Daemon;
 import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Behavior;
-import Element.Motion.AutoMotionElem.IArtificialIntelligence;
 
 public class BlindBehavior extends Behavior
 {

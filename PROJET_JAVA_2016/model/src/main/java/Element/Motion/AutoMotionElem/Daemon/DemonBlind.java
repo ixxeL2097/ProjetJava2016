@@ -1,14 +1,13 @@
 package Element.Motion.AutoMotionElem.Daemon;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.Timer;
 
 import Element.Permeabilite;
 
-public class DemonBlind extends Demon implements Runnable, ActionListener
+public class DemonBlind extends Demon
 {	
 	public DemonBlind() 
 	{

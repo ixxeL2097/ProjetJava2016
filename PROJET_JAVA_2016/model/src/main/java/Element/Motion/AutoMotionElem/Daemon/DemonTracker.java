@@ -1,13 +1,12 @@
 package Element.Motion.AutoMotionElem.Daemon;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
 import Element.Permeabilite;
 
-public class DemonTracker extends Demon implements Runnable, ActionListener
+public class DemonTracker extends Demon
 {
 	public DemonTracker() 
 	{

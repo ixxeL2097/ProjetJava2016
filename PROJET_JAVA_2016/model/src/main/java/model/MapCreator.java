@@ -46,20 +46,22 @@ public class MapCreator
 	         int length = t.length();
 	         System.out.println("\n" + length);
 	         
-	         if (length == 30){
-	         
-	         s = this.getMapgen().getMapName().substring(25, 26);
+/*	         if (length == 30)
+	         {        
+	        	 s = this.getMapgen().getMapName().substring(25, 26);
 	         }
-	         else if (length == 31){
+	         else if (length == 31)
+	         {
 	        	 s = this.getMapgen().getMapName().substring(25, 27);
 	         }
-	         else if (length == 32){
+	         else if (length == 32)
+	         {
 	        	 s = this.getMapgen().getMapName().substring(25, 28);
 	         }
-	         i = Integer.parseInt(s);
+	         i = Integer.parseInt(s);*/
 	         
-	        this.getMapgen().getModel().getDaoMapDb().CheckIfExist(i);
-	         v = this.getMapgen().getModel().getDaoMapDb().getDbV();
+	        //this.getMapgen().getModel().getDaoMapDb().CheckIfExist(i);
+	         //v = this.getMapgen().getModel().getDaoMapDb().getDbV();
 	         	         
 	         while ((fis.read(buf)) >= 0) 				// Vaut -1 quand c'est fini Lorsque la lecture du fichier est terminée On sort donc de la boucle
 	         {           
@@ -69,10 +71,10 @@ public class MapCreator
 	               {
 	            	   map [y][x]= (char)bit;
 	            	   
-	            	  if (v != "false")
+	            	 /* if (v != "false")
 	            	  {
 	            	  this.getMapgen().getModel().getDaoMapDb().addMapDB(i, x, y, (char)bit);
-	            	  }
+	            	  }*/
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)
