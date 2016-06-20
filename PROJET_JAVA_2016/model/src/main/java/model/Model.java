@@ -194,33 +194,6 @@ public class Model extends Observable implements IModel
 		this.notifyView();	
 	}
 	
-/*	public void ActivateDaemonsOnMap()
-	{
-		if(this.getMapGen().getLorann().isHasMoved()==false && this.getMapGen().getMapLevel() != 0)
-		{
-			this.getMapGen().getLorann().setHasMoved(true);
-			this.getMapGen().AnimateDaemons();
-		}
-	}*/
-	
-/*	public void CheckShootableElem(int UP_DWN, int RGT_LFT)
-	{
-		if(this.getMapGen().getLorann().CheckAvailablePosition(UP_DWN, RGT_LFT))
-		{
-			if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) instanceof MotionLessElem)
-			{
-				if(this.getMapGen().getElemMtx(this.getMapGen().getLorann().getY()-UP_DWN, this.getMapGen().getLorann().getX()-RGT_LFT) == MotionLessElemFACTORY.EMPTY)
-				{
-					this.getMapGen().getLorann().setShootable(true);
-				}
-				else{this.getMapGen().getLorann().setShootable(false);}
-			}
-			else{this.getMapGen().getLorann().setShootable(true);}
-		}
-		else
-		{this.getMapGen().getLorann().setShootable(false);}	
-	}*/
-	
 	public void askLorannToShoot()
 	{
 		this.getMapGen().LorannIsShooting();
@@ -284,7 +257,6 @@ public class Model extends Observable implements IModel
 		this.permea = permea;
 	}
 
-
 	public MapFinder getMapFinder() {
 		return MapFinder;
 	}
@@ -292,7 +264,6 @@ public class Model extends Observable implements IModel
 	public DAOMapDB getDaoMapDb() {
 		return daomapdb;
 	}
-
 
 	public void setDaoMapDb(DAOMapDB daomapdb) {
 		this.daomapdb = daomapdb;
@@ -310,11 +281,9 @@ public class Model extends Observable implements IModel
 		return this.getMapGen().getLorann().isAlive();
 	}
 
-
 	public AutoMotionElem getDestroyedEnnemy() {
 		return destroyedEnnemy;
 	}
-
 
 	public void setDestroyedEnnemy(AutoMotionElem destroyedEnnemy) {
 		this.destroyedEnnemy = destroyedEnnemy;
