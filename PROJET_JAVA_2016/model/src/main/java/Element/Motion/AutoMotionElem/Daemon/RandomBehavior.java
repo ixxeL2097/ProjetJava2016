@@ -3,11 +3,11 @@ package Element.Motion.AutoMotionElem.Daemon;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.IArtificialIntelligence;
 
-public class RandomBehaviour implements IArtificialIntelligence
+public class RandomBehavior implements IArtificialIntelligence
 {
 	private AutoMotionElem Mobil;
 	
-	public RandomBehaviour(AutoMotionElem Mobil)
+	public RandomBehavior(AutoMotionElem Mobil)
 	{
 		this.setMobil(Mobil);
 	}

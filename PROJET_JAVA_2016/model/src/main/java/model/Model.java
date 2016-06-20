@@ -8,7 +8,7 @@ import Element.Permeabilite;
 import Element.Motion.Hero;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Projectile;
-import Element.Motion.AutoMotionElem.Daemon.Daemon;
+import Element.Motion.AutoMotionElem.Daemon.Demon;
 import Element.Motion.AutoMotionElem.Daemon.TrackingBehavior;
 import Element.MotionLess.MotionLessElem;
 import Element.MotionLess.MotionLessElemFACTORY;
@@ -100,7 +100,7 @@ public class Model extends Observable implements IModel
 			MovingObject.setY(MovingObject.getY()+UP_DWN);
 			MovingObject.setX(MovingObject.getX()+RGT_LFT);		
 		}
-		else if(this.getPermea() == Permeabilite.BLOCKING && MovingObject instanceof Daemon)
+		else if(this.getPermea() == Permeabilite.BLOCKING && MovingObject instanceof Demon)
 		{
 			System.out.println("BLOCKED");
 			MovingObject.DefaultDaemonMove();		
@@ -119,10 +119,10 @@ public class Model extends Observable implements IModel
 				this.getMapGen().getLorann().setAlive(false);
 			}
 		}
-		else if(this.getMapGen().getElemMtx(y,x) instanceof Daemon && MovingObject instanceof Projectile)
+		else if(this.getMapGen().getElemMtx(y,x) instanceof Demon && MovingObject instanceof Projectile)
 		{
 			this.stopShoot();
-			this.setDestroyedEnnemy((Daemon)this.getMapGen().getElemMtx(y,x));
+			this.setDestroyedEnnemy((Demon)this.getMapGen().getElemMtx(y,x));
 			this.getDestroyedEnnemy().getMoveTimer().stop();
 			this.getMapGen().resetElemMtx(y, x);
 			this.setScore(this.getScore()+300);

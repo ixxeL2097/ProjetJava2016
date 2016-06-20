@@ -69,7 +69,7 @@ public HelloWorld CheckIfExist(int i){
 		
 		try
 		{
-			
+			dbV="true";
 			final String db_verif = "{call CheckExist(?)}";
 			final CallableStatement callVerif = this.getConnection().prepareCall(db_verif);
 			

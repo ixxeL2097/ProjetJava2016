@@ -6,14 +6,14 @@ import Element.Motion.AutoMotionElem.IArtificialIntelligence;
 import PathFinder.PathFinder;
 import model.DimensionMap;
 
-public class SadisticBehaviour implements IArtificialIntelligence
+public class SadisticBehavior implements IArtificialIntelligence
 {
 	private AutoMotionElem Mobil;
 	private PathFinder path;
 	private boolean[][] walkable;
 	private int[][] pathWay;
 	
-	public SadisticBehaviour(AutoMotionElem Mobil)
+	public SadisticBehavior(AutoMotionElem Mobil)
 	{
 		this.setMobil(Mobil);
 		this.walkable = new boolean [DimensionMap.Y][DimensionMap.X];

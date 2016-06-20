@@ -9,17 +9,17 @@ import javax.swing.Timer;
 import Element.Permeabilite;
 import model.Model;
 
-public class DaemonRandom extends Daemon implements Runnable, ActionListener
+public class DemonRandom extends Demon implements Runnable, ActionListener
 {
 
-	public DaemonRandom(Model model, int y , int x) 
+	public DemonRandom(Model model, int y , int x) 
 	{
 		super(model, "C:/ProjetJava/Sprite/monster_2.png", Permeabilite.ENEMY);
 		this.MoveTimer = new Timer(300,this);
 		this.setX(x);
 		this.setY(y);
 		this.RandomMove = new Random();
-		this.setIA(new RandomBehaviour(this));
+		this.setIA(new RandomBehavior(this));
 	}
 
 	public void actionPerformed(ActionEvent e) 

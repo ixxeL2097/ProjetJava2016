@@ -5,10 +5,10 @@ import Element.*;
 import Element.Number;
 import Element.Motion.Hero;
 import Element.Motion.MotionElement;
-import Element.Motion.AutoMotionElem.Daemon.DaemonBlind;
-import Element.Motion.AutoMotionElem.Daemon.DaemonRandom;
-import Element.Motion.AutoMotionElem.Daemon.DaemonSadistic;
-import Element.Motion.AutoMotionElem.Daemon.DaemonTracker;
+import Element.Motion.AutoMotionElem.Daemon.DemonBlind;
+import Element.Motion.AutoMotionElem.Daemon.DemonRandom;
+import Element.Motion.AutoMotionElem.Daemon.DemonSadistic;
+import Element.Motion.AutoMotionElem.Daemon.DemonTracker;
 import Element.MotionLess.*;
 
 
@@ -19,10 +19,10 @@ public class MapGen
 	private String MapName;
 	private int MapLevel=0;
 	private Model model;
-	private DaemonBlind StupidTracker;
-	private DaemonTracker SmartTracker;
-	private DaemonRandom BrainLessTracker;
-	private DaemonSadistic SadisticTracker;
+	private DemonBlind StupidTracker;
+	private DemonTracker SmartTracker;
+	private DemonRandom BrainLessTracker;
+	private DemonSadistic SadisticTracker;
 	private Hero Lorann;
 	
 	public MapGen(int MapNumber, Model model)
@@ -138,16 +138,16 @@ public class MapGen
 							  break;
 					case '0': this.setElemMtx(new Number(0), y, x);     																					
 							  break;
-					case 'A': this.setBrainLessTracker(new DaemonRandom(this.getModel(),y,x)); 		
+					case 'A': this.setBrainLessTracker(new DemonRandom(this.getModel(),y,x)); 		
 							  this.setElemMtx(this.getBrainLessTracker(), y, x); 			
 							  break;
-					case 'B': this.setStupidTracker(new DaemonBlind(this.getModel(),y,x));		
+					case 'B': this.setStupidTracker(new DemonBlind(this.getModel(),y,x));		
 							  this.setElemMtx(this.getStupidTracker(), y, x);				
 							  break;
-					case 'C': this.setSadisticTracker(new DaemonSadistic(this.getModel(),y,x));		  
+					case 'C': this.setSadisticTracker(new DemonSadistic(this.getModel(),y,x));		  
 							  this.setElemMtx(this.getSadisticTracker(), y, x);
 							  break;
-					case 'D': this.setSmartTracker(new DaemonTracker(this.getModel(),y,x)); 	
+					case 'D': this.setSmartTracker(new DemonTracker(this.getModel(),y,x)); 	
 							  this.setElemMtx(this.getSmartTracker(), y, x); 			
 							  break;
 					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.map[y][x]), y, x);	                            			
@@ -316,27 +316,27 @@ public class MapGen
 		ElemMtx[y][x] = elemMtx;
 	}
 
-	public DaemonBlind getStupidTracker() {
+	public DemonBlind getStupidTracker() {
 		return StupidTracker;
 	}
 
-	public void setStupidTracker(DaemonBlind stupidTracker) {
+	public void setStupidTracker(DemonBlind stupidTracker) {
 		StupidTracker = stupidTracker;
 	}
 
-	public DaemonTracker getSmartTracker() {
+	public DemonTracker getSmartTracker() {
 		return SmartTracker;
 	}
 
-	public void setSmartTracker(DaemonTracker smartTracker) {
+	public void setSmartTracker(DemonTracker smartTracker) {
 		SmartTracker = smartTracker;
 	}
 
-	public DaemonRandom getBrainLessTracker() {
+	public DemonRandom getBrainLessTracker() {
 		return BrainLessTracker;
 	}
 
-	public void setBrainLessTracker(DaemonRandom brainLessTracker) {
+	public void setBrainLessTracker(DemonRandom brainLessTracker) {
 		BrainLessTracker = brainLessTracker;
 	}
 
@@ -348,11 +348,11 @@ public class MapGen
 		Lorann = lorann;
 	}
 
-	public DaemonSadistic getSadisticTracker() {
+	public DemonSadistic getSadisticTracker() {
 		return SadisticTracker;
 	}
 
-	public void setSadisticTracker(DaemonSadistic sadisticTracker) {
+	public void setSadisticTracker(DemonSadistic sadisticTracker) {
 		SadisticTracker = sadisticTracker;
 	}
 

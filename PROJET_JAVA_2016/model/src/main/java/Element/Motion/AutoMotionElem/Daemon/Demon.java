@@ -5,10 +5,10 @@ import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import model.Model;
 
-public abstract class Daemon extends AutoMotionElem 
+public abstract class Demon extends AutoMotionElem 
 {
 
-	public Daemon(Model model, String picture, Permeabilite permea) 
+	public Demon(Model model, String picture, Permeabilite permea) 
 	{
 		super(model, picture, permea);
 	}

@@ -4,7 +4,7 @@ import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.IArtificialIntelligence;
 
-public class BlindBehaviour implements IArtificialIntelligence
+public class BlindBehavior implements IArtificialIntelligence
 {
 	protected AutoMotionElem Mobil;
 	private int RandDigit;
@@ -13,7 +13,7 @@ public class BlindBehaviour implements IArtificialIntelligence
 	private int deltaY;
 	private int Abs;
 
-	public BlindBehaviour(AutoMotionElem Mobil) 
+	public BlindBehavior(AutoMotionElem Mobil) 
 	{
 		this.setMobil(Mobil);
 	}
