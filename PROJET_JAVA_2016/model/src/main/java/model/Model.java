@@ -37,7 +37,7 @@ public class Model extends Observable implements IModel
 	 */
 	public Model() 
 	{
-		//this.loadDB();		
+		this.loadDB();		
 		this.MapFinder = new MapFinder();
 		this.MapGen = new MapGen(this.getLevelMapOrder(),this);
 	}

@@ -36,7 +36,7 @@ public class MapGen implements IMapGen				// main class of elements's instanciat
 		this.MobilList = new ArrayList<AutoMotionElem>();	
 		this.getMapcreator().CreateMap();
 		this.getMapcreator().ConsoleMap();
-		//this.getMapcreator().tabMapFromDB();
+		this.getMapcreator().tabMapFromDB();
 		this.createModel();
 	}
 	
@@ -107,7 +107,7 @@ public class MapGen implements IMapGen				// main class of elements's instanciat
 	{
 		this.getMapcreator().CreateMap();
 		this.getMapcreator().ConsoleMap();
-		//this.getMapcreator().tabMapFromDB();
+		this.getMapcreator().tabMapFromDB();
 		this.createModel();	
 	}
 	
