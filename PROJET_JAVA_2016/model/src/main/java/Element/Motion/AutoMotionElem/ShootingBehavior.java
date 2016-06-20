@@ -19,7 +19,7 @@ public class ShootingBehavior implements IArtificialIntelligence
 	
 	public void CheckUpcomingDirection(int UP_DW, int RT_LF, ControllerOrder order)
 	{
-		Permeabilite Perm = this.getMobil().getModel().getMapGen().getElemMtx(this.getMobil().getY()+UP_DW,this.getMobil().getX()+RT_LF).getPermea();
+		Permeabilite Perm = this.getMobil().getMapgen().getElemMtx(this.getMobil().getY()+UP_DW,this.getMobil().getX()+RT_LF).getPermea();
 		
 		if(Perm != Permeabilite.PENETRABLE && Perm != Permeabilite.HERO && Perm != Permeabilite.TRACKER && Perm != Permeabilite.ENEMY)
 		{
@@ -31,7 +31,7 @@ public class ShootingBehavior implements IArtificialIntelligence
 	{
 		if(this.getMobil().CheckAllowedMapBounds(UP_DW_1stMove, RT_LF_1stMove))
 		{
-			this.getMobil().getModel().MoveDaemon(UP_DW_1stMove, RT_LF_1stMove, this.getMobil());
+			this.getMobil().getMapgen().getModel().MoveDaemon(UP_DW_1stMove, RT_LF_1stMove, this.getMobil());
 			if(this.getMobil().CheckAllowedMapBounds(UP_DW_1stMove, RT_LF_1stMove))
 			{
 				this.CheckUpcomingDirection(UP_DW_1stMove, RT_LF_1stMove, order);
@@ -39,7 +39,7 @@ public class ShootingBehavior implements IArtificialIntelligence
 		}
 		else
 		{
-			this.getMobil().getModel().MoveDaemon(UP_DW_2ndMove, RT_LF_2ndMove, this.getMobil());
+			this.getMobil().getMapgen().getModel().MoveDaemon(UP_DW_2ndMove, RT_LF_2ndMove, this.getMobil());
 			this.getMobil().setDirection(order);
 		}
 	}

@@ -7,13 +7,13 @@ import java.util.Random;
 import javax.swing.Timer;
 
 import Element.Permeabilite;
-import model.Model;
+import model.IMapGen;
 
 public class DemonBlind extends Demon implements Runnable, ActionListener
 {	
-	public DemonBlind(Model model, int y , int x) 
+	public DemonBlind(IMapGen mapgen, int y , int x) 
 	{
-		super(model, "C:/ProjetJava/Sprite/monster_4.png", Permeabilite.ENEMY);
+		super(mapgen, "C:/ProjetJava/Sprite/monster_4.png", Permeabilite.ENEMY);
 		this.MoveTimer = new Timer(450,this);
 		this.setX(x);
 		this.setY(y);

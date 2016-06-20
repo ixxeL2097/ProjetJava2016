@@ -88,7 +88,7 @@ public class Controller implements IController
 			case DOWNLEFT:
 				this.getModel().getPlayer().MoveDwLf();break;
 			case SPACE:	
-				this.getModel().LorannIsShooting();
+				this.getModel().askLorannToShoot();
 				break;
 			default: break;
 		}

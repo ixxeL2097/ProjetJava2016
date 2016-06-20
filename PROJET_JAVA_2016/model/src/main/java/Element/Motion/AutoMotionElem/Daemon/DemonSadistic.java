@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import Element.Permeabilite;
-import model.Model;
+import model.IMapGen;
 
 public class DemonSadistic extends Demon implements Runnable, ActionListener
 {
-	public DemonSadistic(Model model, int y , int x) 
+	public DemonSadistic(IMapGen mapgen, int y , int x) 
 	{
-		super(model, "C:/ProjetJava/Sprite/monster_3.png", Permeabilite.ENEMY);
+		super(mapgen, "C:/ProjetJava/Sprite/monster_3.png", Permeabilite.ENEMY);
 		this.MoveTimer=new Timer(400,this);
 		this.setX(x);
 		this.setY(y);

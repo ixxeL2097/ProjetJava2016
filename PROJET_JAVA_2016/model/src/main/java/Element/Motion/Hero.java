@@ -5,7 +5,7 @@ import Element.*;
 import contract.ControllerOrder;
 import contract.IPlayer;
 import model.DimensionMap;
-import model.Model;
+import model.IMapGen;
 
 public class Hero extends MotionElement implements IPlayer
 {
@@ -30,9 +30,9 @@ public class Hero extends MotionElement implements IPlayer
 	
 	//---------------------------------------CONSTRUCTEURS----------------------------------------------------------------------------
 
-	public Hero(Model model,int Y, int X) 
+	public Hero(IMapGen mapgen,int Y, int X) 
 	{
-		super(model ,HERO_MOVE, Permeabilite.HERO);
+		super(mapgen ,HERO_MOVE, Permeabilite.HERO);
 		this.setX(X);
 		this.setY(Y);
 		this.setLastX(X);
@@ -44,7 +44,7 @@ public class Hero extends MotionElement implements IPlayer
 	{
 		if((this.getY()+UP_DW >=0 && this.getX()+RT_LF >=0) && (this.getY()+UP_DW < DimensionMap.Y && this.getX()+RT_LF < DimensionMap.X))
 		{
-			this.getModel().MoveLorann(UP_DW, RT_LF);
+			this.getMapgen().getModel().MoveLorann(UP_DW, RT_LF);
 		}
 		else
 		{

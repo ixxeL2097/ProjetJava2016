@@ -37,7 +37,7 @@ public interface IModel
 	
 	void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT);
 	void setLorannGIF();
-	void LorannIsShooting();
+	void askLorannToShoot();
 	
 	int getScore();
 	int getLives();

@@ -44,8 +44,8 @@ public class BlindBehavior implements IArtificialIntelligence
 	
 	public void UpdatePosition()
 	{
-		this.deltaX = this.getMobil().getX()-this.getMobil().getModel().getMapGen().getLorann().getX(); 
-		this.deltaY = this.getMobil().getY()-this.getMobil().getModel().getMapGen().getLorann().getY();
+		this.deltaX = this.getMobil().getX()-this.getMobil().getMapgen().getLorann().getX(); 
+		this.deltaY = this.getMobil().getY()-this.getMobil().getMapgen().getLorann().getY();
 		this.Abs = Math.abs(this.deltaX)-Math.abs(this.deltaY);
 		this.RandDigit=8;
 		this.getMobil().setRandomSelectMove(0);
@@ -172,7 +172,7 @@ public class BlindBehavior implements IArtificialIntelligence
 	
 	public void executeSimpleMove(int UP_DW, int RT_LF)
 	{
-		Permeabilite perm = this.getMobil().getModel().getMapGen().getElemMtx(this.getMobil().getY()+UP_DW, this.getMobil().getX()+RT_LF).getPermea();
+		Permeabilite perm = this.getMobil().getMapgen().getElemMtx(this.getMobil().getY()+UP_DW, this.getMobil().getX()+RT_LF).getPermea();
 		if(perm == Permeabilite.PENETRABLE || perm == Permeabilite.HERO)
 		{
 			this.getMobil().MoveDaemon(UP_DW, RT_LF);
@@ -182,8 +182,8 @@ public class BlindBehavior implements IArtificialIntelligence
 	
 	public void executeDoubleMove(int UP_DW_1, int RT_LF_1, int UP_DW_2, int RT_LF_2, int Random)
 	{
-		Permeabilite perm1 = this.getMobil().getModel().getMapGen().getElemMtx(this.getMobil().getY()+UP_DW_1, this.getMobil().getX()+RT_LF_1).getPermea();
-		Permeabilite perm2 = this.getMobil().getModel().getMapGen().getElemMtx(this.getMobil().getY()+UP_DW_2, this.getMobil().getX()+RT_LF_2).getPermea();
+		Permeabilite perm1 = this.getMobil().getMapgen().getElemMtx(this.getMobil().getY()+UP_DW_1, this.getMobil().getX()+RT_LF_1).getPermea();
+		Permeabilite perm2 = this.getMobil().getMapgen().getElemMtx(this.getMobil().getY()+UP_DW_2, this.getMobil().getX()+RT_LF_2).getPermea();
 		this.RandDigit=2;
 		
 		if(perm1 == Permeabilite.PENETRABLE || perm1 == Permeabilite.HERO || perm2 == Permeabilite.HERO || perm2 == Permeabilite.HERO)

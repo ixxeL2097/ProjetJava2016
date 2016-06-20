@@ -9,13 +9,11 @@ import Element.Motion.Hero;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Projectile;
 import Element.Motion.AutoMotionElem.Daemon.Demon;
-import Element.Motion.AutoMotionElem.Daemon.TrackingBehavior;
-import Element.MotionLess.MotionLessElem;
 import Element.MotionLess.MotionLessElemFACTORY;
 
 import javax.swing.ImageIcon;
 
-import contract.ControllerOrder;
+
 import contract.IModel;
 import contract.IPlayer;
 
@@ -28,7 +26,6 @@ public class Model extends Observable implements IModel
 {
 	/** The message. */
 	private MapGen MapGen;
-	private AutoMotionElem Missile;
 	private MapFinder MapFinder;
 	private Permeabilite permea;
 	private int LevelMapOrder=0;
@@ -79,8 +76,7 @@ public class Model extends Observable implements IModel
 	public void setLorannGIF() 
 	{
 		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getLorannGIF());
-		this.setChanged();
-		this.notifyObservers();
+		this.notifyView();	
 	}
 	
 	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, AutoMotionElem MovingObject)
@@ -109,7 +105,7 @@ public class Model extends Observable implements IModel
 		{
 			if(MovingObject instanceof Projectile)
 			{
-				this.stopShoot();
+				this.getMapGen().stopShoot();
 			}
 			else
 			{
@@ -121,14 +117,13 @@ public class Model extends Observable implements IModel
 		}
 		else if(this.getMapGen().getElemMtx(y,x) instanceof Demon && MovingObject instanceof Projectile)
 		{
-			this.stopShoot();
+			this.getMapGen().stopShoot();
 			this.setDestroyedEnnemy((Demon)this.getMapGen().getElemMtx(y,x));
 			this.getDestroyedEnnemy().getMoveTimer().stop();
 			this.getMapGen().resetElemMtx(y, x);
 			this.setScore(this.getScore()+300);
 		}
-		this.setChanged();
-		this.notifyObservers();
+		this.notifyView();	
 	}
 
 	public synchronized void MoveLorann(int UP_DWN, int RGT_LFT) 
@@ -141,7 +136,7 @@ public class Model extends Observable implements IModel
 		
 		this.setPermea(this.getMapGen().getElemMtx(y,x).getPermea());
 		
-		this.ActivateDaemonsOnMap();
+		this.getMapGen().ActivateDaemonsOnMap();
 		
 		if(this.getPermea() ==Permeabilite.ENERGY || this.getPermea() ==Permeabilite.MONEY || this.getPermea() ==Permeabilite.PENETRABLE )
 		{
@@ -175,7 +170,7 @@ public class Model extends Observable implements IModel
 		}
 		else if(this.getPermea() == Permeabilite.GATE)
 		{
-			this.stopShoot();
+			this.getMapGen().stopShoot();
 			this.getMapGen().StopAllDaemons();
 			this.getMapGen().DestroyAllDaemons();
 			this.getMapGen().setMapLevel(this.getLevelMapOrder());
@@ -193,23 +188,22 @@ public class Model extends Observable implements IModel
 		}
 		else if(this.getPermea() == Permeabilite.MISSILE)
 		{
-			this.stopShoot();
+			this.getMapGen().stopShoot();
 		}		
-		this.CheckShootableElem(UP_DWN, RGT_LFT);
-		this.setChanged();
-		this.notifyObservers();	
+		this.getMapGen().CheckShootableElem(UP_DWN, RGT_LFT);
+		this.notifyView();	
 	}
 	
-	public void ActivateDaemonsOnMap()
+/*	public void ActivateDaemonsOnMap()
 	{
 		if(this.getMapGen().getLorann().isHasMoved()==false && this.getMapGen().getMapLevel() != 0)
 		{
 			this.getMapGen().getLorann().setHasMoved(true);
 			this.getMapGen().AnimateDaemons();
 		}
-	}
+	}*/
 	
-	public void CheckShootableElem(int UP_DWN, int RGT_LFT)
+/*	public void CheckShootableElem(int UP_DWN, int RGT_LFT)
 	{
 		if(this.getMapGen().getLorann().CheckAvailablePosition(UP_DWN, RGT_LFT))
 		{
@@ -225,63 +219,17 @@ public class Model extends Observable implements IModel
 		}
 		else
 		{this.getMapGen().getLorann().setShootable(false);}	
-	}
-
+	}*/
 	
-	public synchronized void LorannIsShooting()
+	public void askLorannToShoot()
 	{
-		if(this.getMissile() == null)
-		{
-			if(this.getMapGen().getLorann().isShootable())
-			{
-				switch(this.getMapGen().getLorann().getLastLorannMove())
-				{
-					case UP:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()+1, this.getMapGen().getLorann().getX()));
-										this.getMissile().setDirection(ControllerOrder.DOWN);
-										break;
-					case DOWN:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()-1, this.getMapGen().getLorann().getX()));
-										this.getMissile().setDirection(ControllerOrder.UP);
-										break;
-					case LEFT:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY(), this.getMapGen().getLorann().getX()+1));
-										this.getMissile().setDirection(ControllerOrder.RIGHT);
-										break;
-					case RIGHT:			this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY(), this.getMapGen().getLorann().getX()-1));
-										this.getMissile().setDirection(ControllerOrder.LEFT);
-										break;
-					case UPPERRIGHT:	this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()+1, this.getMapGen().getLorann().getX()-1));
-										this.getMissile().setDirection(ControllerOrder.DOWNLEFT);
-										break;
-					case UPPERLEFT:		this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()+1, this.getMapGen().getLorann().getX()+1));
-										this.getMissile().setDirection(ControllerOrder.DOWNRIGHT);
-										break;
-					case DOWNLEFT:		this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()-1, this.getMapGen().getLorann().getX()+1));
-										this.getMissile().setDirection(ControllerOrder.UPPERRIGHT);
-										break;
-					case DOWNRIGHT:		this.setMissile(new Projectile(this, this.getMapGen().getLorann().getY()-1, this.getMapGen().getLorann().getX()-1));
-										this.getMissile().setDirection(ControllerOrder.UPPERLEFT);
-										break;
-					default:
-					break;			
-				}
-				this.getMapGen().PlaceMotionElem(this.getMissile());	
-			}			
-		}
-		else
-		{
-			this.getMissile().setIA(new TrackingBehavior(this.getMissile(),0));
-		}
+		this.getMapGen().LorannIsShooting();
+	}
+	
+	public void notifyView()
+	{
 		this.setChanged();
-		this.notifyObservers();	
-	}
-	
-	public synchronized void stopShoot()
-	{
-		if(this.getMissile() != null)
-		{
-			this.getMissile().getMoveTimer().stop();
-			this.getMapGen().setElemMtx(MotionLessElemFACTORY.EMPTY, this.getMissile().getY(), this.getMissile().getX());
-			this.setMissile(null);
-		}
+		this.notifyObservers();
 	}
 
 	public int getScore() 
@@ -358,16 +306,6 @@ public class Model extends Observable implements IModel
 		LevelMapOrder = levelMapOrder;
 	}
 
-
-	public AutoMotionElem getMissile() {
-		return Missile;
-	}
-
-
-	public void setMissile(Projectile missile) {
-		Missile = missile;
-	}
-	
 	public boolean getLorannStatus() {
 		return this.getMapGen().getLorann().isAlive();
 	}
@@ -381,7 +319,6 @@ public class Model extends Observable implements IModel
 	public void setDestroyedEnnemy(AutoMotionElem destroyedEnnemy) {
 		this.destroyedEnnemy = destroyedEnnemy;
 	}
-
 
 	public int getLives() 
 	{

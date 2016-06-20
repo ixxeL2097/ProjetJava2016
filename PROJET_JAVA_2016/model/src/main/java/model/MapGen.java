@@ -1,20 +1,22 @@
 package model;
 
-import java.io.*;
 import Element.*;
 import Element.Number;
 import Element.Motion.Hero;
 import Element.Motion.MotionElement;
+import Element.Motion.AutoMotionElem.AutoMotionElem;
+import Element.Motion.AutoMotionElem.Projectile;
 import Element.Motion.AutoMotionElem.Daemon.DemonBlind;
 import Element.Motion.AutoMotionElem.Daemon.DemonRandom;
 import Element.Motion.AutoMotionElem.Daemon.DemonSadistic;
 import Element.Motion.AutoMotionElem.Daemon.DemonTracker;
+import Element.Motion.AutoMotionElem.Daemon.TrackingBehavior;
 import Element.MotionLess.*;
+import contract.ControllerOrder;
 
 
-public class MapGen
+public class MapGen implements IMapGen
 {
-	public char[][] map; 
 	public Element [][] ElemMtx;
 	private String MapName;
 	private int MapLevel=0;
@@ -24,104 +26,21 @@ public class MapGen
 	private DemonRandom BrainLessTracker;
 	private DemonSadistic SadisticTracker;
 	private Hero Lorann;
+	private AutoMotionElem Missile;
+	private MapCreator mapcreator;
 	
 	public MapGen(int MapNumber, Model model)
 	{
 		this.setMapLevel(MapNumber);		
 		this.setModel(model);
 		this.setMapName(this.getModel().getMapFinder().getMap(this.getMapLevel())); 
-		this.map = new char[DimensionMap.Y][DimensionMap.X];
+		this.mapcreator = new MapCreator(this);
 		this.ElemMtx = new Element [DimensionMap.Y][DimensionMap.X];
 		
-		this.CreateMap();
-		this.ConsoleMap();
-		this.tabMapFromDB();
+		this.getMapcreator().CreateMap();
+		this.getMapcreator().ConsoleMap();
+		this.getMapcreator().tabMapFromDB();
 		this.createModel();
-	}
-		
-	public void CreateMap()
-	{
-		int x = 0, y=0, i=0;
-		String v;
-		String s = null;
-		FileInputStream fis = null;
-		
-		try {
-	         fis = new FileInputStream(new File(MapName));
-
-	         byte[] buf = new byte[8];	// On crée un tableau de byte pour indiquer le nombre de bytes lus à chaque tour de boucle
-	         
-	         s = MapName.substring(25, 26);
-	         i = Integer.parseInt(s);
-	         
-	        this.getModel().getDaoMapDb().CheckIfExist(i);
-	         v = getModel().getDaoMapDb().getDbV();
-	         	         
-	         while ((fis.read(buf)) >= 0) 				// Vaut -1 quand c'est fini Lorsque la lecture du fichier est terminée On sort donc de la boucle
-	         {           
-	            for (byte bit : buf) 					 // On affiche ce qu'a lu notre boucle au format byte et au format char
-	            {
-	               if(x<DimensionMap.X && bit != 10 )
-	               {
-	            	   map [y][x]= (char)bit;
-	            	   
-	            	  if (v != "false")
-	            	  {
-	            	  this.getModel().getDaoMapDb().addMapDB(i, x, y, (char)bit);
-	            	  }
-	            	   x++;
-	               }
-	               else if(y<DimensionMap.Y-1 && bit != 10)
-	               {
-	            	   y++;
-	            	   x=0;
-	            	   map [y][x] = (char)bit;
-	               }
-	            }
-	            buf = new byte[8];  				  //Nous réinitialisons le buffer à vide au cas où les derniers byte lus ne soient pas un multiple de 8 Ceci permet d'avoir un buffer vierge à chaque lecture et ne pas avoir de doublon en fin de fichier
-	         }
-	         System.out.println("Copie terminée !");
-		}
-		  catch (FileNotFoundException e) 
-		  {
-	         e.printStackTrace();
-	      } 
-		  catch (IOException e) 
-		  {
-	         e.printStackTrace();
-	      } 
-		  finally 
-		  {
-	         try 
-	         {
-	            if (fis != null)
-	               fis.close();
-	         } 
-	         catch (IOException e) 
-	         {
-	            e.printStackTrace();
-	         }     
-		  } 
-	}
-	
-	public void tabMapFromDB()
-	{
-		int i=0, x=0, y=0;
-		String s, u;
-		char c;
-        s = MapName.substring(25, 26);
-        i = Integer.parseInt(s);
-      
-        for(x=0; x<19; x++)
-        {     	
-        	for(y=0; y<11; y++)
-        	{        		
-        		getModel().getDaoMapDb().DataFromDB(i,x,y);
-        		u = getModel().getDaoMapDb().getDbS();
-        		c = u.charAt(0);
-        		map[y][x] = c;
-        	}        
-        }   
 	}
 	
 	public void createModel()
@@ -131,26 +50,26 @@ public class MapGen
 		{
 			for(x=0; x<DimensionMap.X; x++)
 			{
-				switch(this.map[y][x])
+				switch(this.getMapcreator().getMapChar(y, x))	
 				{
-					case '@': this.setLorann(new Hero(this.getModel(),y,x));
+					case '@': this.setLorann(new Hero(this,y,x));
 							  this.setElemMtx(this.getLorann(), y, x);
 							  break;
 					case '0': this.setElemMtx(new Number(0), y, x);     																					
 							  break;
-					case 'A': this.setBrainLessTracker(new DemonRandom(this.getModel(),y,x)); 		
+					case 'A': this.setBrainLessTracker(new DemonRandom(this,y,x)); 		
 							  this.setElemMtx(this.getBrainLessTracker(), y, x); 			
 							  break;
-					case 'B': this.setStupidTracker(new DemonBlind(this.getModel(),y,x));		
+					case 'B': this.setStupidTracker(new DemonBlind(this,y,x));		
 							  this.setElemMtx(this.getStupidTracker(), y, x);				
 							  break;
-					case 'C': this.setSadisticTracker(new DemonSadistic(this.getModel(),y,x));		  
+					case 'C': this.setSadisticTracker(new DemonSadistic(this,y,x));		  
 							  this.setElemMtx(this.getSadisticTracker(), y, x);
 							  break;
-					case 'D': this.setSmartTracker(new DemonTracker(this.getModel(),y,x)); 	
+					case 'D': this.setSmartTracker(new DemonTracker(this,y,x)); 	
 							  this.setElemMtx(this.getSmartTracker(), y, x); 			
 							  break;
-					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.map[y][x]), y, x);	                            			
+					default : this.ProduceElement(MotionLessElemFACTORY.getElemenFromCHAR(this.getMapcreator().getMapChar(y, x)), y, x);	                            			
 							  break;		
 				}	
 			}
@@ -217,9 +136,9 @@ public class MapGen
 	
 	public void ChangeCurrentMap()
 	{
-		this.CreateMap();
-		this.ConsoleMap();
-		this.tabMapFromDB();
+		this.getMapcreator().CreateMap();
+		this.getMapcreator().ConsoleMap();
+		this.getMapcreator().tabMapFromDB();
 		this.createModel();	
 	}
 	
@@ -263,17 +182,85 @@ public class MapGen
 		}
 	}
 	
-	public void ConsoleMap()
+	public synchronized void LorannIsShooting()
 	{
-		int x =0 ,y = 0;
-		for(y=0; y<DimensionMap.Y; y++)
+		if(this.getMissile() == null)
 		{
-			x=0;
-			System.out.println("");
-			for(x=0; x<DimensionMap.X; x++)
+			if(this.getLorann().isShootable())
 			{
-				System.out.print(map[y][x]);
+				switch(this.getLorann().getLastLorannMove())
+				{
+					case UP:			this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()));
+										this.getMissile().setDirection(ControllerOrder.DOWN);
+										break;
+					case DOWN:			this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()));
+										this.getMissile().setDirection(ControllerOrder.UP);
+										break;
+					case LEFT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()+1));
+										this.getMissile().setDirection(ControllerOrder.RIGHT);
+										break;
+					case RIGHT:			this.setMissile(new Projectile(this, this.getLorann().getY(), this.getLorann().getX()-1));
+										this.getMissile().setDirection(ControllerOrder.LEFT);
+										break;
+					case UPPERRIGHT:	this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()-1));
+										this.getMissile().setDirection(ControllerOrder.DOWNLEFT);
+										break;
+					case UPPERLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()+1, this.getLorann().getX()+1));
+										this.getMissile().setDirection(ControllerOrder.DOWNRIGHT);
+										break;
+					case DOWNLEFT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()+1));
+										this.getMissile().setDirection(ControllerOrder.UPPERRIGHT);
+										break;
+					case DOWNRIGHT:		this.setMissile(new Projectile(this, this.getLorann().getY()-1, this.getLorann().getX()-1));
+										this.getMissile().setDirection(ControllerOrder.UPPERLEFT);
+										break;
+					default:
+					break;			
+				}
+				this.PlaceMotionElem(this.getMissile());	
+			}			
+		}
+		else
+		{
+			this.getMissile().setIA(new TrackingBehavior(this.getMissile(),0));
+		}
+		this.getModel().notifyView();
+	}
+	
+	public synchronized void stopShoot()
+	{
+		if(this.getMissile() != null)
+		{
+			this.getMissile().getMoveTimer().stop();
+			this.setElemMtx(MotionLessElemFACTORY.EMPTY, this.getMissile().getY(), this.getMissile().getX());
+			this.setMissile(null);
+		}
+	}
+	
+	public void CheckShootableElem(int UP_DWN, int RGT_LFT)
+	{
+		if(this.getLorann().CheckAvailablePosition(UP_DWN, RGT_LFT))
+		{
+			if(this.getElemMtx(this.getLorann().getY()-UP_DWN, this.getLorann().getX()-RGT_LFT) instanceof MotionLessElem)
+			{
+				if(this.getElemMtx(this.getLorann().getY()-UP_DWN, this.getLorann().getX()-RGT_LFT) == MotionLessElemFACTORY.EMPTY)
+				{
+					this.getLorann().setShootable(true);
+				}
+				else{this.getLorann().setShootable(false);}
 			}
+			else{this.getLorann().setShootable(true);}
+		}
+		else
+		{this.getLorann().setShootable(false);}	
+	}
+	
+	public void ActivateDaemonsOnMap()
+	{
+		if(this.getLorann().isHasMoved()==false && this.getMapLevel() != 0)
+		{
+			this.getLorann().setHasMoved(true);
+			this .AnimateDaemons();
 		}
 	}
 	
@@ -355,6 +342,24 @@ public class MapGen
 	public void setSadisticTracker(DemonSadistic sadisticTracker) {
 		SadisticTracker = sadisticTracker;
 	}
+	
+	public AutoMotionElem getMissile() {
+		return Missile;
+	}
+
+	public void setMissile(Projectile missile) {
+		Missile = missile;
+	}
+
+	public MapCreator getMapcreator() {
+		return mapcreator;
+	}
+
+	public void setMapcreator(MapCreator mapcreator) {
+		this.mapcreator = mapcreator;
+	}
+	
+	
 
 
 }

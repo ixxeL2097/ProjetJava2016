@@ -8,11 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 import Element.Permeabilite;
-import model.Model;
+import model.IMapGen;
 
 public class Projectile extends AutoMotionElem implements Runnable, ActionListener
 {
-	private static String MAGIC_BALL="C:/ProjetJava/Sprite/250ms.gif";
 	private static String MAGIC_FIREBALL = "C:/ProjetJava/Sprite/fireball_1.png";
 	private final ImageIcon GREEN = new ImageIcon("C:/ProjetJava/Sprite/fireball_1.png");
 	private final ImageIcon BLUE = new ImageIcon("C:/ProjetJava/Sprite/fireball_2.png");
@@ -22,9 +21,9 @@ public class Projectile extends AutoMotionElem implements Runnable, ActionListen
 	private ArrayList<ImageIcon> ChangeColor;
 	private int SpriteNumber=0;
 
-	public Projectile(Model model, int Y, int X) 
+	public Projectile(IMapGen mapgen, int Y, int X) 
 	{	
-		super(model, MAGIC_FIREBALL, Permeabilite.MISSILE);
+		super(mapgen, MAGIC_FIREBALL, Permeabilite.MISSILE);
 		this.MoveTimer=new Timer(250,this);
 		this.setX(X);
 		this.setY(Y);

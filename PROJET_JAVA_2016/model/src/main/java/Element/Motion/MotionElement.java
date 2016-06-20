@@ -1,5 +1,6 @@
 package Element.Motion;
 import Element.*;
+import model.IMapGen;
 import model.Model;
 
 public abstract class MotionElement extends Element 
@@ -9,16 +10,18 @@ public abstract class MotionElement extends Element
 	protected int lastX;
 	protected int lastY;
 	protected Model model;
+	protected IMapGen mapgen;
 	
 	public MotionElement(String picture, Permeabilite permea )
 	{
 		super(picture, permea);
 	}	
 	
-	public MotionElement(Model model,String picture, Permeabilite permea )
+	public MotionElement(IMapGen mapgen,String picture, Permeabilite permea )
 	{
 		super(picture, permea);
-		this.setModel(model);
+		//this.setModel(model);
+		this.setMapgen(mapgen);
 	}	
 	
 	public void setLastX(int lastX) {
@@ -53,13 +56,23 @@ public abstract class MotionElement extends Element
 		return lastY;
 	}
 	
-	public synchronized Model getModel() {
+	/*public synchronized Model getModel() {
 		return model;
 	}
 	
 	public void setModel(Model model) {
 		this.model = model;
+	}*/
+
+	public IMapGen getMapgen() {
+		return mapgen;
 	}
+
+	public void setMapgen(IMapGen mapgen) {
+		this.mapgen = mapgen;
+	}
+	
+	
 	
 
 }

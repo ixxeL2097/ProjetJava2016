@@ -8,7 +8,7 @@ import javax.swing.Timer;
 import Element.Permeabilite;
 import Element.Motion.MotionElement;
 import contract.ControllerOrder;
-import model.Model;
+import model.IMapGen;
 
 public abstract class AutoMotionElem extends MotionElement 
 {
@@ -27,9 +27,9 @@ public abstract class AutoMotionElem extends MotionElement
 	protected static Point DWLF = new Point(-1,1);
 	
 
-	public AutoMotionElem(Model model, String picture, Permeabilite permea) 
+	public AutoMotionElem(IMapGen mapgen, String picture, Permeabilite permea) 
 	{
-		super(model, picture, permea);
+		super(mapgen, picture, permea);
 		this.RandomMove = new Random();
 	}
 	
@@ -84,7 +84,7 @@ public abstract class AutoMotionElem extends MotionElement
 	
 	public boolean CheckAllowedMapBounds(int UP_DW, int RT_LF)
 	{
-		if((this.getY()+UP_DW < this.getModel().getDimensionMapY() && this.getX()+RT_LF < this.getModel().getDimensionMapX()) && (this.getY()+UP_DW >= 0 && this.getX()+RT_LF >= 0)) 
+		if((this.getY()+UP_DW < this.getMapgen().getModel().getDimensionMapY() && this.getX()+RT_LF < this.getMapgen().getModel().getDimensionMapX()) && (this.getY()+UP_DW >= 0 && this.getX()+RT_LF >= 0)) 
 		{
 			return true;
 		}
@@ -93,7 +93,7 @@ public abstract class AutoMotionElem extends MotionElement
 	
 	public void MoveDaemon(int NextMove_UP_DW, int NextMove_RT_LF)
 	{
-		this.getModel().MoveDaemon(NextMove_UP_DW, NextMove_RT_LF, this);
+		this.getMapgen().getModel().MoveDaemon(NextMove_UP_DW, NextMove_RT_LF, this);
 	}
 	
 	public void MoveUP() 

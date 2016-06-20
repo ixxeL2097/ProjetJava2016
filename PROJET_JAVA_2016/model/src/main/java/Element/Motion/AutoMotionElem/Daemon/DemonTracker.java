@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import Element.Permeabilite;
-import model.Model;
+import model.IMapGen;
 
 public class DemonTracker extends Demon implements Runnable, ActionListener
 {
-	public DemonTracker(Model model, int y , int x) 
+	public DemonTracker(IMapGen mapgen, int y , int x) 
 	{
-		super(model, "C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);		
+		super(mapgen, "C:/ProjetJava/Sprite/monster_1.png", Permeabilite.TRACKER);		
 		this.MoveTimer=new Timer(400,this);
 		this.setX(x);
 		this.setY(y);
