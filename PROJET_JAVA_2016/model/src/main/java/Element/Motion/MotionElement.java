@@ -37,7 +37,7 @@ public abstract class MotionElement extends Element
 		this.mapgen = mapgen;
 	}
 	
-	public void setState(IMapGen mapgen, int y, int x)
+	public void setState(IMapGen mapgen, int y, int x)		// sets MotionElement position and gives MapGen interface
 	{
 		this.setMapgen(mapgen);
 		this.setY(y);

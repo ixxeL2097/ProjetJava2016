@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MapCreator 
+public class MapCreator 			// Class that is used to look in BDD and create a char array representing the current map
 {
 	IMapGen mapgen;
 	public char[][] map; 

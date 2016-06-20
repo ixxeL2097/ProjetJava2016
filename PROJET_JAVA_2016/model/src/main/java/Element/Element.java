@@ -2,7 +2,7 @@ package Element;
 
 import javax.swing.ImageIcon;
 
-public abstract class Element
+public abstract class Element					// Element superclass
 {
 	protected Permeabilite permea;
 	protected String IconName;

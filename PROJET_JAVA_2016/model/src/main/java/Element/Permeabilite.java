@@ -1,6 +1,6 @@
 package Element;
 
-public enum Permeabilite 
+public enum Permeabilite 		// permeability of all elements
 {
 	BLOCKING,
 	PENETRABLE, 

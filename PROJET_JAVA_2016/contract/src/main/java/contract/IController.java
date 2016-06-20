@@ -5,12 +5,8 @@ package contract;
  *
  * @author Jean-Aymeric Diet
  */
-public interface IController {
-
-	/**
-	 * Control.
-	 */
-	public void control();
+public interface IController 
+{
 
 	/**
 	 * Order perform.

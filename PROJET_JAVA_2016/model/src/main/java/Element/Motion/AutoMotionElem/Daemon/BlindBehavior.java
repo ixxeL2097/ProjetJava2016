@@ -4,7 +4,7 @@ import Element.Permeabilite;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 import Element.Motion.AutoMotionElem.Behavior;
 
-public class BlindBehavior extends Behavior
+public class BlindBehavior extends Behavior				
 {
 	private int RandDigit;
 	private Vector vector;
@@ -22,7 +22,7 @@ public class BlindBehavior extends Behavior
 		this.UpdatePosition();
 	}
 	
-	public void SelectRandomMove()
+	public void SelectRandomMove()		// select a move between all possible directions
 	{
 		this.getMobil().setRandomSelectMove(this.getMobil().getRandomSelectMove()+this.getMobil().getRandomMove().nextInt(RandDigit));
 		//this.getMobil().RandomSelectMove = this.RandomSelectMove+RandomMove.nextInt(RandDigit);	
@@ -41,7 +41,7 @@ public class BlindBehavior extends Behavior
 		}
 	}
 	
-	public void UpdatePosition()
+	public void UpdatePosition()			// update the object's position which has this behavior
 	{
 		this.deltaX = this.getMobil().getX()-this.getMobil().getMapgen().getLorann().getX(); 
 		this.deltaY = this.getMobil().getY()-this.getMobil().getMapgen().getLorann().getY();
@@ -64,7 +64,7 @@ public class BlindBehavior extends Behavior
 		}
 	}
 	
-	public void CheckArea()
+	public void CheckArea()					// check move possibilities
 	{	
 		int UP = -1;
 		int DW = 1;
@@ -111,21 +111,21 @@ public class BlindBehavior extends Behavior
 	
 	public void CalculateAbsRight()
 	{
-		if(this.deltaY<0)														// plus a droite et plus en bas
+		if(this.deltaY<0)														// more right and down
 		{
 			if(this.Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWRTRT);}
 			if(this.Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWDWRT);}
 			else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWRT);}			
 			this.CheckArea();
 		}
-		else if(this.deltaY>0)												// plus a droite et plus en haut
+		else if(this.deltaY>0)												// more right and up
 		{
 			if(this.Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPRTRT);}
 			if(this.Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPUPRT);}
 			else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPRT);}
 			this.CheckArea();
 		}	
-		else															// plus à droite et meme hauteur
+		else															// more right and same height
 		{
 			this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.RT);
 			this.CheckArea();
@@ -134,21 +134,21 @@ public class BlindBehavior extends Behavior
 	
 	public void CalculateAbsLeft()
 	{
-		if(this.deltaY<0)														// plus a gauche et plus en bas
+		if(this.deltaY<0)														// more left and down
 		{
 			if(this.Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWLFLF);}
 			if(this.Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWDWLF);}
 			else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DWLF);}
 			this.CheckArea();
 		}
-		else if(this.deltaY>0)												// plus a gauche et plus en haut
+		else if(this.deltaY>0)												// more left and up
 		{
 			if(this.Abs>0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPLFLF);}
 			if(this.Abs<0){this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPUPLF);}
 			else{this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UPLF);}
 			this.CheckArea();
 		}
-		else															// plus a gauche et meme Y
+		else															// more left and same height
 		{
 			this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.LF);
 			this.CheckArea();
@@ -157,12 +157,12 @@ public class BlindBehavior extends Behavior
 	
 	public void CalculateAbsEqual()
 	{
-		if(this.deltaY<0)														// meme X et plus en bas
+		if(this.deltaY<0)														// same width and more down 
 		{
 			this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.DW);
 			this.CheckArea();
 		}
-		else if(this.deltaY>0)												// meme X et plus en haut
+		else if(this.deltaY>0)												// same width and more up
 		{
 			this.setVector(Element.Motion.AutoMotionElem.Daemon.Vector.UP);
 			this.CheckArea();

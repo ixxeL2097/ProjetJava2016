@@ -78,7 +78,7 @@ public class Model extends Observable implements IModel
 		this.notifyView();	
 	}
 	
-	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, AutoMotionElem MovingObject)
+	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, AutoMotionElem MovingObject)		// method used to effectively make a motion element move
 	{
 		int y, x, y1, x1;
 		y=MovingObject.getY()+UP_DWN;
@@ -95,12 +95,12 @@ public class Model extends Observable implements IModel
 			MovingObject.setY(MovingObject.getY()+UP_DWN);
 			MovingObject.setX(MovingObject.getX()+RGT_LFT);		
 		}
-		else if(this.getPermea() == Permeabilite.BLOCKING && MovingObject instanceof Demon)
+		else if(this.getPermea() == Permeabilite.BLOCKING && MovingObject instanceof Demon)		
 		{
 			System.out.println("BLOCKED");
 			MovingObject.DefaultDaemonMove();		
 		}		
-		else if(this.getPermea() == Permeabilite.HERO)
+		else if(this.getPermea() == Permeabilite.HERO)		// if motion element meets lorann, it kills him or stop fireball shooting depending on which element is meeting lorann
 		{
 			if(MovingObject instanceof Projectile)
 			{
@@ -114,7 +114,7 @@ public class Model extends Observable implements IModel
 				this.getMapGen().getLorann().setAlive(false);
 			}
 		}
-		else if(this.getMapGen().getElemMtx(y,x) instanceof Demon && MovingObject instanceof Projectile)
+		else if(this.getMapGen().getElemMtx(y,x) instanceof Demon && MovingObject instanceof Projectile)	// kill demons if the motion element is a fireball
 		{
 			this.getMapGen().stopShoot();
 			this.setDestroyedEnnemy((Demon)this.getMapGen().getElemMtx(y,x));
@@ -125,7 +125,7 @@ public class Model extends Observable implements IModel
 		this.notifyView();	
 	}
 
-	public synchronized void MoveLorann(int UP_DWN, int RGT_LFT) 
+	public synchronized void MoveLorann(int UP_DWN, int RGT_LFT) 	// method used to effectively make lorann move
 	{
 		int y, x, y1, x1;
 		y=this.getMapGen().getLorann().getY()+UP_DWN;

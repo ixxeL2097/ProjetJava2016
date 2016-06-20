@@ -2,14 +2,14 @@ package model;
 
 import java.util.HashMap;
 
-public class MapFinder 
+public class MapFinder 			// map librairy used when BDD is off or to add a new map in BDD 
 {
 	private HashMap<Integer, String> MapRanking; 
 	private String FolderPath = "C:/ProjetJava/Map/MAP_lvl";
 	private String Extension =".txt";
-	private int MapNumber = 101;
+	private int MapNumber = 102;
 	
-	public MapFinder()
+	public MapFinder()		// initialize HashMap and fills it with all different maps
 	{
 		this.MapRanking = new HashMap<Integer, String>();
 		int x=0;

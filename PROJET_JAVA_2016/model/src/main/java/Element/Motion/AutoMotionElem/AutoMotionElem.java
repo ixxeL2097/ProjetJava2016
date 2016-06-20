@@ -23,7 +23,7 @@ public abstract class AutoMotionElem extends MotionElement implements Runnable, 
 		this.RandomMove = new Random();
 	}
 	
-	public void DefaultDaemonMove()
+	public void DefaultDaemonMove()				// default move of an automotionelement
 	{
 		System.out.println("Default Move");
 		
@@ -72,7 +72,7 @@ public abstract class AutoMotionElem extends MotionElement implements Runnable, 
 
 	}
 	
-	public boolean CheckAllowedMapBounds(int UP_DW, int RT_LF)
+	public boolean CheckAllowedMapBounds(int UP_DW, int RT_LF)			// check if the next move is in bounds
 	{
 		if((this.getY()+UP_DW < this.getMapgen().getModel().getDimensionMapY() && this.getX()+RT_LF < this.getMapgen().getModel().getDimensionMapX()) && (this.getY()+UP_DW >= 0 && this.getX()+RT_LF >= 0)) 
 		{
@@ -81,7 +81,7 @@ public abstract class AutoMotionElem extends MotionElement implements Runnable, 
 		else {return false;}
 	}
 	
-	public void MoveDaemon(int NextMove_UP_DW, int NextMove_RT_LF)
+	public void MoveDaemon(int NextMove_UP_DW, int NextMove_RT_LF)			// standard move of an automotionelement
 	{
 		this.getMapgen().getModel().MoveDaemon(NextMove_UP_DW, NextMove_RT_LF, this);
 	}

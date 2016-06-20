@@ -27,22 +27,22 @@ public interface IModel
 	 */
 	Observable getObservable();
 	
-	int getDimensionMapX();
+	int getDimensionMapX();					// methods to get Static dimensionMap of the game and frame
 	int getDimensionMapY();
 	int getWindowMapWIDTH();
 	int getWindowMapHEIGHT();
 	Dimension getD();
 	
-	ImageIcon getImageElement(int y, int x);
+	ImageIcon getImageElement(int y, int x);		
 	
-	void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT);
-	void setLorannGIF();
-	void askLorannToShoot();
+	void MoveLorann(int nextMoveUP_DWN, int nextMoveRGT_LFT);		// methode to make lorann move
+	void setLorannGIF();											// change lorann's animation
+	void askLorannToShoot();										// make lorann shoot
 	
-	int getScore();
-	int getLives();
-	void setScore(int score);
-	boolean getLorannStatus();
-	IPlayer getPlayer();
+	int getScore();													// get lorann's score
+	int getLives();													// get lorann's lives
+	void setScore(int score);										// set lorann's score
+	boolean getLorannStatus();										// return if lorann is alive or not
+	IPlayer getPlayer();												
 	
 }

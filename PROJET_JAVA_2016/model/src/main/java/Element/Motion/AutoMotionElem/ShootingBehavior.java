@@ -3,7 +3,7 @@ package Element.Motion.AutoMotionElem;
 import Element.Permeabilite;
 import contract.ControllerOrder;
 
-public class ShootingBehavior extends Behavior
+public class ShootingBehavior extends Behavior						// behaviour of lorann's fireball
 {	
 	public ShootingBehavior(AutoMotionElem Mobil)
 	{
@@ -15,7 +15,7 @@ public class ShootingBehavior extends Behavior
 		this.UpdatePosition();
 	}
 	
-	public void CheckUpcomingDirection(int UP_DW, int RT_LF, ControllerOrder order)
+	public void CheckUpcomingDirection(int UP_DW, int RT_LF, ControllerOrder order)		// check the next fireball's direction
 	{
 		Permeabilite Perm = this.getMobil().getMapgen().getElemMtx(this.getMobil().getY()+UP_DW,this.getMobil().getX()+RT_LF).getPermea();
 		
@@ -25,7 +25,7 @@ public class ShootingBehavior extends Behavior
 		}
 	}
 	
-	public void ExecuteTranslation(int UP_DW_1stMove, int RT_LF_1stMove, int UP_DW_2ndMove, int RT_LF_2ndMove, ControllerOrder order)
+	public void ExecuteTranslation(int UP_DW_1stMove, int RT_LF_1stMove, int UP_DW_2ndMove, int RT_LF_2ndMove, ControllerOrder order)	// execute fireball's move
 	{
 		if(this.getMobil().CheckAllowedMapBounds(UP_DW_1stMove, RT_LF_1stMove))
 		{
@@ -42,7 +42,7 @@ public class ShootingBehavior extends Behavior
 		}
 	}
 	
-	public void UpdatePosition()
+	public void UpdatePosition()			// update the object's position which has this behavior
 	{
 		int UP = -1;
 		int DW = 1;

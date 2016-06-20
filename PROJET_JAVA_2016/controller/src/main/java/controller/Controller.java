@@ -67,9 +67,9 @@ public class Controller implements IController
 	 *
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
-	public void orderPerform(final ControllerOrder controllerOrder) 
+	public void orderPerform(final ControllerOrder controllerOrder) 	// execute Lorann move or Lorann shoot via interface IPlayer
 	{
-		switch (controllerOrder) 
+		switch (controllerOrder) 							
 		{
 			case UP:
 				this.getModel().getPlayer().MoveUP();break;

@@ -16,7 +16,7 @@ import Element.MotionLess.*;
 import contract.ControllerOrder;
 
 
-public class MapGen implements IMapGen
+public class MapGen implements IMapGen				// main class of elements's instanciation. MapGen is used to create all elements, moving or not
 {
 	public Element [][] ElemMtx;
 	private String MapName;
@@ -26,7 +26,7 @@ public class MapGen implements IMapGen
 	private Hero Lorann;
 	private MapCreator mapcreator;
 	
-	public MapGen(int MapNumber, Model model)
+	public MapGen(int MapNumber, Model model)		// constructor instanciate a new arraylist of motion elements that will store demons and lorann's fireball
 	{
 		this.setMapLevel(MapNumber);		
 		this.setModel(model);
@@ -40,7 +40,7 @@ public class MapGen implements IMapGen
 		this.createModel();
 	}
 	
-	public void createModel()
+	public void createModel()			// model creation using motionless and motion FACTORIES
 	{
 		int x=0, y=0;
 		for(y=0; y<DimensionMap.Y; y++)
@@ -73,18 +73,18 @@ public class MapGen implements IMapGen
 		}		
 	}
 	
-	private void ProduceElement(final MotionLessElem element, final int y, final int x) 
+	private void ProduceElement(final MotionLessElem element, final int y, final int x) 		// set a motionless element in the element matrix
 	{
 		this.ElemMtx [y][x] = element;
 	}
 	
-	public void PlaceMotionElem(final MotionElement elem, int y, int x)
+	public void PlaceMotionElem(final MotionElement elem, int y, int x)		// set a motion element in the element matrix
 	{
 		this.setElemMtx(elem, y, x);
 		elem.setState(this, y, x);
 	}
 	
-	public void UnlockGate()
+	public void UnlockGate()										// unlock all gates when lorann is collecting energyball
 	{
 		int x=0, y=0;
 		for(y=0; y<DimensionMap.Y; y++)
@@ -103,28 +103,7 @@ public class MapGen implements IMapGen
 		}		
 	}
 	
-	public void ChangeLevelMap()
-	{
-		if(this.getModel().getLevelMapOrder()>99)
-		{
-			this.ElemMtx[6][1] = new Number(this.getModel().getLevelMapOrder()/100);
-			this.ElemMtx[6][2] = new Number((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)/10);
-			this.ElemMtx[6][3] = new Number((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)-((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)/10)*10);
-		}
-		else if(this.getModel().getLevelMapOrder()>9)
-		{
-			this.ElemMtx[6][1] = new Number(0);
-			this.ElemMtx[6][2] = new Number(this.getModel().getLevelMapOrder()/10);
-			this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/10)*10);
-		}
-		else if(this.getModel().getLevelMapOrder()<10)
-		{
-			this.ElemMtx[6][2] = new Number(0);
-			this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder());
-		}	
-	}
-	
-	public void ChangeCurrentMap()
+	public void ChangeCurrentMap()						// method used to change the current map of the game
 	{
 		this.getMapcreator().CreateMap();
 		this.getMapcreator().ConsoleMap();
@@ -132,7 +111,7 @@ public class MapGen implements IMapGen
 		this.createModel();	
 	}
 	
-	public void DestroyAllMobil()
+	public void DestroyAllMobil()						// set all motion elements of the arraylist to null
 	{
 		for(int x=0; x<this.getMobilList().size(); x++)
 		{
@@ -140,33 +119,33 @@ public class MapGen implements IMapGen
 		}
 	}
 	
-	public void AnimateDemons()
+	public void AnimateDemons()							// initialize demon's move
 	{
 		for(int x=0; x<this.getMobilList().size(); x++)
 		{
-			if(this.getMobilList().get(x) instanceof Demon && this.getMobilList().get(x) != null)
+			if(this.getMobilList().get(x) != null && this.getMobilList().get(x) instanceof Demon)
 			{
 				this.getMobilList().get(x).run();
 			}
 		}		
 	}
 	
-	public void StopAllDemons()
+	public void StopAllDemons()						// stop all demons when 
 	{
 		for(int x=0; x<this.getMobilList().size(); x++)
 		{
-			if(this.getMobilList().get(x) instanceof Demon && this.getMobilList().get(x) != null)
+			if(this.getMobilList().get(x) != null && this.getMobilList().get(x) instanceof Demon)
 			{
 				this.getMobilList().get(x).getMoveTimer().stop();
 			}
 		}
 	}
 	
-	public Projectile returnMissil()
+	public Projectile returnMissil()			// return lorann's fireball in contained in the arraylist
 	{
 		for(int x=0; x<this.getMobilList().size(); x++)
 		{
-			if(this.getMobilList().get(x) instanceof Projectile && this.getMobilList().get(x) != null)
+			if(this.getMobilList().get(x) != null && this.getMobilList().get(x) instanceof Projectile)
 			{
 				return (Projectile)this.getMobilList().get(x);
 			}
@@ -174,7 +153,7 @@ public class MapGen implements IMapGen
 		return null;
 	}
 	
-	public void setMissilNull()
+	public void setMissilNull()				// set lorann's fireball to null
 	{
 		for(int x=0; x<this.getMobilList().size(); x++)
 		{
@@ -185,7 +164,7 @@ public class MapGen implements IMapGen
 		}
 	}
 	
-	public synchronized void LorannIsShooting()
+	public synchronized void LorannIsShooting()		// initalize lorann's fireball if its not null and if the location is permeable for creating fireball
 	{
 		if(this.returnMissil()==null)
 		{
@@ -239,7 +218,7 @@ public class MapGen implements IMapGen
 		this.getModel().notifyView();
 	}
 	
-	public synchronized void stopShoot()
+	public synchronized void stopShoot()			// stops lorann's fireball when hiting a demon or when lorann collects the fireball
 	{
 		if(this.returnMissil() != null)
 		{
@@ -249,7 +228,7 @@ public class MapGen implements IMapGen
 		}
 	}
 	
-	public void CheckShootableElem(int UP_DWN, int RGT_LFT)
+	public void CheckShootableElem(int UP_DWN, int RGT_LFT)				// set the lorann's shootable boolean value based on element's permeability
 	{
 		if(this.getLorann().CheckAvailablePosition(UP_DWN, RGT_LFT))
 		{
@@ -267,16 +246,37 @@ public class MapGen implements IMapGen
 		{this.getLorann().setShootable(false);}	
 	}
 	
-	public void ActivateDaemonsOnMap()
+	public void ActivateDaemonsOnMap()			// activate all demons on map when lorann is moving
 	{
 		if(this.getLorann().isHasMoved()==false && this.getMapLevel() != 0)
 		{
 			this.getLorann().setHasMoved(true);
 			this.AnimateDemons();
 		}
+	}	
+	
+	public void ChangeLevelMap()				// method used to change the map level in the main start map
+	{
+		if(this.getModel().getLevelMapOrder()>99)
+		{
+			this.ElemMtx[6][1] = new Number(this.getModel().getLevelMapOrder()/100);
+			this.ElemMtx[6][2] = new Number((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)/10);
+			this.ElemMtx[6][3] = new Number((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)-((this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/100)*100)/10)*10);
+		}
+		else if(this.getModel().getLevelMapOrder()>9)
+		{
+			this.ElemMtx[6][1] = new Number(0);
+			this.ElemMtx[6][2] = new Number(this.getModel().getLevelMapOrder()/10);
+			this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder()-(this.getModel().getLevelMapOrder()/10)*10);
+		}
+		else if(this.getModel().getLevelMapOrder()<10)
+		{
+			this.ElemMtx[6][2] = new Number(0);
+			this.ElemMtx[6][3] = new Number(this.getModel().getLevelMapOrder());
+		}	
 	}
 	
-	public void resetElemMtx(int y, int x)
+	public void resetElemMtx(int y, int x)				// reset an element to empty
 	{
 		this.setElemMtx(null, y, x);
 		this.setElemMtx(MotionLessElemFACTORY.EMPTY, y, x);

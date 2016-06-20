@@ -27,7 +27,7 @@ public class TrackingBehavior extends Behavior
 		this.UpdatePosition();	
 	}
 	
-	public void UpdatePosition()
+	public void UpdatePosition()								// update the object's position which has this behavior
 	{
 		int x = this.getMobil().getX();
 		int y = this.getMobil().getY();
@@ -46,7 +46,7 @@ public class TrackingBehavior extends Behavior
 		}
 	}
 	
-	public void GenerateBooleanMtx()
+	public void GenerateBooleanMtx()						// generate a boolean array base on element's permeability
 	{
 		int x=0,y=0;
 		for(y=0; y<DimensionMap.Y; y++)

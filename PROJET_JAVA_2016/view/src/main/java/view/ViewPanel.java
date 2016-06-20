@@ -52,7 +52,7 @@ class ViewPanel extends JPanel implements Observer
 		this.initViewPanel();		
 	}
 	
-	public void initViewPanel()
+	public void initViewPanel()		// initalize view. create a JLabel's matrix based on model's matrix
 	{
 		int x=0, y=0;
 		for(y=0; y<this.getViewFrame().getModel().getDimensionMapY(); y++)
@@ -75,7 +75,7 @@ class ViewPanel extends JPanel implements Observer
 		this.repaint();
 	}
 	
-	public void CreateHUD()
+	public void CreateHUD()			// create the HUD with score and lives
 	{
 		this.score = new JLabel("SCORE : "+Integer.toString(this.getViewFrame().getModel().getScore()));
 		this.lives = new JLabel("LIVES : "+Integer.toString(this.getViewFrame().getModel().getLives()));
@@ -86,7 +86,7 @@ class ViewPanel extends JPanel implements Observer
 		this.getLives().setFont(this.getScoreFont());
 	}
 	
-	public void setHUD()
+	public void setHUD()		// refresh the HUD
 	{
 		this.getGbc().gridx = 0;
 		this.getGbc().gridy++;
@@ -99,7 +99,7 @@ class ViewPanel extends JPanel implements Observer
 	}
 	
 	
-	public void GameOver()
+	public void GameOver()		// set GameOver if necessary
 	{
 		this.removeAll();
 		this.setLayout(null);
@@ -136,7 +136,7 @@ class ViewPanel extends JPanel implements Observer
 	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
-	public void update(final Observable arg0, final Object arg1) 
+	public void update(final Observable arg0, final Object arg1) 		// update view or set gameover
 	{
 		if(this.getViewFrame().getModel().getLorannStatus()==false)
 		{

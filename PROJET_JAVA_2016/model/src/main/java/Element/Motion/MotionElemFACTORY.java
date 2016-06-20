@@ -6,7 +6,7 @@ import Element.Motion.AutoMotionElem.Daemon.DemonRandom;
 import Element.Motion.AutoMotionElem.Daemon.DemonSadistic;
 import Element.Motion.AutoMotionElem.Daemon.DemonTracker;
 
-public class MotionElemFACTORY 
+public class MotionElemFACTORY 							// MotionElement factory, instanciate all motion elements
 {	
 	public static final MotionElement PROJECTILE 							= new Projectile();
 	public static final MotionElement HERO 									= new Hero();
@@ -18,9 +18,9 @@ public class MotionElemFACTORY
 	
 	private static MotionElement	MotionElemFACTORY []	= 
 		
-		{PROJECTILE, HERO, DEMONBLIND, DEMONRANDOM, DEMONSADISTIC, DEMONTRACKER};
+		{PROJECTILE, HERO, DEMONBLIND, DEMONRANDOM, DEMONSADISTIC, DEMONTRACKER};		// static motionelement's array that stores all motion elements
 	
-	public static MotionElement getElemenFromCHAR(final char MapSymbol) 
+	public static MotionElement getElemenFromCHAR(final char MapSymbol) 				// return char identification of a motion element
 	{
 		for (final MotionElement motionElem : MotionElemFACTORY) 
 		{
@@ -32,7 +32,7 @@ public class MotionElemFACTORY
 		return null;
 	}
 
-	public static void setMotionElemFACTORY(MotionElement motionElemFACTORY[]) 
+	public static void setMotionElemFACTORY(MotionElement motionElemFACTORY[])  
 	{
 		MotionElemFACTORY = motionElemFACTORY;
 	}

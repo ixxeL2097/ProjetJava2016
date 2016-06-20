@@ -7,7 +7,7 @@ import Element.Motion.Hero;
 import Element.Motion.AutoMotionElem.AutoMotionElem;
 
 
-public interface IMapGen 
+public interface IMapGen 		// MapGen interface 
 {		
 	Model getModel();
 	
@@ -26,22 +26,6 @@ public interface IMapGen
 	void setElemMtx(Element elemMtx, int y, int x);
 	
 	ArrayList<AutoMotionElem> getMobilList();
-
-	/*AutoMotionElem getStupidTracker();
-
-	void setStupidTracker(AutoMotionElem stupidTracker);
-
-	AutoMotionElem getSmartTracker();
-
-	void setSmartTracker(AutoMotionElem smartTracker);
-	
-	AutoMotionElem getBrainLessTracker();
-
-	void setBrainLessTracker(AutoMotionElem brainLessTracker);
-	
-	AutoMotionElem getSadisticTracker();
-
-	void setSadisticTracker(AutoMotionElem sadisticTracker);*/
 
 	Hero getLorann();
 

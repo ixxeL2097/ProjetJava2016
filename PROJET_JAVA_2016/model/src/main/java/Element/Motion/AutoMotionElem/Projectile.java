@@ -10,7 +10,7 @@ import Element.Permeabilite;
 
 public class Projectile extends AutoMotionElem
 {
-	private static String MAGIC_FIREBALL = "C:/ProjetJava/Sprite/fireball_1.png";
+	private static String MAGIC_FIREBALL = "C:/ProjetJava/Sprite/fireball_1.png";				// all different sprite of fireball animation
 	private final ImageIcon GREEN = new ImageIcon("C:/ProjetJava/Sprite/fireball_1.png");
 	private final ImageIcon BLUE = new ImageIcon("C:/ProjetJava/Sprite/fireball_2.png");
 	private final ImageIcon PURPLE = new ImageIcon("C:/ProjetJava/Sprite/fireball_3.png");
@@ -19,7 +19,7 @@ public class Projectile extends AutoMotionElem
 	private ArrayList<ImageIcon> ChangeColor;
 	private int SpriteNumber=0;
 
-	public Projectile() 
+	public Projectile() 										// constructor init an arraylist and fills it
 	{	
 		super(MAGIC_FIREBALL, Permeabilite.MISSILE, '%');
 		this.MoveTimer=new Timer(250,this);
@@ -39,7 +39,7 @@ public class Projectile extends AutoMotionElem
 		this.getIA().AutoMove();
 	}
 	
-	public void fillArrayList()
+	public void fillArrayList()								// method to fill arraylist with images
 	{
 		this.getChangeColor().add(this.getGREEN());
 		this.getChangeColor().add(this.getBLUE());
@@ -48,7 +48,7 @@ public class Projectile extends AutoMotionElem
 		this.getChangeColor().add(this.getYELLOW());
 	}
 	
-	public void changeSpriteColor()
+	public void changeSpriteColor()							// method to change the imageicon once the fireball moves
 	{
 		this.setSpriteNumber(this.getSpriteNumber()+1);
 		if(this.getSpriteNumber() < this.getChangeColor().size())

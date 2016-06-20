@@ -1,6 +1,6 @@
 package Element.Motion.AutoMotionElem.Daemon;
 
-public enum Vector 
+public enum Vector 				// enum describing lorann's direction
 {
 	UP,
 	DW,

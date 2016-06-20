@@ -6,7 +6,7 @@ import contract.ControllerOrder;
 import contract.IPlayer;
 import model.DimensionMap;
 
-public class Hero extends MotionElement implements IPlayer
+public class Hero extends MotionElement implements IPlayer					// lorann's class
 {
 	private static final String HERO_MOVE="C:/ProjetJava/Sprite/lorann.gif";
 	private static final ImageIcon MOVEUP = new ImageIcon("C:/ProjetJava/Sprite/lorann_u.png");
@@ -31,7 +31,7 @@ public class Hero extends MotionElement implements IPlayer
 		this.setAlive(true);
 	}
 	
-	public void CheckAvailableMove(int UP_DW, int RT_LF)
+	public void CheckAvailableMove(int UP_DW, int RT_LF)		// check if next move is in bounds
 	{
 		if((this.getY()+UP_DW >=0 && this.getX()+RT_LF >=0) && (this.getY()+UP_DW < DimensionMap.Y && this.getX()+RT_LF < DimensionMap.X))
 		{
@@ -43,7 +43,7 @@ public class Hero extends MotionElement implements IPlayer
 		}
 	}
 	
-	public boolean CheckAvailablePosition(int UP_DW, int RT_LF )
+	public boolean CheckAvailablePosition(int UP_DW, int RT_LF )		// check if the position allow to spawn fireball
 	{
 		if((this.getY()-UP_DW >=0 && this.getX()-RT_LF >=0) && (this.getY()-UP_DW < DimensionMap.Y && this.getX()-RT_LF < DimensionMap.X))
 		{
@@ -55,7 +55,7 @@ public class Hero extends MotionElement implements IPlayer
 		}	
 	}
 	
-	public void MoveUP() 
+	public void MoveUP() 									// different movement's methods
 	{
 		this.setElemIcon(this.getMoveUp());
 		this.setLastLorannMove(ControllerOrder.UP);

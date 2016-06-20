@@ -1,6 +1,6 @@
 package Element.MotionLess;
 
-public abstract class MotionLessElemFACTORY 
+public abstract class MotionLessElemFACTORY 						// MotionlessElement factory, instanciate all non motion elements
 {
 	public static final MotionLessElem PURSE 								= new Purse();
 	public static final MotionLessElem CANDLESTICK 							= new CandleStick();
@@ -21,9 +21,9 @@ public abstract class MotionLessElemFACTORY
 	
 	private static MotionLessElem	MotionLessElemFACTORY []	= 
 		
-		{ PURSE, CANDLESTICK, CHARGER, CLOSEDGATE, EMPTY, ENERGYBALL, FLASK, HORIZONTALBONE, MINUS, OPENGATE, PLUS, TOMBSTONE , IDOL, STONE, GRAVE, VERTICALBONE};
+		{ PURSE, CANDLESTICK, CHARGER, CLOSEDGATE, EMPTY, ENERGYBALL, FLASK, HORIZONTALBONE, MINUS, OPENGATE, PLUS, TOMBSTONE , IDOL, STONE, GRAVE, VERTICALBONE}; // static motionelement's array that stores all non motion elements
 	
-	public static MotionLessElem getElemenFromCHAR(final char MapSymbol) 
+	public static MotionLessElem getElemenFromCHAR(final char MapSymbol) 		// return char identification of a non motion element
 	{
 		for (final MotionLessElem motionlessElem : MotionLessElemFACTORY) 
 		{
@@ -34,7 +34,6 @@ public abstract class MotionLessElemFACTORY
 		}
 		return EMPTY;
 	}
-
 
 	public static void setMotionLessElemFACTORY(MotionLessElem motionLessElemFACTORY[]) 
 	{
