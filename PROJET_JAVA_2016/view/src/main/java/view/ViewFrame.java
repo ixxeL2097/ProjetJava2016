@@ -25,6 +25,9 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	private IModel	model;
 	private TreeSet<Integer> TreeSet= new TreeSet<Integer>();
 	private Timer timer = new Timer(1000,this);
+	//private Timer keyTimer = new Timer(50,this);
+	//public static int firstKey=0;
+	//public static int secondKey=0;
 	/** The controller. */
 	private IController	controller;
 	/** The Constant serialVersionUID. */
@@ -135,10 +138,18 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		//this.setSize(400 + this.getInsets().left + this.getInsets().right, 60 + this.getInsets().top + this.getInsets().bottom);
 		this.setSize(this.getModel().getD());
-		this.setPreferredSize(this.getModel().getD());
+		this.setPreferredSize(this.getModel().getD());			// set a preferredSize to force the frame when using pack method
 		this.setLocationRelativeTo(null);
+		
+		/*this.keyTimer.addActionListener(new ActionListener()
+		{	
+			public void actionPerformed(ActionEvent ev)
+			{
+				ViewFrame.controller.orderPerform(View.keyCodeToControllerOrder(ViewFrame.firstKey,ViewFrame.secondKey));
+			}
+			
+		});*/
 	}
 
 	/**
@@ -169,9 +180,10 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	 */
 	public void keyPressed(final KeyEvent e) 
 	{
-		this.timer.stop();
+		this.timer.stop();												// stop the Lorann's changing sprite timer when typing a key
+		//this.keyTimer.start();
 		int x=0 ,y=0;
-		this.getTreeSet().add(e.getExtendedKeyCode());
+		this.getTreeSet().add(e.getExtendedKeyCode());					// using a treeSet to store different KeyEvent and act in consequence
 		x=this.getTreeSet().first();
 		if(getTreeSet().first() != getTreeSet().last())
 		{
@@ -187,7 +199,9 @@ class ViewFrame extends JFrame implements KeyListener , ActionListener
 	 */
 	public void keyReleased(final KeyEvent e) 
 	{
-		this.timer.start();
+		this.timer.start();												// start the timer to change Lorann's animation
+		//this.keyTimer.stop();
+
 		TreeSet.remove(e.getExtendedKeyCode());
 	}
 
