@@ -32,18 +32,17 @@ public class MapCreator 			// Class that is used to look in BDD and create a cha
 		
 	public void CreateMap()
 	{
-		int x = 0, y=0, i=0;
-		String v;
+		int x = 0, y=0, i=0, v=0;
 		String s = null;
-		String t;
+		String nomMap;
 		FileInputStream fis = null;
 		
 		try {
 	         fis = new FileInputStream(new File(this.getMapgen().getMapName()));
-	         t = this.getMapgen().getMapName();
+	         nomMap = this.getMapgen().getMapName();
 	         byte[] buf = new byte[8];	// On crée un tableau de byte pour indiquer le nombre de bytes lus à chaque tour de boucle
 	        
-	         int length = t.length();
+	         int length = nomMap.length();
 	         System.out.println("\n" + length);
 	         
 	         if (length == 30)
@@ -71,7 +70,7 @@ public class MapCreator 			// Class that is used to look in BDD and create a cha
 	               {
 	            	   map [y][x]= (char)bit;
 	            	   
-	            	 if (v != "false")
+	            	 if (v != 1)
 	            	  {
 	            	  this.getMapgen().getModel().getDaoMapDb().addMapDB(i, x, y, (char)bit);
 	            	  }
@@ -113,10 +112,10 @@ public class MapCreator 			// Class that is used to look in BDD and create a cha
 	public void tabMapFromDB()
 	{
 		int i=0, x=0, y=0;
-		String s = null, u, t;
+		String s = null, u, nomMap;
 		char c;
-        t = this.getMapgen().getMapName();
-		int length = t.length();
+        nomMap = this.getMapgen().getMapName();
+		int length = nomMap.length();
         
         if (length == 30){
         

@@ -1,0 +1,12 @@
+- = Vide
+P = Etoile noir
+H = Os horizontal
+V = Os vertical
+D = porte fermé
+S = Statue
+x = vieux serpent
+B = Bourse
+T = Tombe
+I = Ilémort
+K = crystalball
+

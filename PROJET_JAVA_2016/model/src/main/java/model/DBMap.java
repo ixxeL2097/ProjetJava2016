@@ -1,6 +1,6 @@
 package model;
 
-class HelloWorld extends Entity {
+class DBMap extends Entity {
 
 
 	private int			id;
@@ -9,7 +9,7 @@ class HelloWorld extends Entity {
 
 	private String	message;
 
-	public HelloWorld() 
+	public DBMap() 
 	{
 		
 	}
