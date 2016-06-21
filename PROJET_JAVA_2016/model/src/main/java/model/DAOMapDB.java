@@ -5,47 +5,71 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-class DAOMapDB extends DAOEntity<DBMap> {
+/**
+ * The Class DAOHelloWorld.
+ *
+ * @author Jean-Aymeric Diet
+ */
+class DAOMapDB extends DAOEntity<HelloWorld> {
 	
 	int dbX = 0;
 	int dbY = 0;
-	int dbV = 0;
-	int nbLigne = 0;
 	String dbS;
+	String dbV;
+	int nbLigne = 0;
 
+
+	/**
+	 * Instantiates a new DAO hello world.
+	 *
+	 * @param connection
+	 *          the connection
+	 * @throws SQLException
+	 *           the SQL exception
+	 */
 	public DAOMapDB(final Connection connection) throws SQLException {
 		super(connection);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see model.DAOEntity#create(model.Entity)
+	 */
+	@Override
+	public boolean create(final HelloWorld entity) {
+		// Not implemented
+		return false;
+	}
 
-	public boolean create(final DBMap entity) {
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see model.DAOEntity#delete(model.Entity)
+	 */
+	@Override
+	public boolean delete(final HelloWorld entity) {
+		// Not implemented
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see model.DAOEntity#update(model.Entity)
+	 */
+	@Override
+	public boolean update(final HelloWorld entity) {
 		// Not implemented
 		return false;
 	}
 
 
-	public boolean delete(final DBMap entity) {
-		// Not implemented
-		return false;
-	}
-
-
-	public boolean update(final DBMap entity) {
-		// Not implemented
-		return false;
-	}
-
-/**
- * 
- * @param i
- * ID de la map dont on verifie l'existence
- */
-public DBMap CheckIfExist(int i){
+public HelloWorld CheckIfExist(int i){
 		
 		try
 		{
-			dbV= 0;
+			dbV="true";
 			final String db_verif = "{call CheckExist(?)}";
 			final CallableStatement callVerif = this.getConnection().prepareCall(db_verif);
 			
@@ -61,7 +85,7 @@ public DBMap CheckIfExist(int i){
 		
 		if(nbLigne != 0){
 			
-			dbV = 1;
+			dbV = "false";
 			}
 		
 		}
@@ -73,18 +97,8 @@ public DBMap CheckIfExist(int i){
 		return null;
 		
 	}
-	/**
-	 * 
-	 * @param i
-	 * ID de la map a ajouter dans la BDD
-	 * @param x
-	 * Coordonnee X d'un sprite
-	 * @param y
-	 * Coordonnee Y d'un sprite
-	 * @param c
-	 * Sprite a ajouter
-	 */
-	public DBMap addMapDB(int i, int x, int y, char c)
+	
+	public HelloWorld addMapDB(int i, int x, int y, char c)
 	{
 		try 
 		{
@@ -105,16 +119,8 @@ public DBMap CheckIfExist(int i){
 		}
 		return null;
 	}
-	/**
-	 * 
-	 * @param i
-	 * ID de la map que l'on recupere
-	 * @param x
-	 * Coordonnee X du sprite que l'on recupere
-	 * @param y
-	 * Coordonnee Y du spirte que l'on recupere
-	 */
-	public DBMap DataFromDB(int i, int x, int y)
+	
+	public HelloWorld DataFromDB(int i, int x, int y)
 	{
 		
 		try
@@ -142,13 +148,13 @@ public DBMap CheckIfExist(int i){
 	}
 
 	@Override
-	public DBMap find(int id) {
+	public HelloWorld find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public DBMap find(String key) {
+	public HelloWorld find(String key) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -165,7 +171,7 @@ public DBMap CheckIfExist(int i){
 		return dbS;
 	}
 	
-	public int getDbV() {
+	public String getDbV() {
 		return dbV;
 	}
 	

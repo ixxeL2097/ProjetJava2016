@@ -26,14 +26,6 @@ public class MapGen implements IMapGen				// main class of elements's instanciat
 	private Hero Lorann;
 	private MapCreator mapcreator;
 	
-	/**
-	 * 
-	 * @param MapNumber
-	 * 	ID de la map
-	 * @param model
-	 * 	Modele de la map
-	 */
-	
 	public MapGen(int MapNumber, Model model)		// constructor instanciate a new arraylist of motion elements that will store demons and lorann's fireball
 	{
 		this.setMapLevel(MapNumber);		
@@ -44,7 +36,7 @@ public class MapGen implements IMapGen				// main class of elements's instanciat
 		this.MobilList = new ArrayList<AutoMotionElem>();	
 		this.getMapcreator().CreateMap();
 		this.getMapcreator().ConsoleMap();
-		this.getMapcreator().tabMapFromDB();
+		//this.getMapcreator().tabMapFromDB();
 		this.createModel();
 	}
 	
@@ -81,30 +73,11 @@ public class MapGen implements IMapGen				// main class of elements's instanciat
 		}		
 	}
 	
-	/**
-	 * 
-	 * @param element
-	 * Element immobile  a placer
-	 * @param y
-	 * 	Coordonnee Y de l'element
-	 * @param x
-	 * Coordonnee X de l'element
-	 */
-	
 	private void ProduceElement(final MotionLessElem element, final int y, final int x) 		// set a motionless element in the element matrix
 	{
 		this.ElemMtx [y][x] = element;
 	}
 	
-	/**
-	 * 
-	 * @param elem
-	 * Element mobile a placer
-	 * @param y
-	 * Coordonnee Y de l'element
-	 * @param x
-	 * Coordonnee X de l'element
-	 */
 	public void PlaceMotionElem(final MotionElement elem, int y, int x)		// set a motion element in the element matrix
 	{
 		this.setElemMtx(elem, y, x);
@@ -134,7 +107,7 @@ public class MapGen implements IMapGen				// main class of elements's instanciat
 	{
 		this.getMapcreator().CreateMap();
 		this.getMapcreator().ConsoleMap();
-		this.getMapcreator().tabMapFromDB();
+		//this.getMapcreator().tabMapFromDB();
 		this.createModel();	
 	}
 	

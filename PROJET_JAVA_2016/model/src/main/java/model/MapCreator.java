@@ -32,20 +32,21 @@ public class MapCreator 			// Class that is used to look in BDD and create a cha
 		
 	public void CreateMap()
 	{
-		int x = 0, y=0, i=0, v=0;
+		int x = 0, y=0, i=0;
+		String v;
 		String s = null;
-		String nomMap;
+		String t;
 		FileInputStream fis = null;
 		
 		try {
 	         fis = new FileInputStream(new File(this.getMapgen().getMapName()));
-	         nomMap = this.getMapgen().getMapName();
+	         t = this.getMapgen().getMapName();
 	         byte[] buf = new byte[8];	// On crée un tableau de byte pour indiquer le nombre de bytes lus à chaque tour de boucle
 	        
-	         int length = nomMap.length();
+	         int length = t.length();
 	         System.out.println("\n" + length);
 	         
-	         if (length == 30)
+/*	         if (length == 30)
 	         {        
 	        	 s = this.getMapgen().getMapName().substring(25, 26);
 	         }
@@ -57,10 +58,10 @@ public class MapCreator 			// Class that is used to look in BDD and create a cha
 	         {
 	        	 s = this.getMapgen().getMapName().substring(25, 28);
 	         }
-	         i = Integer.parseInt(s);
+	         i = Integer.parseInt(s);*/
 	         
-	         this.getMapgen().getModel().getDaoMapDb().CheckIfExist(i);
-	         v = this.getMapgen().getModel().getDaoMapDb().getDbV();
+	        //this.getMapgen().getModel().getDaoMapDb().CheckIfExist(i);
+	         //v = this.getMapgen().getModel().getDaoMapDb().getDbV();
 	         	         
 	         while ((fis.read(buf)) >= 0) 				// Vaut -1 quand c'est fini Lorsque la lecture du fichier est terminée On sort donc de la boucle
 	         {           
@@ -70,10 +71,10 @@ public class MapCreator 			// Class that is used to look in BDD and create a cha
 	               {
 	            	   map [y][x]= (char)bit;
 	            	   
-	            	 if (v != 1)
+	            	 /* if (v != "false")
 	            	  {
 	            	  this.getMapgen().getModel().getDaoMapDb().addMapDB(i, x, y, (char)bit);
-	            	  }
+	            	  }*/
 	            	   x++;
 	               }
 	               else if(y<DimensionMap.Y-1 && bit != 10)
@@ -112,10 +113,10 @@ public class MapCreator 			// Class that is used to look in BDD and create a cha
 	public void tabMapFromDB()
 	{
 		int i=0, x=0, y=0;
-		String s = null, u, nomMap;
+		String s = null, u, t;
 		char c;
-        nomMap = this.getMapgen().getMapName();
-		int length = nomMap.length();
+        t = this.getMapgen().getMapName();
+		int length = t.length();
         
         if (length == 30){
         

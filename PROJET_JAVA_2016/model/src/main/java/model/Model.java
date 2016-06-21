@@ -17,10 +17,14 @@ import javax.swing.ImageIcon;
 import contract.IModel;
 import contract.IPlayer;
 
-
+/**
+ * The Class Model.
+ *
+ * @author Jean-Aymeric Diet
+ */
 public class Model extends Observable implements IModel 
 {
-
+	/** The message. */
 	private MapGen MapGen;
 	private MapFinder MapFinder;
 	private Permeabilite permea;
@@ -28,15 +32,22 @@ public class Model extends Observable implements IModel
 	private DAOMapDB daomapdb;
 	private AutoMotionElem destroyedEnnemy;
 
-
+	/**
+	 * Instantiates a new model.
+	 */
 	public Model() 
 	{
-		this.loadDB();		
+		//this.loadDB();		
 		this.MapFinder = new MapFinder();
 		this.MapGen = new MapGen(this.getLevelMapOrder(),this);
 	}
 
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see contract.IModel#getMessage(java.lang.String)
+	 */
 	public void loadDB() 
 	{
 		try 
@@ -51,7 +62,11 @@ public class Model extends Observable implements IModel
 		}
 	}
 
-
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see contract.IModel#getObservable()
+	 */
 	public Observable getObservable() 
 	{
 		return this;
@@ -62,15 +77,7 @@ public class Model extends Observable implements IModel
 		this.getMapGen().getLorann().setElemIcon(this.getMapGen().getLorann().getLorannGIF());
 		this.notifyView();	
 	}
-	/**
-	 * 
-	 * @param UP_DWN
-	 *			Recupere le deplacment vertical
-	 * @param RGT_LFT
-	 * 			Recupere le deplacement horizontal
-	 * @param MovingObject
-	 * 			Objet auquel va s'appliquer la fonction
-	 */
+	
 	public synchronized void MoveDaemon(int UP_DWN, int RGT_LFT, AutoMotionElem MovingObject)		// method used to effectively make a motion element move
 	{
 		int y, x, y1, x1;
